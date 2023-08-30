@@ -1,7 +1,15 @@
+using FlightScoreboard.DateBase;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<FlightScoreboardContext>(options =>
+	options.UseLazyLoadingProxies().UseSqlServer(connectionString));
+
 
 var app = builder.Build();
 
@@ -21,7 +29,15 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+	"default",
+	"{controller=Home}/{action=Index}/{id?}");
+
+using (var scope = app.Services.CreateScope())
+using (var context = scope.ServiceProvider.GetService<FlightScoreboardContext>())
+{
+	context.Database.Migrate();
+	//context.Database.EnsureDeleted();
+	//context.Database.EnsureCreated();
+}
 
 app.Run();
