@@ -4,17 +4,7 @@ namespace FlightScoreboard.DateBase;
 
 public class Flight
 {
-	public Flight(int id, DateTime time, int fromCityId, int toCityId, int pilotId, int airlineId, int airplaneByAirlineId)
-	{
-		this.Id = id;
-		this.Time = time;
-		this.FromCityId = fromCityId;
-		this.ToCityId = toCityId;
-		this.PilotId = pilotId;
-		this.AirlineId = airlineId;
-		this.AirplaneByAirlineId = airplaneByAirlineId;
-	}
-
+	
 	public int Id { get; set; }
 	public DateTime Time { get; set; }
 	
