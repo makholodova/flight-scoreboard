@@ -13,10 +13,9 @@ public class CityService : ICityService
 		this._context = context;
 	}
 
-
-	public List<CityModel> GetAllCity()
+	public List<CityModel> GetAllCities()
 	{
-		return this._context.City.Select(p => new CityModel
+		return this._context.Cities.Select(p => new CityModel
 		{
 			Id = p.Id,
 			Name = p.Name
@@ -25,21 +24,21 @@ public class CityService : ICityService
 
 	public int CreateCity(CityCreateModel cityNew)
 	{
-		var addCity = this._context.City.Add(new City { Name = cityNew.Name });
-		
+		var addCity = this._context.Cities.Add(new City { Name = cityNew.Name });
+
 		this._context.SaveChanges();
-		
+
 		return addCity.Entity.Id;
 	}
 
 	public bool DeleteCity(int id)
 	{
-		var city = this._context.City.FirstOrDefault(p => p.Id == id);
+		var city = this._context.Cities.FirstOrDefault(p => p.Id == id);
 		if (city == null) return false;
-		this._context.City.Remove(city);
-		
+		this._context.Cities.Remove(city);
+
 		this._context.SaveChanges();
-		
+
 		return true;
 	}
 }

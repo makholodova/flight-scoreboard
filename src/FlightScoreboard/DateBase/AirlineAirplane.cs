@@ -1,6 +1,6 @@
 ﻿namespace FlightScoreboard.DateBase;
 
-public class AirplaneByAirline
+public class AirlineAirplane
 {
 	public int Id { get; set; }
 	public int SerialNumber { get; set; }

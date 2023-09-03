@@ -13,9 +13,9 @@ public class AirlineService : IAirlineService
 		this._context = context;
 	}
 
-	public List<AirlineModel> GetAllAirline()
+	public List<AirlineModel> GetAllAirlines()
 	{
-		return this._context.Airline.Select(p => new AirlineModel
+		return this._context.Airlines.Select(p => new AirlineModel
 		{
 			Id = p.Id,
 			Name = p.Name
@@ -24,7 +24,7 @@ public class AirlineService : IAirlineService
 
 	public int CreateAirline(AirlineCreateModel airline)
 	{
-		var addAirline = this._context.Airline.Add(new Airline
+		var addAirline = this._context.Airlines.Add(new Airline
 		{
 			Name = airline.Name
 		});
@@ -34,10 +34,10 @@ public class AirlineService : IAirlineService
 
 	public bool DeleteAirline(int id)
 	{
-		var airline = this._context.Airline.FirstOrDefault(p => p.Id == id);
+		var airline = this._context.Airlines.FirstOrDefault(p => p.Id == id);
 		if (airline == null) return false;
 
-		this._context.Airline.Remove(airline);
+		this._context.Airlines.Remove(airline);
 
 		this._context.SaveChanges();
 		return true;

@@ -4,7 +4,7 @@ namespace FlightScoreboard.Services.Interfaces;
 
 public interface IPilotService
 {
-	List<PilotIndexModel> GetAllPilot();
+	List<PilotIndexModel> GetAllPilots();
 	PilotModel GetPilotById(int id);
 	bool UpdatePilot(PilotUpdateModel pilot);
 	int CreatePilot(PilotCreateModel pilot);

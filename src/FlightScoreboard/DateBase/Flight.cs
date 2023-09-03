@@ -20,6 +20,6 @@ public class Flight
 	public int AirlineId { get; set; }
 	public virtual Airline Airline { get; set; }
 	
-	public int AirplaneByAirlineId { get; set; }
-	public virtual AirplaneByAirline AirplaneByAirline { get; set; }
+	public int AirlineAirplaneId { get; set; }
+	public virtual AirlineAirplane AirlineAirplane { get; set; }
 }

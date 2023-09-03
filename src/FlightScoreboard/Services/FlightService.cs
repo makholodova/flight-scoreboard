@@ -13,24 +13,27 @@ public class FlightService : IFlightService
 		this._context = context;
 	}
 
-	public List<FlightIndexModel> GetAllFlight()
+	public List<FlightIndexModel> GetAllFlights()
 	{
-		return this._context.Flight.Select(p => new FlightIndexModel
+		return this._context.Flights.Select(p => new FlightIndexModel
 		{
 			Id = p.Id,
 			Time = p.Time,
 			FromCity = p.FromCity,
 			ToCity = p.ToCity,
 			PilotName = p.Pilot.Name,
+			PilotId = p.PilotId,
 			AirlineName = p.Airline.Name,
-			AirplaneByAirlineModel = p.AirplaneByAirline.Airplane.Model,
-			AirplaneByAirlineSerialNumber = p.AirplaneByAirline.SerialNumber
+			AirlineId = p.AirlineId,
+			AirplaneModel = p.AirlineAirplane.Airplane.Model,
+			AirplaneId = p.AirlineAirplaneId,
+			AirplaneSerialNumber = p.AirlineAirplane.SerialNumber
 		}).ToList();
 	}
 
 	public FlightModel GetFlightById(int id)
 	{
-		var flightDb = this._context.Flight.FirstOrDefault(p => p.Id == id);
+		var flightDb = this._context.Flights.FirstOrDefault(p => p.Id == id);
 		if (flightDb == null) return null;
 		return new FlightModel
 		{
@@ -40,20 +43,20 @@ public class FlightService : IFlightService
 			ToCityId = flightDb.ToCityId,
 			PilotId = flightDb.PilotId,
 			AirlineId = flightDb.AirlineId,
-			AirplaneByAirlineId = flightDb.AirplaneByAirlineId
+			AirlineAirplaneId = flightDb.AirlineAirplaneId
 		};
 	}
 
 	public int CreateFlight(FlightCreateModel flight)
 	{
-		var addFlight = this._context.Flight.Add(new Flight
+		var addFlight = this._context.Flights.Add(new Flight
 		{
 			Time = flight.Time,
 			FromCityId = flight.FromCityId,
 			ToCityId = flight.ToCityId,
 			PilotId = flight.PilotId,
 			AirlineId = flight.AirlineId,
-			AirplaneByAirlineId = flight.AirplaneByAirlineId
+			AirlineAirplaneId = flight.AirlineAirplaneId
 		});
 		this._context.SaveChanges();
 		return addFlight.Entity.Id;
@@ -61,16 +64,15 @@ public class FlightService : IFlightService
 
 	public bool UpdateFlight(FlightUpdateModel flight)
 	{
-		var flightNew = this._context.Flight.FirstOrDefault(p => p.Id == flight.Id);
+		var flightNew = this._context.Flights.FirstOrDefault(p => p.Id == flight.Id);
 		if (flightNew == null) return false;
 
-		flightNew.Id = flight.Id;
 		flightNew.Time = flight.Time;
 		flightNew.FromCityId = flight.FromCityId;
 		flightNew.ToCityId = flight.ToCityId;
 		flightNew.PilotId = flight.PilotId;
 		flightNew.AirlineId = flight.AirlineId;
-		flightNew.AirplaneByAirlineId = flight.AirplaneByAirlineId;
+		flightNew.AirlineAirplaneId = flight.AirlineAirplaneId;
 
 		this._context.SaveChanges();
 		return true;
@@ -78,10 +80,10 @@ public class FlightService : IFlightService
 
 	public bool DeleteFlight(int id)
 	{
-		var flight = this._context.Flight.FirstOrDefault(p => p.Id == id);
+		var flight = this._context.Flights.FirstOrDefault(p => p.Id == id);
 		if (flight == null) return false;
 
-		this._context.Flight.Remove(flight);
+		this._context.Flights.Remove(flight);
 		this._context.SaveChanges();
 		return true;
 	}

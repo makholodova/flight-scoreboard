@@ -4,7 +4,7 @@ namespace FlightScoreboard.Services.Interfaces;
 
 public interface ICityService
 {
-	List<CityModel> GetAllCity();
+	List<CityModel> GetAllCities();
 	int CreateCity(CityCreateModel cityNew);
 	bool DeleteCity(int id);
 	

@@ -7,5 +7,5 @@ public class Airline
 
 	public virtual List<Pilot> Pilots { get; set; }
 	public virtual List<Flight> Flights { get; set; }
-	public virtual List<AirplaneByAirline> AirplaneByAirlines { get; set; }
+	public virtual List<AirlineAirplane> AirlineAirplanes { get; set; }
 }

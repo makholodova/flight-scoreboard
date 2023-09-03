@@ -9,17 +9,17 @@ public class FlightScoreboardContext : DbContext
 	{
 	}
 
-	public DbSet<Airline> Airline { get; set; }
-	public DbSet<Airplane> Airplane { get; set; }
-	public DbSet<AirplaneByAirline> AirplaneByAirline { get; set; }
-	public DbSet<City> City { get; set; }
-	public DbSet<Flight> Flight { get; set; }
-	public DbSet<Pilot> Pilot { get; set; }
+	public DbSet<Airline> Airlines { get; set; } 
+	public DbSet<Airplane> Airplanes { get; set; } 
+	public DbSet<AirlineAirplane> AirlineAirplanes { get; set; }
+	public DbSet<City> Cities { get; set; }
+	public DbSet<Flight> Flights { get; set; }
+	public DbSet<Pilot> Pilots { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.ApplyConfiguration(new AirlineConfiguration());
-		modelBuilder.ApplyConfiguration(new AirplaneByAirlineConfiguration());
+		modelBuilder.ApplyConfiguration(new AirlineAirplaneConfiguration());
 		modelBuilder.ApplyConfiguration(new AirplaneConfiguration());
 		modelBuilder.ApplyConfiguration(new CityConfiguration());
 		modelBuilder.ApplyConfiguration(new FlightConfiguration());

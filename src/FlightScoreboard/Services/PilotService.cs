@@ -14,9 +14,9 @@ public class PilotService : IPilotService
 	}
 
 
-	public List<PilotIndexModel> GetAllPilot()
+	public List<PilotIndexModel> GetAllPilots()
 	{
-		return this._context.Pilot.Select(p => new PilotIndexModel
+		return this._context.Pilots.Select(p => new PilotIndexModel
 		{
 			Id = p.Id,
 			Name = p.Name,
@@ -30,7 +30,7 @@ public class PilotService : IPilotService
 
 	public PilotModel GetPilotById(int id)
 	{
-		var pilot = this._context.Pilot.FirstOrDefault(p => p.Id == id);
+		var pilot = this._context.Pilots.FirstOrDefault(p => p.Id == id);
 		if (pilot == null) return null;
 
 		var pilotModel = new PilotModel
@@ -46,7 +46,7 @@ public class PilotService : IPilotService
 
 	public bool UpdatePilot(PilotUpdateModel pilot)
 	{
-		var pilotDb = this._context.Pilot.FirstOrDefault(p => p.Id == pilot.Id);
+		var pilotDb = this._context.Pilots.FirstOrDefault(p => p.Id == pilot.Id);
 		if (pilotDb == null) return false;
 
 		pilotDb.Name = pilot.Name;
@@ -60,7 +60,7 @@ public class PilotService : IPilotService
 
 	public int CreatePilot(PilotCreateModel pilotNew)
 	{
-		var addPilot = this._context.Pilot.Add(new Pilot
+		var addPilot = this._context.Pilots.Add(new Pilot
 			{
 				Name = pilotNew.Name,
 				SurName = pilotNew.SurName,
@@ -74,10 +74,10 @@ public class PilotService : IPilotService
 
 	public bool DeletePilot(int id)
 	{
-		var pilot = this._context.Pilot.FirstOrDefault(p => p.Id == id);
+		var pilot = this._context.Pilots.FirstOrDefault(p => p.Id == id);
 		if (pilot == null) return false;
 
-		this._context.Pilot.Remove(pilot);
+		this._context.Pilots.Remove(pilot);
 		this._context.SaveChanges();
 
 		return true;

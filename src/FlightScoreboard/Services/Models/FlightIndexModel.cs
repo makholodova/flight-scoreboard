@@ -9,7 +9,10 @@ public class FlightIndexModel
 	public City FromCity { get; set; }
 	public City ToCity { get; set; }
 	public string PilotName { get; set; }
+	public int PilotId { get; set; }
 	public string AirlineName { get; set; }
-	public string AirplaneByAirlineModel { get; set; }
-	public int AirplaneByAirlineSerialNumber { get; set; }
+	public int AirlineId { get; set; }
+	public string AirplaneModel { get; set; }
+	public int AirplaneId { get; set; }
+	public int AirplaneSerialNumber { get; set; }
 }

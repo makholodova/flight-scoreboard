@@ -4,7 +4,7 @@ namespace FlightScoreboard.Services.Interfaces;
 
 public interface IAirplaneService
 {
-	List<AirplaneModel> GetAllAirplane();
+	List<AirplaneModel> GetAllAirplanes();
 	int CreateAirplane(AirplaneCreateModel airplane);
 	bool DeleteAirplane(int id);
 }

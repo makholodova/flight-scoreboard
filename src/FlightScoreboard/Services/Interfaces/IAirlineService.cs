@@ -4,7 +4,7 @@ namespace FlightScoreboard.Services.Interfaces;
 
 public interface IAirlineService
 {
-	List<AirlineModel> GetAllAirline();
+	List<AirlineModel> GetAllAirlines();
 	int CreateAirline(AirlineCreateModel airline);
 	bool DeleteAirline(int id);
 }

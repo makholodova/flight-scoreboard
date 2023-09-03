@@ -7,5 +7,5 @@ public class FlightCreateModel
 	public int ToCityId { get; set; }
 	public int PilotId { get; set; }
 	public int AirlineId { get; set; }
-	public int AirplaneByAirlineId { get; set; }
+	public int AirlineAirplaneId { get; set; }
 }
