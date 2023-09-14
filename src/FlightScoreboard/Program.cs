@@ -1,4 +1,6 @@
 using FlightScoreboard.DateBase;
+using FlightScoreboard.Services;
+using FlightScoreboard.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<FlightScoreboardContext>(options =>
 	options.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
+builder.Services.AddTransient<IAirlineAirplaneService,AirlineAirplaneService>();
+builder.Services.AddTransient<IAirlineService,AirlineService>();
+builder.Services.AddTransient<IAirplaneService,AirplaneService>();
+builder.Services.AddTransient<ICityService,CityService>();
+builder.Services.AddTransient<IFlightService,FlightService>();
+builder.Services.AddTransient<IPilotService, PilotService>();
 
 var app = builder.Build();
 
