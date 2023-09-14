@@ -39,7 +39,7 @@ public class PilotService : IPilotService
 			Name = pilot.Name,
 			SurName = pilot.SurName,
 			Age = pilot.Age,
-			AirlineId = pilot.Id
+			AirlineId = pilot.AirlineId
 		};
 		return pilotModel;
 	}
@@ -53,8 +53,8 @@ public class PilotService : IPilotService
 		pilotDb.SurName = pilot.SurName;
 		pilotDb.Age = pilot.Age;
 		pilotDb.AirlineId = pilot.AirlineId;
-
 		this._context.SaveChanges();
+		
 		return true;
 	}
 

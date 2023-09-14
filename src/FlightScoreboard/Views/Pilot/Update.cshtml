@@ -1,0 +1,54 @@
+﻿
+@model PilotUpdateModelGet
+@{
+    ViewData["Title"] = "Изменить данные пилота ";
+}
+
+<div>
+    <h3>Форма изменения данных пилота</h3>
+    <p>Для изменения данных заполните следующие поля:</p>
+    <form method="post">
+        <table>
+
+            <tr>
+                <td> Изменить имя:</td>
+                <td>
+
+                    <input type="text" name="Name" value="@Model.Pilot.Name"/>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td> Изменить фамилию:</td>
+                <td>
+
+                    <input type="text" name="SurName" value="@Model.Pilot.SurName"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Изменить возраст:</td>
+                <td>
+
+                    <input type="text" name="Age" value="@Model.Pilot.Age" maxlength="3"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Изменить авиакомпанию:</td>
+                <td>
+                    <select asp-for="Pilot.AirlineId" name="AirlineId">
+                        @foreach (var airline in Model.Airlines)
+                        {
+                            <option value="@airline.Id">@airline.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td><td></td>
+            </tr>
+        </table>
+    </form>
+
+</div>
