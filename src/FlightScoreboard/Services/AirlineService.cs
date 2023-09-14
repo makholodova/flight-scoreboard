@@ -1,4 +1,5 @@
 ﻿using FlightScoreboard.DateBase;
+using FlightScoreboard.Models;
 using FlightScoreboard.Services.Interfaces;
 using FlightScoreboard.Services.Models;
 
@@ -16,6 +17,15 @@ public class AirlineService : IAirlineService
 	public List<AirlineModel> GetAllAirlines()
 	{
 		return this._context.Airlines.Select(p => new AirlineModel
+		{
+			Id = p.Id,
+			Name = p.Name
+		}).ToList();
+	}
+
+	public List<AirlineShortInfoModel> GetAvailableAirlines()
+	{
+		return this._context.Airlines.Select(p => new AirlineShortInfoModel
 		{
 			Id = p.Id,
 			Name = p.Name
