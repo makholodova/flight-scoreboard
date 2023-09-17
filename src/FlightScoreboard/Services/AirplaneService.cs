@@ -1,4 +1,5 @@
 ﻿using FlightScoreboard.DateBase;
+using FlightScoreboard.Models;
 using FlightScoreboard.Services.Interfaces;
 using FlightScoreboard.Services.Models;
 
@@ -21,6 +22,7 @@ public class AirplaneService : IAirplaneService
 			Model = p.Model
 		}).ToList();
 	}
+
 
 	public int CreateAirplane(AirplaneCreateModel airplane)
 	{

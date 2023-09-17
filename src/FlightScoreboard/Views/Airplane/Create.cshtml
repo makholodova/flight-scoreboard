@@ -1,0 +1,26 @@
+﻿@model FlightScoreboard.Services.Models.AirplaneCreateModel
+
+@{
+    ViewData["Title"] = "Добавить самолет ";
+}
+
+<div>
+    <h3>Форма добавления самолета</h3>
+    <p>Для добавления самолета заполните следующее поле:</p>
+    <form method="post">
+        <table>
+            <tr>
+            <td>Модель:</td>
+            <td>
+
+                <input type="text" name="Model"/>
+            </td>
+            <tr>
+                <td>
+                    <input type="submit" value="Добавить"/>
+                </td><td></td>
+            </tr>
+        </table>
+    </form>
+
+</div>

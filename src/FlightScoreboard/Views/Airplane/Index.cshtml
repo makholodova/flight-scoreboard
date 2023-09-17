@@ -1,0 +1,30 @@
+﻿@model List<FlightScoreboard.Services.Models.AirplaneModel>  
+
+@{
+    ViewData["Title"] = "Список самолетов";
+}
+<div>
+
+    @if (Model.Count > 0)
+    {
+        <h3>Список самолетов:</h3>
+        <table>
+
+            @foreach (var airplane in Model)
+            {
+                <tr>
+                    <td>@airplane.Model </td>
+                    <td>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Airplane" asp-action="Delete" asp-route-id="@airplane.Id">Удалить</a>
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <td>Список самолетов пуст</td>
+    }
+    <a class="nav-link text-dark" asp-area="" asp-controller="Airplane" asp-action="Create">Добавить самолет</a>
+</div>
