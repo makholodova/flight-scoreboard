@@ -1,0 +1,39 @@
+﻿@model AirlineAirplaneIndexModel
+
+@{
+    ViewData["Title"] = "Список самолетов авиакомпании";
+}
+<div>
+
+    @if (Model.Airplanes.Count > 0)
+    {
+        <h3>Список самолетов авиакомпании:</h3>
+        <table>
+            <tr>
+                <td> Авиакомпания </td>
+                <td> Модель самолета </td>
+                <td> Серийный номер </td>
+            </tr>
+            @foreach (var airplane in Model.Airplanes)
+            {
+                <tr>
+                    <td>@airplane.AirlineName </td>
+                    <td>@airplane.AirplaneModel </td>
+                    <td>@airplane.SerialNumber </td>
+                    
+                    <td>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="AirlineAirplane" asp-action="Update" asp-route-id="@airplane.Id">Редактировать</a>
+                    </td>
+                    <td>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="AirlineAirplane" asp-action="Delete" asp-route-id="@airplane.Id" asp-route-airlineId="@Model.AirlineId">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <td>Самолеты отсутствуют</td>
+    }
+    <a class="nav-link text-dark" asp-area="" asp-controller="AirlineAirplane" asp-action="Create" asp-route-airlineId="@Model.AirlineId">Добавить самолет</a>
+</div>

@@ -13,10 +13,10 @@ public class AirlineAirplaneService : IAirlineAirplaneService
 		this._context = context;
 	}
 
-	public List<AirlineAirplaneIndexModel> GetAllAAirlineAirplanes(int airlineId)
+	public List<AirlineAirplaneShortModel> GetAllAAirlineAirplanes(int airlineId)
 	{
 		return this._context.AirlineAirplanes.Where(p => p.AirlineId == airlineId).Select(p =>
-			new AirlineAirplaneIndexModel
+			new AirlineAirplaneShortModel
 			{
 				Id = p.Id,
 				SerialNumber = p.SerialNumber,

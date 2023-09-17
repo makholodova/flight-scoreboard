@@ -1,6 +1,6 @@
 ﻿namespace FlightScoreboard.Services.Models;
 
-public class AirlineAirplaneIndexModel
+public class AirlineAirplaneShortModel
 {
 	public int Id { get; set; }
 	public int SerialNumber { get; set; }
