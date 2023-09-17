@@ -1,0 +1,86 @@
+﻿@model FlightCreateModelGet
+@{
+    ViewData["Title"] = "Оформление рейса";
+}
+
+<div>
+    <h3>Форма оформления рейса</h3>
+    <p>Для оформления рейса заполните следующие поля:</p>
+    <form method="post">
+        <table>
+            <tr>
+                <td>Откуда:</td>
+                <td>
+                    <select id="FromCityId" name="FromCityId">
+                        @foreach (var city in Model.Cities)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Куда:</td>
+                <td>
+                    <select id="ToCityId" name="ToCityId">
+                        @foreach (var city in Model.Cities)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                </td>
+
+            </tr>
+            <tr>
+                <td>Время вылета:</td>
+                <td>
+                    <input type="datetime-local" name="DepartureTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Время прилета:</td>
+                <td>
+                    <input type="datetime-local" name="ArrivalTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Пилот:</td>
+                <td>
+                    <select id="PilotId" name="PilotId">
+                        @foreach (var pilot in Model.Pilots)
+                        {
+                            <option value="@pilot.Id">@pilot.Name @pilot.SurName</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            @*<tr>
+                <td>Авиакомпания:</td>
+                <td>
+                    <select id="AirlineId" name="AirlineId">
+                        @foreach (var airline in Model.Airlines)
+                        {
+                            <option value="@airline.Id">@airline.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>*@
+            <tr>
+                <td>Самолет:</td>
+                <td>
+                    <select id="AirlineAirplaneId" name="AirlineAirplaneId">
+                        @foreach (var airplane in Model.Airplanes)
+                        {
+                            <option value="@airplane.Id">@airplane.AirlineName @airplane.AirplaneModel @airplane.SerialNumber</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Создать"/>
+                </td><td></td>
+            </tr>
+        </table>
+    </form>
+</div>

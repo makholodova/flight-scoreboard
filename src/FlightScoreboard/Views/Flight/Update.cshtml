@@ -1,0 +1,75 @@
+﻿@model FlightUpdateModelGet
+
+@{
+    ViewData["Title"] = "Изменить данные рейса";
+}
+
+<div>
+    <h3>Форма изменения данных рейса</h3>
+    <p>Для изменения данных заполните следующие поля:</p>
+    <form method="post">
+        <table>
+            <tr>
+                <td>Откуда:</td>
+                <td>
+
+                    <select asp-for="Flight.FromCityId"  name="FromCityId">
+                        @foreach (var city in Model.Cities)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                </td>
+                <td>Куда:</td>
+                <td>
+                    <select asp-for="Flight.ToCityId" name="ToCityId">
+                        @foreach (var city in Model.Cities)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Время вылета:</td>
+                <td>
+                    <input type="text"  value="@Model.Flight.DepartureTime" name="DepartureTime" />
+                </td>
+            </tr>
+            <tr>
+                <td>Время прилета:</td>
+                <td>
+                    <input type="text"  value="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Пилот:</td>
+                <td>
+                    <select asp-for="Flight.PilotId" name="PilotId">
+                        @foreach (var pilot in Model.Pilots)
+                        {
+                            <option value="@pilot.Id">@pilot.Name @pilot.SurName</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Самолет:</td>
+                <td>
+                    <select asp-for="Flight.AirlineAirplaneId" name="AirlineAirplaneId">
+                        @foreach (var airplane in Model.Airplanes)
+                        {
+                            <option value="@airplane.Id">@airplane.AirlineName @airplane.AirplaneModel @airplane.SerialNumber</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Сохранить"/>
+                </td><td></td>
+            </tr>
+        </table>
+    </form>
+
+</div>

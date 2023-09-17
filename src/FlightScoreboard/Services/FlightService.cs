@@ -18,10 +18,11 @@ public class FlightService : IFlightService
 		return this._context.Flights.Select(p => new FlightIndexModel
 		{
 			Id = p.Id,
-			Time = p.Time,
-			FromCity = p.FromCity,
-			ToCity = p.ToCity,
-			PilotName = p.Pilot.Name,
+			ArrivalTime = p.ArrivalTime,
+			DepartureTime = p.DepartureTime,
+			FromCity = p.FromCity.Name,
+			ToCity = p.ToCity.Name,
+			PilotFullName = p.Pilot.Name+" "+ p.Pilot.SurName,
 			PilotId = p.PilotId,
 			AirlineName = p.Airline.Name,
 			AirlineId = p.AirlineId,
@@ -38,7 +39,8 @@ public class FlightService : IFlightService
 		return new FlightModel
 		{
 			Id = flightDb.Id,
-			Time = flightDb.Time,
+			ArrivalTime = flightDb.ArrivalTime,
+			DepartureTime = flightDb.DepartureTime,
 			FromCityId = flightDb.FromCityId,
 			ToCityId = flightDb.ToCityId,
 			PilotId = flightDb.PilotId,
@@ -51,7 +53,8 @@ public class FlightService : IFlightService
 	{
 		var addFlight = this._context.Flights.Add(new Flight
 		{
-			Time = flight.Time,
+			ArrivalTime = flight.ArrivalTime,
+			DepartureTime = flight.DepartureTime,
 			FromCityId = flight.FromCityId,
 			ToCityId = flight.ToCityId,
 			PilotId = flight.PilotId,
@@ -67,7 +70,8 @@ public class FlightService : IFlightService
 		var flightNew = this._context.Flights.FirstOrDefault(p => p.Id == flight.Id);
 		if (flightNew == null) return false;
 
-		flightNew.Time = flight.Time;
+		flightNew.ArrivalTime = flight.ArrivalTime;
+		flightNew.DepartureTime = flight.DepartureTime;
 		flightNew.FromCityId = flight.FromCityId;
 		flightNew.ToCityId = flight.ToCityId;
 		flightNew.PilotId = flight.PilotId;
