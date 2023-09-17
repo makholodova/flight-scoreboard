@@ -21,7 +21,7 @@ public class AirlineAirplaneController : Controller
 
 	public IActionResult Index(int airlineId)
 	{
-		var airplanesDb = this._airlineAirplaneService.GetAllAAirlineAirplanes(airlineId);
+		var airplanesDb = this._airlineAirplaneService.GetAllAirlineAirplanes(airlineId);
 		var airplanes = new AirlineAirplaneIndexModel();
 		airplanes.Airplanes = airplanesDb;
 		airplanes.AirlineId = airlineId;

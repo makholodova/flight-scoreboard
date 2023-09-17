@@ -13,7 +13,7 @@ public class AirlineAirplaneService : IAirlineAirplaneService
 		this._context = context;
 	}
 
-	public List<AirlineAirplaneShortModel> GetAllAAirlineAirplanes(int airlineId)
+	public List<AirlineAirplaneShortModel> GetAllAirlineAirplanes(int airlineId)
 	{
 		return this._context.AirlineAirplanes.Where(p => p.AirlineId == airlineId).Select(p =>
 			new AirlineAirplaneShortModel
@@ -26,6 +26,21 @@ public class AirlineAirplaneService : IAirlineAirplaneService
 				AirplaneModel = p.Airplane.Model
 			}).ToList();
 	}
+
+	public List<AirlineAirplaneShortModel> GetAllAirlineAirplanes()
+	{
+		return this._context.AirlineAirplanes.Select(p =>
+			new AirlineAirplaneShortModel
+			{
+				Id = p.Id,
+				SerialNumber = p.SerialNumber,
+				AirlineId = p.AirlineId,
+				AirlineName = p.Airline.Name,
+				AirplaneId = p.AirplaneId,
+				AirplaneModel = p.Airplane.Model
+			}).ToList();
+	}
+
 
 	public AirlineAirplaneModel GetAirplaneAirlineById(int id) // ?необходимость
 	{
