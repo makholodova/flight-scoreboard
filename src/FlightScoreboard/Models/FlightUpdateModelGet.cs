@@ -8,4 +8,5 @@ public class FlightUpdateModelGet
 	public List<AirlineAirplaneShortModel> Airplanes { get; set; }
 	public List<PilotIndexModel> Pilots { get; set; }
 	public List<CityModel> Cities { get; set; }
+	public List<AirlineShortInfoModel> Airlines { get; set; }
 }

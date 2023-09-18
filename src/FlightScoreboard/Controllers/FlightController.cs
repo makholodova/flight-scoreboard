@@ -35,7 +35,7 @@ public class FlightController : Controller
 	{
 		var flights = new FlightCreateModelGet();
 		flights.Pilots = this._pilotService.GetAllPilots();
-		//flight.Airlines = this._airlineService.GetAvailableAirlines();
+		flights.Airlines = this._airlineService.GetAvailableAirlines();
 		flights.Airplanes = this._airlineAirplaneService.GetAllAirlineAirplanes();
 		flights.Cities = this._cityService.GetAllCities();
 		return this.View(flights);
@@ -44,8 +44,8 @@ public class FlightController : Controller
 	[HttpPost]
 	public IActionResult Create(FlightCreateModel flight)
 	{
-		var flightAirline = this._airlineAirplaneService.GetAirplaneAirlineById(flight.AirlineAirplaneId);
-		flight.AirlineId = flightAirline.AirlineId;
+		//var flightAirline = this._airlineAirplaneService.GetAirplaneAirlineById(flight.AirlineAirplaneId);
+		//flight.AirlineId = flightAirline.AirlineId;      
 		this._flightService.CreateFlight(flight);
 
 		return this.RedirectToAction("Index");
@@ -59,6 +59,7 @@ public class FlightController : Controller
 		flight.Cities = this._cityService.GetAllCities();
 		flight.Pilots = this._pilotService.GetAllPilots();
 		flight.Airplanes = this._airlineAirplaneService.GetAllAirlineAirplanes();
+		flight.Airlines = this._airlineService.GetAvailableAirlines();
 		return this.View(flight);
 	}
 

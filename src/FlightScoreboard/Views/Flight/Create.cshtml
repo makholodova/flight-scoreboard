@@ -44,17 +44,6 @@
                 </td>
             </tr>
             <tr>
-                <td>Пилот:</td>
-                <td>
-                    <select id="PilotId" name="PilotId">
-                        @foreach (var pilot in Model.Pilots)
-                        {
-                            <option value="@pilot.Id">@pilot.Name @pilot.SurName</option>
-                        }
-                    </select>
-                </td>
-            </tr>
-            @*<tr>
                 <td>Авиакомпания:</td>
                 <td>
                     <select id="AirlineId" name="AirlineId">
@@ -64,15 +53,26 @@
                         }
                     </select>
                 </td>
-            </tr>*@
+            </tr>
+            <tr>
+                <td>Пилот:</td>
+                <td>
+                    <select id="PilotId" name="PilotId">
+                        @*@foreach (var pilot in Model.Pilots)
+                        {
+                            <option value="@pilot.Id">@pilot.Name @pilot.SurName</option>
+                        }*@
+                    </select>
+                </td>
+            </tr>
             <tr>
                 <td>Самолет:</td>
                 <td>
                     <select id="AirlineAirplaneId" name="AirlineAirplaneId">
-                        @foreach (var airplane in Model.Airplanes)
+                        @*@foreach (var airplane in Model.Airplanes)
                         {
                             <option value="@airplane.Id">@airplane.AirlineName @airplane.AirplaneModel @airplane.SerialNumber</option>
-                        }
+                        }*@
                     </select>
                 </td>
             </tr>
@@ -84,3 +84,52 @@
         </table>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        const airplanes = @Html.Raw(Json.Serialize(Model.Airplanes));
+        const pilots=@Html.Raw(Json.Serialize(Model.Pilots));
+        
+        $(function () {
+            
+            function updateAirplanes() {
+                
+               var airlineId = Number.parseInt( $("select#AirlineId").val());
+                      
+               $("select#AirlineAirplaneId").empty();
+                      
+               $.each(airplanes, function (i, item) {
+                  if (item.airlineId === airlineId){
+                            const option = `<option value="${item.id}">${item.airplaneModel} ${item.serialNumber}</option>`;
+                            $("select#AirlineAirplaneId").append(option);
+                  }
+               });
+            }
+            
+            function updatePilots(){
+                
+                var airlineId = Number.parseInt( $("select#AirlineId").val());
+                
+                $("select#PilotId").empty();
+                
+                $.each(pilots, function(i,item) {
+                    if (item.airlineId === airlineId){
+                        const  option = `<option value="${item.id}">${item.name} ${item.surName}</option>`;
+                        $("select#PilotId").append(option);                   
+                                                  
+                    }
+                  
+                })
+            }
+              
+                    
+            $("select#AirlineId").change(function () {
+                    updateAirplanes(); 
+                    updatePilots()  
+            })    
+               
+             updateAirplanes();  
+             updatePilots()  
+        })  
+    </script>
+}

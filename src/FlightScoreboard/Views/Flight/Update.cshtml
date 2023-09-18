@@ -13,7 +13,7 @@
                 <td>Откуда:</td>
                 <td>
 
-                    <select asp-for="Flight.FromCityId"  name="FromCityId">
+                    <select asp-for="Flight.FromCityId" name="FromCityId">
                         @foreach (var city in Model.Cities)
                         {
                             <option value="@city.Id">@city.Name</option>
@@ -33,35 +33,49 @@
             <tr>
                 <td>Время вылета:</td>
                 <td>
-                    <input type="text"  value="@Model.Flight.DepartureTime" name="DepartureTime" />
+                    <input type="text" value="@Model.Flight.DepartureTime" name="DepartureTime"/>
                 </td>
             </tr>
             <tr>
                 <td>Время прилета:</td>
                 <td>
-                    <input type="text"  value="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
+                    <input type="text" value="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
                 </td>
             </tr>
             <tr>
+                <td>Авиакомпания:</td>
+                <td>
+                    <select asp-for="@Model.Flight.AirlineId" id="AirlineId" name="AirlineId" >
+                        @foreach (var airline in Model.Airlines)
+                        {
+                            <option value="@airline.Id">@airline.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+            <tr>
                 <td>Пилот:</td>
                 <td>
-                    <select asp-for="Flight.PilotId" name="PilotId">
-                        @foreach (var pilot in Model.Pilots)
+                    <select id="PilotId" name="PilotId">  @* asp-for="@Model.Flight.PilotId"*@ 
+                        @*@foreach (var pilot in Model.Pilots)
                         {
                             <option value="@pilot.Id">@pilot.Name @pilot.SurName</option>
-                        }
+                        }*@
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>Самолет:</td>
                 <td>
-                    <select asp-for="Flight.AirlineAirplaneId" name="AirlineAirplaneId">
-                        @foreach (var airplane in Model.Airplanes)
+                    <select id="AirlineAirplaneId" name="AirlineAirplaneId">
+                    </select>
+                    @*<select asp-for="@Model.Flight.AirlineAirplaneId" id="AirlineAirplaneId" name="AirlineAirplaneId">
+                        @foreach (var airplane in Model.Airplanes.Where(x=>x.AirlineId == Model.Flight.AirlineId))
                         {
                             <option value="@airplane.Id">@airplane.AirlineName @airplane.AirplaneModel @airplane.SerialNumber</option>
                         }
-                    </select>
+                    </select>*@
                 </td>
             </tr>
             <tr>
@@ -73,3 +87,61 @@
     </form>
 
 </div>
+
+@section Scripts {
+    <script>
+        const airplanes = @Html.Raw(Json.Serialize(Model.Airplanes));
+        const pilots=@Html.Raw(Json.Serialize(Model.Pilots));
+        const airlineAirplaneId=@Html.Raw(Model.Flight.AirlineAirplaneId);
+        const pilotId=@Html.Raw(Model.Flight.PilotId);
+        
+        $(function () {
+            
+            function updateAirplanes(selectedAirlineAirplaneId) {
+                
+               var airlineId = Number.parseInt( $("select#AirlineId").val());             
+               
+               $("select#AirlineAirplaneId").empty();
+                      
+               $.each(airplanes, function (i, item) {
+                  if (item.airlineId === airlineId){
+                       const option = `<option value="${item.id}" >${item.airplaneModel} ${item.serialNumber}</option>`;
+                       $("select#AirlineAirplaneId").append(option);
+                  }
+               });
+               
+               if (selectedAirlineAirplaneId !== undefined){
+                $("select#AirlineAirplaneId").val(selectedAirlineAirplaneId).change();
+               }
+            }
+            
+            function updatePilots(selectedPilotId){
+                
+                var airlineId = Number.parseInt( $("select#AirlineId").val());
+                
+                $("select#PilotId").empty();
+                
+                $.each(pilots, function(i,item) {
+                    if (item.airlineId === airlineId){
+                        const  option = `<option value="${item.id}">${item.name} ${item.surName}</option>`;
+                        $("select#PilotId").append(option);                   
+                                                  
+                    }
+                  
+                });
+                
+                if (selectedPilotId !== undefined){
+                  $("select#PilotId").val(selectedPilotId).change();
+                }
+            }
+                 
+            $("select#AirlineId").change(function () {
+                   updateAirplanes(); 
+                   updatePilots()  
+            })    
+               
+             updateAirplanes(airlineAirplaneId);  
+             updatePilots(pilotId)       //зменить значения по умолчанию пртредактировании
+        })  
+    </script>
+}
