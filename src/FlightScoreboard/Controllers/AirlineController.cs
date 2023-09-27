@@ -7,36 +7,36 @@ namespace FlightScoreboard.Controllers;
 public class AirlineController : Controller
 
 {
-	private readonly IAirlineService _airlineService;
+    private readonly IAirlineService _airlineService;
 
-	public AirlineController(IAirlineService airlineService)
-	{
-		this._airlineService = airlineService;
-	}
+    public AirlineController(IAirlineService airlineService)
+    {
+        _airlineService = airlineService;
+    }
 
-	public IActionResult Index()
-	{
-		var airlines = this._airlineService.GetAllAirlines();
-		return this.View(airlines);
-	}
+    public async Task<IActionResult> Index()
+    {
+        var airlines = await _airlineService.GetAllAirlinesAsync();
+        return View(airlines);
+    }
 
-	[HttpGet]
-	public IActionResult Create()
-	{
-		return this.View();
-	}
+    [HttpGet]
+    public IActionResult Create()
+    {
+        return View();
+    }
 
-	[HttpPost]
-	public IActionResult Create(AirlineCreateModel airline)
-	{
-		this._airlineService.CreateAirline(airline);
-		return this.RedirectToAction("Index");
-	}
+    [HttpPost]
+    public async Task<IActionResult> Create(AirlineCreateModel airline)
+    {
+       await _airlineService.CreateAirlineAsync(airline);
+        return RedirectToAction("Index");
+    }
 
 
-	public IActionResult Delete(int id)
-	{
-		this._airlineService.DeleteAirline(id);
-		return this.RedirectToAction("Index");
-	}
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _airlineService.DeleteAirlineAsync(id);
+        return RedirectToAction("Index");
+    }
 }

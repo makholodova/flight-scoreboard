@@ -1,55 +1,61 @@
-﻿using FlightScoreboard.DateBase;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Runtime.InteropServices.JavaScript;
+using FlightScoreboard.DateBase;
 using FlightScoreboard.Models;
 using FlightScoreboard.Services.Interfaces;
 using FlightScoreboard.Services.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightScoreboard.Services;
 
+[SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataUsage")]
+[SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataQuery")]
 public class AirlineService : IAirlineService
 {
-	private readonly FlightScoreboardContext _context;
+    private readonly FlightScoreboardContext _context;
 
-	public AirlineService(FlightScoreboardContext context)
-	{
-		this._context = context;
-	}
+    public AirlineService(FlightScoreboardContext context)
+    {
+        _context = context;
+    }
 
-	public List<AirlineModel> GetAllAirlines()
-	{
-		return this._context.Airlines.Select(p => new AirlineModel
-		{
-			Id = p.Id,
-			Name = p.Name
-		}).ToList();
-	}
+    public async Task<List<AirlineModel>> GetAllAirlinesAsync()
+    {
+        return await _context.Airlines.Select(p => new AirlineModel
+        {
+            Id = p.Id,
+            Name = p.Name
+        }).ToListAsync();
+    }
 
-	public List<AirlineShortInfoModel> GetAvailableAirlines()
-	{
-		return this._context.Airlines.Select(p => new AirlineShortInfoModel
-		{
-			Id = p.Id,
-			Name = p.Name
-		}).ToList();
-	}
+    public async Task<List<AirlineShortInfoModel>> GetAvailableAirlinesAsync()
+    {
+        return await _context.Airlines.Select(p => new AirlineShortInfoModel
+        {
+            Id = p.Id,
+            Name = p.Name
+        }).ToListAsync();
+    }
 
-	public int CreateAirline(AirlineCreateModel airline)
-	{
-		var addAirline = this._context.Airlines.Add(new Airline
-		{
-			Name = airline.Name
-		});
-		this._context.SaveChanges();
-		return addAirline.Entity.Id;
-	}
+    public async Task<int> CreateAirlineAsync(AirlineCreateModel airline)
+    {
+        var addAirline =await _context.Airlines.AddAsync(new Airline
+        {
+            Name = airline.Name
+        });
+       await _context.SaveChangesAsync();
+        return addAirline.Entity.Id;
+    }
 
-	public bool DeleteAirline(int id)
-	{
-		var airline = this._context.Airlines.FirstOrDefault(p => p.Id == id);
-		if (airline == null) return false;
+    public async Task<bool> DeleteAirlineAsync(int id)
+    {
+        var airline =await _context.Airlines.FirstOrDefaultAsync(p => p.Id == id);
+        if (airline == null || airline.AirlineAirplanes.Any() || airline.Pilots.Any() || airline.Flights.Any())
+            return false;
 
-		this._context.Airlines.Remove(airline);
+        _context.Airlines.Remove(airline);
 
-		this._context.SaveChanges();
-		return true;
-	}
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

@@ -9,58 +9,58 @@ namespace FlightScoreboard.Controllers;
 
 public class PilotController : Controller
 {
-	private readonly IPilotService _pilotService;
-	private readonly IAirlineService _airlineService;
+    private readonly IPilotService _pilotService;
+    private readonly IAirlineService _airlineService;
 
-	public PilotController(IPilotService pilotService, IAirlineService airlineService)
-	{
-		this._pilotService = pilotService;
-		this._airlineService = airlineService;
-	}
+    public PilotController(IPilotService pilotService, IAirlineService airlineService)
+    {
+        _pilotService = pilotService;
+        _airlineService = airlineService;
+    }
 
-	public IActionResult Index()
-	{
-		var pilots = this._pilotService.GetAllPilots();
-		return this.View(pilots);
-	}
+    public async Task<IActionResult> Index()
+    {
+        var pilots = await _pilotService.GetAllPilotsAsync();
+        return View(pilots);
+    }
 
-	[HttpGet]
-	public IActionResult Create()
-	{
-		var pilotModelGet = new PilotCreateModelGet();
-		pilotModelGet.Airlines = this._airlineService.GetAvailableAirlines();
-		return this.View(pilotModelGet);
-	}
+    [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+        var pilotModelGet = new PilotCreateModelGet();
+        pilotModelGet.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+        return View(pilotModelGet);
+    }
 
-	[HttpPost]
-	public IActionResult Create(PilotCreateModel pilotNew)
-	{
-		this._pilotService.CreatePilot(pilotNew);
-		return this.RedirectToAction("Index");
-	}
+    [HttpPost]
+    public async Task<IActionResult> Create(PilotCreateModel pilotNew)
+    {
+        await _pilotService.CreatePilotAsync(pilotNew);
+        return RedirectToAction("Index");
+    }
 
-	[HttpGet]
-	public IActionResult Update(int id)
-	{
-		var pilotModel = new PilotUpdateModelGet();
+    [HttpGet]
+    public async Task<IActionResult> Update(int id)
+    {
+        var pilotModel = new PilotUpdateModelGet();
+        pilotModel.Pilot = await _pilotService.GetPilotByIdAsync(id);
+        pilotModel.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+        // await Task.WhenAll(pilotTask, airlinesTask);
+        
+        return View(pilotModel);
+    }
 
-		pilotModel.Pilot = this._pilotService.GetPilotById(id);
-		pilotModel.Airlines = this._airlineService.GetAvailableAirlines();
+    [HttpPost]
+    public async Task<IActionResult> Update(PilotUpdateModel pilot)
+    {
+        await _pilotService.UpdatePilotAsync(pilot);
 
-		return this.View(pilotModel);
-	}
+        return RedirectToAction("Index");
+    }
 
-	[HttpPost]
-	public IActionResult Update(PilotUpdateModel pilot)
-	{
-		this._pilotService.UpdatePilot(pilot);
-
-		return this.RedirectToAction("Index");
-	}
-
-	public IActionResult Delete(int id)
-	{
-		this._pilotService.DeletePilot(id);
-		return this.RedirectToAction("Index");
-	}
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _pilotService.DeletePilotAsync(id);
+        return RedirectToAction("Index");
+    }
 }

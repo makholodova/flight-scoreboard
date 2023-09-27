@@ -5,8 +5,8 @@ namespace FlightScoreboard.Services.Interfaces;
 
 public interface IAirlineService
 {
-	List<AirlineModel> GetAllAirlines();
-	List<AirlineShortInfoModel> GetAvailableAirlines();
-	int CreateAirline(AirlineCreateModel airline);
-	bool DeleteAirline(int id);
+	Task<List<AirlineModel>> GetAllAirlinesAsync();
+	Task<List<AirlineShortInfoModel>> GetAvailableAirlinesAsync();
+	Task<int> CreateAirlineAsync(AirlineCreateModel airline);
+	Task<bool> DeleteAirlineAsync(int id);
 }

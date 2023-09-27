@@ -4,9 +4,9 @@ namespace FlightScoreboard.Services.Interfaces;
 
 public interface IFlightService
 {
-	List<FlightIndexModel> GetAllFlights();
-	FlightModel GetFlightById(int id);
-	int CreateFlight(FlightCreateModel flight);
-	bool UpdateFlight(FlightUpdateModel flight);
-	bool DeleteFlight(int id);
+	Task<List<FlightIndexModel>> GetAllFlightsAsync();
+	Task<FlightModel> GetFlightByIdAsync(int id);
+	Task<int> CreateFlightAsync(FlightCreateModel flight);
+	Task<bool> UpdateFlightAsync(FlightUpdateModel flight);
+	Task<bool> DeleteFlightAsync(int id);
 }

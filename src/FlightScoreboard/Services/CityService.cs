@@ -1,44 +1,50 @@
-﻿using FlightScoreboard.DateBase;
+﻿using System.Diagnostics.CodeAnalysis;
+using FlightScoreboard.DateBase;
 using FlightScoreboard.Services.Interfaces;
 using FlightScoreboard.Services.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightScoreboard.Services;
 
+[SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataQuery")]
+[SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataUsage")]
 public class CityService : ICityService
 {
-	private readonly FlightScoreboardContext _context;
+    private readonly FlightScoreboardContext _context;
 
-	public CityService(FlightScoreboardContext context)
-	{
-		this._context = context;
-	}
+    public CityService(FlightScoreboardContext context)
+    {
+        _context = context;
+    }
 
-	public List<CityModel> GetAllCities()
-	{
-		return this._context.Cities.Select(p => new CityModel
-		{
-			Id = p.Id,
-			Name = p.Name
-		}).ToList();
-	}
+    public async Task<List<CityModel>> GetAllCitiesAsync()
+    {
+        return await _context.Cities.Select(p => new CityModel
+        {
+            Id = p.Id,
+            Name = p.Name
+        }).ToListAsync();
+    }
 
-	public int CreateCity(CityCreateModel cityNew)
-	{
-		var addCity = this._context.Cities.Add(new City { Name = cityNew.Name });
+    public async Task<int> CreateCityAsync(CityCreateModel cityNew)
+    {
+        var addCity = await _context.Cities.AddAsync(new City { Name = cityNew.Name });
+        await _context.SaveChangesAsync();
 
-		this._context.SaveChanges();
+        return addCity.Entity.Id;
+    }
 
-		return addCity.Entity.Id;
-	}
+    public async Task<bool> DeleteCityAsync(int id)
+    {
+        var city = await _context.Cities.FirstOrDefaultAsync(p => p.Id == id);
 
-	public bool DeleteCity(int id)
-	{
-		var city = this._context.Cities.FirstOrDefault(p => p.Id == id);
-		if (city == null) return false;
-		this._context.Cities.Remove(city);
+        if (city == null || city.FromFlights.Any() || city.ToFlights.Any())
+            return false;
 
-		this._context.SaveChanges();
+        _context.Cities.Remove(city);
 
-		return true;
-	}
+        await _context.SaveChangesAsync();
+
+        return true;
+    }
 }

@@ -13,10 +13,10 @@ public class CityController : Controller
 		this._cityService = cityService;
 	}
 
-	public IActionResult Index()
+	public async Task<IActionResult>  Index()
 	{
-		var cities = this._cityService.GetAllCities();
-		return this.View(cities);
+		 var cities = await this._cityService.GetAllCitiesAsync();
+		 return this.View(cities);
 	}
 
 	[HttpGet]
@@ -26,15 +26,15 @@ public class CityController : Controller
 	}
 
 	[HttpPost]
-	public IActionResult Create(CityCreateModel city)
+	public async Task<IActionResult> Create(CityCreateModel city)
 	{
-		this._cityService.CreateCity(city);
+		await this._cityService.CreateCityAsync(city);
 		return this.RedirectToAction("Index");
 	}
 
-	public IActionResult Delete(int id)
+	public async Task<IActionResult> Delete(int id)
 	{
-		this._cityService.DeleteCity(id);
+		await this._cityService.DeleteCityAsync(id);
 		return this.RedirectToAction("Index");
 	}
 }

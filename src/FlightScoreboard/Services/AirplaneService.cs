@@ -1,10 +1,14 @@
-﻿using FlightScoreboard.DateBase;
+﻿using System.Diagnostics.CodeAnalysis;
+using FlightScoreboard.DateBase;
 using FlightScoreboard.Models;
 using FlightScoreboard.Services.Interfaces;
 using FlightScoreboard.Services.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightScoreboard.Services;
 
+[SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataUsage")]
+[SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataQuery")]
 public class AirplaneService : IAirplaneService
 {
 	private readonly FlightScoreboardContext _context;
@@ -14,30 +18,30 @@ public class AirplaneService : IAirplaneService
 		this._context = context;
 	}
 
-	public List<AirplaneModel> GetAllAirplanes()
+	public Task<List<AirplaneModel>> GetAllAirplanesAsync()
 	{
 		return this._context.Airplanes.Select(p => new AirplaneModel
 		{
 			Id = p.Id,
 			Model = p.Model
-		}).ToList();
+		}).ToListAsync();
 	}
 
 
-	public int CreateAirplane(AirplaneCreateModel airplane)
+	public async Task<int> CreateAirplaneAsync(AirplaneCreateModel airplane)
 	{
-		var addAirplane = this._context.Airplanes.Add(new Airplane { Model = airplane.Model });
-		this._context.SaveChanges();
+		var addAirplane =await this._context.Airplanes.AddAsync(new Airplane { Model = airplane.Model });
+		await this._context.SaveChangesAsync();
 		return addAirplane.Entity.Id;
 	}
 
-	public bool DeleteAirplane(int id)
+	public async Task<bool> DeleteAirplaneAsync(int id)
 	{
-		var airplane = this._context.Airplanes.FirstOrDefault(p => p.Id == id);
-		if (airplane == null) return false;
+		var airplane =await this._context.Airplanes.FirstOrDefaultAsync(p => p.Id == id);
+		if (airplane == null||airplane.AirlineAirplanes.Any()) return false;
 
 		this._context.Remove(airplane);
-		this._context.SaveChanges();
+		await this._context.SaveChangesAsync();
 
 		return true;
 	}

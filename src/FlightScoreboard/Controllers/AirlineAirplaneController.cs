@@ -7,64 +7,66 @@ namespace FlightScoreboard.Controllers;
 
 public class AirlineAirplaneController : Controller
 {
-	private readonly IAirlineAirplaneService _airlineAirplaneService;
-	private readonly IAirlineService _airlineService;
-	private readonly IAirplaneService _airplaneService;
+    private readonly IAirlineAirplaneService _airlineAirplaneService;
+    private readonly IAirlineService _airlineService;
+    private readonly IAirplaneService _airplaneService;
 
-	public AirlineAirplaneController(IAirlineAirplaneService airlineAirplaneService, IAirlineService airlineService,
-		IAirplaneService airplaneService)
-	{
-		this._airlineAirplaneService = airlineAirplaneService;
-		this._airlineService = airlineService;
-		this._airplaneService = airplaneService;
-	}
+    public AirlineAirplaneController(IAirlineAirplaneService airlineAirplaneService, IAirlineService airlineService,
+        IAirplaneService airplaneService)
+    {
+        _airlineAirplaneService = airlineAirplaneService;
+        _airlineService = airlineService;
+        _airplaneService = airplaneService;
+    }
 
-	public IActionResult Index(int airlineId)
-	{
-		var airplanesDb = this._airlineAirplaneService.GetAllAirlineAirplanes(airlineId);
-		var airplanes = new AirlineAirplaneIndexModel();
-		airplanes.Airplanes = airplanesDb;
-		airplanes.AirlineId = airlineId;
-		return this.View(airplanes);
-	}
+    public async Task<IActionResult> Index(int airlineId)
+    {
+        var airplanesDb = await _airlineAirplaneService.GetAllAirlineAirplanesAsync(airlineId);
+        var airplanes = new AirlineAirplaneIndexModel();
+        airplanes.Airplanes = airplanesDb;
+        airplanes.AirlineId = airlineId;
+        return View(airplanes);
+    }
 
-	[HttpGet]
-	public IActionResult Create(int airlineId)
-	{
-		var airplaneModelGet = new AirlineAirplaneCreateModelGet();
-		airplaneModelGet.Airplanes = this._airplaneService.GetAllAirplanes();
-		airplaneModelGet.AirlineId = airlineId;
-		return this.View(airplaneModelGet);
-	}
+    [HttpGet]
+    public async Task<IActionResult> Create(int airlineId)
+    {
+        var airplaneModelGet = new AirlineAirplaneCreateModelGet();
+        airplaneModelGet.Airplanes = await _airplaneService.GetAllAirplanesAsync();
+        airplaneModelGet.AirlineId = airlineId;
+        return View(airplaneModelGet);
+    }
 
-	[HttpPost]
-	public IActionResult Create(AirlineAirplaneCreateModel airplane)
-	{
-		this._airlineAirplaneService.CreateAirplane(airplane);
-		return this.RedirectToAction("Index", new { airlineId = airplane.AirlineId });
-	}
+    [HttpPost]
+    public async Task<IActionResult> Create(AirlineAirplaneCreateModel airplane)
+    {
+        await _airlineAirplaneService.CreateAirplaneAsync(airplane);
+        return RedirectToAction("Index", new { airlineId = airplane.AirlineId });
+    }
 
-	[HttpGet]
-	public IActionResult Update(int id)
-	{
-		var airplane = new AirlineAirplaneUpdateModelGet();
-		airplane.Airplane = this._airlineAirplaneService.GetAirplaneAirlineById(id);
-		airplane.Airplanes = this._airplaneService.GetAllAirplanes();
-		airplane.Airlines = this._airlineService.GetAvailableAirlines();
+    [HttpGet]
+    public async Task<IActionResult> Update(int id)
+    {
+        var airplane = new AirlineAirplaneUpdateModelGet();
+        airplane.Airplane = await _airlineAirplaneService.GetAirplaneAirlineByIdAsync(id);
+        airplane.Airplanes = await _airplaneService.GetAllAirplanesAsync();
+        airplane.Airlines = await _airlineService.GetAvailableAirlinesAsync();
 
-		return this.View(airplane);
-	}
+        //await Task.WhenAll(airplaneTask, airplanesTask, airlinesTask); 
 
-	[HttpPost]
-	public IActionResult Update(AirlineAirplaneUpdateModel airplane)
-	{
-		this._airlineAirplaneService.UpdateAirplane(airplane);
-		return this.RedirectToAction("Index", new { airlineId = airplane.AirlineId });
-	}
+        return View(airplane);
+    }
 
-	public IActionResult Delete(int id, int airlineId)
-	{
-		this._airlineAirplaneService.DeleteAirplane(id);
-		return this.RedirectToAction("Index", new { airlineId = airlineId });
-	}
+    [HttpPost]
+    public async Task<IActionResult> Update(AirlineAirplaneUpdateModel airplane)
+    {
+        await _airlineAirplaneService.UpdateAirplaneAsync(airplane);
+        return RedirectToAction("Index", new { airlineId = airplane.AirlineId });
+    }
+
+    public async Task<IActionResult> Delete(int id, int airlineId)
+    {
+        await _airlineAirplaneService.DeleteAirplaneAsync(id);
+        return RedirectToAction("Index", new { airlineId = airlineId });
+    }
 }

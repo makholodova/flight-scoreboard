@@ -8,73 +8,77 @@ namespace FlightScoreboard.Controllers;
 public class FlightController : Controller
 
 {
-	private readonly IFlightService _flightService;
-	private readonly IPilotService _pilotService;
-	private readonly ICityService _cityService;
-	private readonly IAirlineService _airlineService;
-	private readonly IAirlineAirplaneService _airlineAirplaneService;
+    private readonly IFlightService _flightService;
+    private readonly IPilotService _pilotService;
+    private readonly ICityService _cityService;
+    private readonly IAirlineService _airlineService;
+    private readonly IAirlineAirplaneService _airlineAirplaneService;
 
-	public FlightController(IFlightService flightService, IPilotService pilotService, ICityService cityService,
-		IAirlineService airlineService, IAirlineAirplaneService airlineAirplaneService)
-	{
-		this._flightService = flightService;
-		this._pilotService = pilotService;
-		this._cityService = cityService;
-		this._airlineService = airlineService;
-		this._airlineAirplaneService = airlineAirplaneService;
-	}
+    public FlightController(IFlightService flightService, IPilotService pilotService, ICityService cityService,
+        IAirlineService airlineService, IAirlineAirplaneService airlineAirplaneService)
+    {
+        _flightService = flightService;
+        _pilotService = pilotService;
+        _cityService = cityService;
+        _airlineService = airlineService;
+        _airlineAirplaneService = airlineAirplaneService;
+    }
 
-	public IActionResult Index()
-	{
-		var flights = this._flightService.GetAllFlights();
-		return this.View(flights);
-	}
+    public async Task<IActionResult> Index()
+    {
+        var flights = await _flightService.GetAllFlightsAsync();
+        return View(flights);
+    }
 
-	[HttpGet]
-	public IActionResult Create()
-	{
-		var flights = new FlightCreateModelGet();
-		flights.Pilots = this._pilotService.GetAllPilots();
-		flights.Airlines = this._airlineService.GetAvailableAirlines();
-		flights.Airplanes = this._airlineAirplaneService.GetAllAirlineAirplanes();
-		flights.Cities = this._cityService.GetAllCities();
-		return this.View(flights);
-	}
+    [HttpGet]
+    public async Task<IActionResult> Create()
+    {
+        var flights = new FlightCreateModelGet();
+        flights.Pilots = await _pilotService.GetAllPilotsAsync();
+        flights.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+        flights.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
+        flights.Cities = await _cityService.GetAllCitiesAsync();
 
-	[HttpPost]
-	public IActionResult Create(FlightCreateModel flight)
-	{
-		//var flightAirline = this._airlineAirplaneService.GetAirplaneAirlineById(flight.AirlineAirplaneId);
-		//flight.AirlineId = flightAirline.AirlineId;      
-		this._flightService.CreateFlight(flight);
+        //await Task.WhenAll(pilotsTask, airlinesTask, airplanesTask, citiesTask); //Task.WaitAll();  
 
-		return this.RedirectToAction("Index");
-	}
+        return View(flights);
+    }
 
-	[HttpGet]
-	public IActionResult Update(int id)
-	{
-		var flight = new FlightUpdateModelGet();
-		flight.Flight = this._flightService.GetFlightById(id);
-		flight.Cities = this._cityService.GetAllCities();
-		flight.Pilots = this._pilotService.GetAllPilots();
-		flight.Airplanes = this._airlineAirplaneService.GetAllAirlineAirplanes();
-		flight.Airlines = this._airlineService.GetAvailableAirlines();
-		return this.View(flight);
-	}
+    [HttpPost]
+    public async Task<IActionResult> Create(FlightCreateModel flight)
+    {
+        await _flightService.CreateFlightAsync(flight);
 
-	[HttpPost]
-	public IActionResult Update(FlightUpdateModel flight)
-	{
-		var flightAirline = this._airlineAirplaneService.GetAirplaneAirlineById(flight.AirlineAirplaneId);
-		flight.AirlineId = flightAirline.AirlineId;
-		this._flightService.UpdateFlight(flight);
-		return this.RedirectToAction("Index");
-	}
+        return RedirectToAction("Index");
+    }
 
-	public IActionResult Delete(int id)
-	{
-		this._flightService.DeleteFlight(id);
-		return this.RedirectToAction("Index");
-	}
+    [HttpGet]
+    public async Task<IActionResult> Update(int id)
+    {
+        var flight = new FlightUpdateModelGet();
+        flight.Flight = await _flightService.GetFlightByIdAsync(id);
+        flight.Cities = await _cityService.GetAllCitiesAsync();
+        flight.Pilots = await _pilotService.GetAllPilotsAsync();
+        flight.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
+        flight.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+
+        // await Task.WhenAll(flightTask, citiesTask,pilotsTask,airplanesTask,airlinesTask);  
+
+        return View(flight);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Update(FlightUpdateModel flight)
+    {
+        var flightAirline = await _airlineAirplaneService.GetAirplaneAirlineByIdAsync(flight.AirlineAirplaneId);
+        flight.AirlineId = flightAirline.AirlineId;
+        await _flightService.UpdateFlightAsync(flight);
+        return RedirectToAction("Index");
+    }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _flightService.DeleteFlightAsync(id);
+        return RedirectToAction("Index");
+    }
 }

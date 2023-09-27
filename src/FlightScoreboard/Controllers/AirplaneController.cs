@@ -13,9 +13,9 @@ public class AirplaneController : Controller
 		this._airplaneService = airplaneService;
 	}
 
-	public IActionResult Index()
+	public async Task<IActionResult> Index()
 	{
-		var airplanes = this._airplaneService.GetAllAirplanes();
+		var airplanes = await this._airplaneService.GetAllAirplanesAsync();
 		return this.View(airplanes);
 	}
 
@@ -26,16 +26,16 @@ public class AirplaneController : Controller
 	}
 
 	[HttpPost]
-	public IActionResult Create(AirplaneCreateModel airplane)
+	public async Task<IActionResult> Create(AirplaneCreateModel airplane)
 	{
-		this._airplaneService.CreateAirplane(airplane);
+		await this._airplaneService.CreateAirplaneAsync(airplane);
 		return this.RedirectToAction("Index");
 	}
 
 
-	public IActionResult Delete(int id)
+	public async Task<IActionResult> Delete(int id)
 	{
-		this._airplaneService.DeleteAirplane(id);
+		await this._airplaneService.DeleteAirplaneAsync(id);
 		return this.RedirectToAction("Index");
 	}
 }
