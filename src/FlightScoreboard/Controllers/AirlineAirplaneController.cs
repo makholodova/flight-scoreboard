@@ -66,7 +66,15 @@ public class AirlineAirplaneController : Controller
 
     public async Task<IActionResult> Delete(int id, int airlineId)
     {
-        await _airlineAirplaneService.DeleteAirplaneAsync(id);
+        var result = await _airlineAirplaneService.DeleteAirplaneAsync(id); // проблема new { airlineId = airlineId })
+        if (result == false)
+            return RedirectToAction("Index", "Error", new ErrorModel
+            {
+                ErrorMessage = "Удалить невозможно, возможно самолёт в рейсе",
+                ActionName = "Index",
+                ControllerName = "AirlineAirplane",
+                RouteDataString = $"airlineId={airlineId}" //"key1=value1&key2=value2"
+            });
         return RedirectToAction("Index", new { airlineId = airlineId });
     }
 }

@@ -1,4 +1,5 @@
-﻿using FlightScoreboard.Services.Interfaces;
+﻿using FlightScoreboard.Models;
+using FlightScoreboard.Services.Interfaces;
 using FlightScoreboard.Services.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,14 @@ public class AirplaneController : Controller
 
 	public async Task<IActionResult> Delete(int id)
 	{
-		await this._airplaneService.DeleteAirplaneAsync(id);
+		var result = await this._airplaneService.DeleteAirplaneAsync(id);
+		if (result == false)
+			return RedirectToAction("Index", "Error", new ErrorModel
+			{
+				ErrorMessage = "Удалить невозможно, возможно модель самолета используется у авиакомпании",
+				ActionName = "Index",
+				ControllerName = "Airplane"
+			});
 		return this.RedirectToAction("Index");
 	}
 }

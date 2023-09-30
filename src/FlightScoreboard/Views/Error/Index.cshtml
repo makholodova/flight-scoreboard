@@ -7,6 +7,6 @@
 <div>
     <h4>Ошибка:</h4>
     @Model.ErrorMessage
-    
-    <a class="nav-link text-dark" asp-area="" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName">Исправить</a>
-  </div>
+
+    <a class="nav-link text-dark" asp-area="" asp-controller="@Model.ControllerName" asp-action="@Model.ActionName" asp-all-route-data="@Model.RouteData" asp>Исправить</a>
+</div>

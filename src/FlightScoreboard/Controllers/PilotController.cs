@@ -46,7 +46,7 @@ public class PilotController : Controller
         pilotModel.Pilot = await _pilotService.GetPilotByIdAsync(id);
         pilotModel.Airlines = await _airlineService.GetAvailableAirlinesAsync();
         // await Task.WhenAll(pilotTask, airlinesTask);
-        
+
         return View(pilotModel);
     }
 
@@ -60,7 +60,14 @@ public class PilotController : Controller
 
     public async Task<IActionResult> Delete(int id)
     {
-        await _pilotService.DeletePilotAsync(id);
+        var result = await _pilotService.DeletePilotAsync(id);
+        if (result == false)
+            return RedirectToAction("Index", "Error", new ErrorModel
+            {
+                ErrorMessage = "Удалить невозможно, возможно пилот в рейсе",
+                ActionName = "Index",
+                ControllerName = "Pilot"
+            });
         return RedirectToAction("Index");
     }
 }
