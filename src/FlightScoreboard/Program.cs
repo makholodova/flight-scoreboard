@@ -38,7 +38,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	"default",
-	"{controller=Home}/{action=Index}/{id?}");
+	"{controller=Flight}/{action=Index}/{id?}");
 
 using (var scope = app.Services.CreateScope())
 using (var context = scope.ServiceProvider.GetService<FlightScoreboardContext>())
