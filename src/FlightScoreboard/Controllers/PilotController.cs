@@ -1,6 +1,5 @@
 ﻿using FlightScoreboard.Models;
 using FlightScoreboard.Services;
-using FlightScoreboard.Services.Interfaces;
 using FlightScoreboard.Services.Models;
 using Microsoft.AspNetCore.Mvc;
 

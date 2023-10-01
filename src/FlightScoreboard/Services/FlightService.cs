@@ -1,9 +1,18 @@
 ﻿using FlightScoreboard.DateBase;
-using FlightScoreboard.Services.Interfaces;
+
 using FlightScoreboard.Services.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlightScoreboard.Services;
+
+public interface IFlightService
+{
+    Task<List<FlightIndexModel>> GetAllFlightsAsync(FlightIndexFilterModel flight);
+    Task<FlightModel> GetFlightByIdAsync(int id);
+    Task<int> CreateFlightAsync(FlightCreateModel flight);
+    Task<bool> UpdateFlightAsync(FlightUpdateModel flight);
+    Task<bool> DeleteFlightAsync(int id);
+}
 
 public class FlightService : IFlightService
 {

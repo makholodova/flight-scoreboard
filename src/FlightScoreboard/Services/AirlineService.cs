@@ -2,7 +2,6 @@
 using System.Runtime.InteropServices.JavaScript;
 using FlightScoreboard.DateBase;
 using FlightScoreboard.Models;
-using FlightScoreboard.Services.Interfaces;
 using FlightScoreboard.Services.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +9,14 @@ namespace FlightScoreboard.Services;
 
 [SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataUsage")]
 [SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataQuery")]
+public interface IAirlineService
+{
+    Task<List<AirlineModel>> GetAllAirlinesAsync();
+    Task<List<AirlineShortInfoModel>> GetAvailableAirlinesAsync();
+    Task<int> CreateAirlineAsync(AirlineCreateModel airline);
+    Task<bool> DeleteAirlineAsync(int id);
+}
+
 public class AirlineService : IAirlineService
 {
     private readonly FlightScoreboardContext _context;
@@ -39,17 +46,17 @@ public class AirlineService : IAirlineService
 
     public async Task<int> CreateAirlineAsync(AirlineCreateModel airline)
     {
-        var addAirline =await _context.Airlines.AddAsync(new Airline
+        var addAirline = await _context.Airlines.AddAsync(new Airline
         {
             Name = airline.Name
         });
-       await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync();
         return addAirline.Entity.Id;
     }
 
     public async Task<bool> DeleteAirlineAsync(int id)
     {
-        var airline =await _context.Airlines.FirstOrDefaultAsync(p => p.Id == id);
+        var airline = await _context.Airlines.FirstOrDefaultAsync(p => p.Id == id);
         if (airline == null || airline.AirlineAirplanes.Any() || airline.Pilots.Any() || airline.Flights.Any())
             return false;
 

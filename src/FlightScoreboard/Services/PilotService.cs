@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using FlightScoreboard.DateBase;
-using FlightScoreboard.Services.Interfaces;
 using FlightScoreboard.Services.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +7,15 @@ namespace FlightScoreboard.Services;
 
 [SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataQuery")]
 [SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataUsage")]
+public interface IPilotService
+{
+    Task<List<PilotIndexModel>> GetAllPilotsAsync();
+    Task<PilotModel> GetPilotByIdAsync(int id);
+    Task<bool> UpdatePilotAsync(PilotUpdateModel pilot);
+    Task<int> CreatePilotAsync(PilotCreateModel pilot);
+    Task<bool> DeletePilotAsync(int id);
+}
+
 public class PilotService : IPilotService
 {
     private readonly FlightScoreboardContext _context;
