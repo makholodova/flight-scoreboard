@@ -24,10 +24,16 @@ public class FlightController : Controller
         _airlineAirplaneService = airlineAirplaneService;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(FlightIndexFilterModel flight)
     {
-        var flights = await _flightService.GetAllFlightsAsync();
-        return View(flights);
+        var flightModel = new FlightIndexIpModel();
+        flightModel.Flight = flight;
+        flightModel.Pilots = await _pilotService.GetAllPilotsAsync();
+        flightModel.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+        flightModel.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
+        flightModel.Cities = await _cityService.GetAllCitiesAsync();
+        flightModel.Flights = await _flightService.GetAllFlightsAsync(flight);
+        return View(flightModel);
     }
 
     [HttpGet]

@@ -1,5 +1,5 @@
 ﻿using FlightScoreboard.DateBase;
-
+using FlightScoreboard.Models;
 using FlightScoreboard.Services.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,9 +23,40 @@ public class FlightService : IFlightService
         _context = context;
     }
 
-    public async Task<List<FlightIndexModel>> GetAllFlightsAsync()
+    public async Task<List<FlightIndexModel>> GetAllFlightsAsync(FlightIndexFilterModel flight)
     {
-        return await _context.Flights.Select(p => new FlightIndexModel
+        var flights = _context.Flights.AsQueryable();
+
+
+        if (flight.DepartureTime != null)
+        {
+            var departureTimeMin = flight.DepartureTime.Value.Date;
+            var departureTimeMax = departureTimeMin.AddDays(1);
+            flights = flights.Where(x => x.DepartureTime >= departureTimeMin && x.DepartureTime < departureTimeMax);
+        }
+
+        if (flight.ArrivalTime != null)
+        {
+            var arrivalTimeMin = flight.ArrivalTime.Value.Date;
+            var arrivalDateMax = arrivalTimeMin.AddDays(1);
+            flights = flights.Where(x => x.ArrivalTime >= arrivalTimeMin && x.ArrivalTime < arrivalDateMax);
+        }
+
+        if (flight.PilotId != null) flights = flights.Where(x => x.PilotId == flight.PilotId);
+        if (flight.AirlineId != null) flights = flights.Where(x => x.AirlineId == flight.AirlineId);
+        if (flight.AirplaneId != null) flights = flights.Where(x => x.AirlineAirplaneId == flight.AirplaneId);
+        if (flight.FromCityId != null) flights = flights.Where(x => x.FromCityId == flight.FromCityId);
+        if (flight.ToCityId != null) flights = flights.Where(x => x.ToCityId == flight.ToCityId);
+
+
+        /*var flights = _context.Flights.AsQueryable()
+            .Where(x => x.PilotId == 4)
+            .Where(x => x.AirlineAirplaneId == 4);*/
+
+        // if (flight.PilotFullName.HasValue) flights = flights.Where(x => x.Pilot.Name == flight.PilotFullName.Value);
+
+
+        return await flights.Select(p => new FlightIndexModel
         {
             Id = p.Id,
             ArrivalTime = p.ArrivalTime,
@@ -41,6 +72,7 @@ public class FlightService : IFlightService
             AirplaneSerialNumber = p.AirlineAirplane.SerialNumber
         }).ToListAsync();
     }
+
 
     public async Task<FlightModel> GetFlightByIdAsync(int id)
     {
