@@ -1,4 +1,4 @@
-﻿@model FlightCreateModelGet
+﻿@model FlightCreateRepeatEventModelGet
 @{
     ViewData["Title"] = "Оформление рейса";
 }
@@ -7,7 +7,34 @@
     <h3>Форма оформления рейса</h3>
     <p>Для оформления рейса заполните следующие поля:</p>
     <form method="post">
+        <div>Дни недели:</div>
+        <input type="checkbox" name="DaysOfWeek[]" value="Monday"/>Понедельник
+        <input type="checkbox" name="DaysOfWeek[]" value="Tuesday"/>Вторник
+        <input type="checkbox" name="DaysOfWeek[]" value="Wednesday"/>Среда
+        <input type="checkbox" name="DaysOfWeek[]" value="Thursday"/>Четверг
+        <input type="checkbox" name="DaysOfWeek[]" value="Friday"/>Пятница
+        <input type="checkbox" name="DaysOfWeek[]" value="Saturday"/>Суббота
+        <input type="checkbox" name="DaysOfWeek[]" value="Sunday"/>Воскресенье
+
+        <div>Дата начала: <input type="date" name="StartDay"/> </div>
+        
+        <div>Дата окончания: <input type="date" name="FinishDay"/> </div>
+        
         <table>
+            <tr>
+                <td>Время вылета:</td>
+                <td>
+                    <input type="time" name="DepartureTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Продолжительность полета:</td>
+                <td>
+                    <input type="time" name="DurationTime"/>
+                </td>
+            </tr>
+
+
             <tr>
                 <td>Откуда:</td>
                 <td>
@@ -31,23 +58,11 @@
                 </td>
 
             </tr>
-            <tr>
-                <td>Время вылета:</td>
-                <td>
-                    <input id="DepartureTimeId" type="datetime-local" name="DepartureTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Время прилета:</td>
-                <td>
-                    <input id="ArrivalTimeId" type="datetime-local" name="ArrivalTime"/>
-                </td>
-            </tr>
+
             <tr>
                 <td>Авиакомпания:</td>
                 <td>
-                    <select
-                        id="AirlineId" name="AirlineId">
+                    <select id="AirlineId" name="AirlineId">
                         @foreach (var airline in Model.Airlines)
                         {
                             <option value="@airline.Id">@airline.Name</option>
@@ -58,16 +73,14 @@
             <tr>
                 <td>Пилот:</td>
                 <td>
-                    <select
-                        id="PilotId" name="PilotId">
+                    <select id="PilotId" name="PilotId">
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>Самолет:</td>
                 <td>
-                    <select
-                        id="AirlineAirplaneId" name="AirlineAirplaneId">
+                    <select id="AirlineAirplaneId" name="AirlineAirplaneId">
                     </select>
                 </td>
             </tr>
@@ -103,7 +116,7 @@
             
             function updatePilots(){
                 
-                var airlineId = Number.parseInt( $("select#AirlineId").val()); //$("select#AirlineId").val()  $("select#AirlineAirplaneId").val(selectedAirlineAirplaneId).change();
+                var airlineId = Number.parseInt( $("select#AirlineId").val());
                 
                 $("select#PilotId").empty();
                 
@@ -125,30 +138,6 @@
                
              updateAirplanes();  
              updatePilots()  
-             
-             $("#DepartureTimeId").change(function () {
-                      var  departureTime= $("#DepartureTimeId").val();
-                         $("#ArrivalTimeId").attr({"min":departureTime});
-                   
-             }) 
-                                  
-             $("#ArrivalTimeId").change(function () {
-                       var  arrivalTime= $("#ArrivalTimeId").val();
-                          $("#DepartureTimeId").attr({"max":arrivalTime});   
-                                 alert(departureTimeId);   
-             })   
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
-             
         })  
     </script>
 }

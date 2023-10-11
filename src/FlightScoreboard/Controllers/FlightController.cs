@@ -45,6 +45,7 @@ public class FlightController : Controller
         flights.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
         flights.Cities = await _cityService.GetAllCitiesAsync();
 
+
         //await Task.WhenAll(pilotsTask, airlinesTask, airplanesTask, citiesTask); //Task.WaitAll();  
 
         return View(flights);
@@ -57,6 +58,56 @@ public class FlightController : Controller
 
         return RedirectToAction("Index");
     }
+
+    [HttpGet]
+    public async Task<IActionResult> CreateRepeatEvent()
+    {
+        var flights = new FlightCreateRepeatEventModelGet();
+        flights.Pilots = await _pilotService.GetAllPilotsAsync();
+        flights.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+        flights.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
+        flights.Cities = await _cityService.GetAllCitiesAsync();
+        return View(flights);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateRepeatEvent(FlightCreateRepeatEventModel flight)
+    {
+        var startTime = flight.StartDay;
+        var currentDate = new DateTime(startTime.Year, startTime.Month, startTime.Day)
+            .Add(flight.DepartureTime);
+        while (currentDate <= flight.FinishDay)
+        {
+            var day = flight.DaysOfWeek.Any(day => day == currentDate.DayOfWeek);
+            if (day)
+            {
+                var flightModel = new FlightCreateModel
+                {
+                    DepartureTime = currentDate,
+                    ArrivalTime = currentDate.Add(flight.DurationTime),
+                    FromCityId = flight.FromCityId,
+                    ToCityId = flight.ToCityId,
+                    PilotId = flight.PilotId,
+                    AirlineId = flight.AirlineId,
+                    AirlineAirplaneId = flight.AirlineAirplaneId
+                };
+
+                await _flightService.CreateFlightAsync(flightModel);
+            }
+
+            currentDate = currentDate.AddDays(1);
+        }
+
+        /*currentDate = currentDate.AddDays(1);
+         var a = currentDate.DayOfWeek;
+         if (currentDate < flight.FinishDay)
+         {
+             //stop
+         }*/
+
+        return RedirectToAction("Index");
+    }
+
 
     [HttpGet]
     public async Task<IActionResult> Update(int id)

@@ -33,19 +33,19 @@
             <tr>
                 <td>Время вылета:</td>
                 <td>
-                    <input type="datetime-local" value="@Model.Flight.DepartureTime" name="DepartureTime"/>
+                    <input id="DepartureTimeId" type="datetime-local" value="@Model.Flight.DepartureTime" name="DepartureTime"/>
                 </td>
             </tr>
             <tr>
                 <td>Время прилета:</td>
                 <td>
-                    <input type="datetime-local" value="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
+                    <input id="ArrivalTimeId" type="datetime-local" value="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
                 </td>
             </tr>
             <tr>
                 <td>Авиакомпания:</td>
                 <td>
-                    <select asp-for="@Model.Flight.AirlineId" id="AirlineId" name="AirlineId" >
+                    <select asp-for="@Model.Flight.AirlineId" id="AirlineId" name="AirlineId">
                         @foreach (var airline in Model.Airlines)
                         {
                             <option value="@airline.Id">@airline.Name</option>
@@ -57,11 +57,7 @@
             <tr>
                 <td>Пилот:</td>
                 <td>
-                    <select id="PilotId" name="PilotId">  @* asp-for="@Model.Flight.PilotId"*@ 
-                        @*@foreach (var pilot in Model.Pilots)
-                        {
-                            <option value="@pilot.Id">@pilot.Name @pilot.SurName</option>
-                        }*@
+                    <select id="PilotId" name="PilotId">
                     </select>
                 </td>
             </tr>
@@ -70,12 +66,6 @@
                 <td>
                     <select id="AirlineAirplaneId" name="AirlineAirplaneId">
                     </select>
-                    @*<select asp-for="@Model.Flight.AirlineAirplaneId" id="AirlineAirplaneId" name="AirlineAirplaneId">
-                        @foreach (var airplane in Model.Airplanes.Where(x=>x.AirlineId == Model.Flight.AirlineId))
-                        {
-                            <option value="@airplane.Id">@airplane.AirlineName @airplane.AirplaneModel @airplane.SerialNumber</option>
-                        }
-                    </select>*@
                 </td>
             </tr>
             <tr>
@@ -141,7 +131,26 @@
             })    
                
              updateAirplanes(airlineAirplaneId);  
-             updatePilots(pilotId)       //зменить значения по умолчанию пртредактировании
+             updatePilots(pilotId)   //зменить значения по умолчанию пртредактировании
+                  
+                  
+                  
+                 
+              $("#DepartureTimeId").change(function () {
+                    var  departureTime= $("#DepartureTimeId").val();
+                        $("#ArrivalTimeId").attr({"min":departureTime});
+                                
+              }) 
+                                               
+              $("#ArrivalTimeId").change(function () {
+                    var  arrivalTime= $("#ArrivalTimeId").val();
+                         $("#DepartureTimeId").attr({"max":arrivalTime});   
+                                                 
+              })   
+             
+                    
+             
+             
         })  
     </script>
 }

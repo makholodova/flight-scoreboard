@@ -9,7 +9,10 @@ public interface IFlightService
 {
     Task<List<FlightIndexModel>> GetAllFlightsAsync(FlightIndexFilterModel flight);
     Task<FlightModel> GetFlightByIdAsync(int id);
+
     Task<int> CreateFlightAsync(FlightCreateModel flight);
+
+    // Task<int> CreateRepeatEventFlightAsync(FlightCreateRepeatEventModel flight);
     Task<bool> UpdateFlightAsync(FlightUpdateModel flight);
     Task<bool> DeleteFlightAsync(int id);
 }
@@ -95,8 +98,8 @@ public class FlightService : IFlightService
     {
         var addFlight = await _context.Flights.AddAsync(new Flight
         {
-            ArrivalTime = flight.ArrivalTime,
             DepartureTime = flight.DepartureTime,
+            ArrivalTime = flight.ArrivalTime,
             FromCityId = flight.FromCityId,
             ToCityId = flight.ToCityId,
             PilotId = flight.PilotId,
