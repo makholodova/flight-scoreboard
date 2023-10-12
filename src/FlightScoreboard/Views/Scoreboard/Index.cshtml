@@ -1,0 +1,56 @@
+﻿@model ScoreboardIndexIpModel
+@{
+    ViewData["Title"] = "Табло авиарейсов";
+}
+<div>
+    <h3>Табло авиарейсов</h3>
+    <form method="post">
+        <div>
+            Выберите город :
+            <select asp-for="CityId" name="cityId">
+                <option value="null"></option>
+                @foreach (var city in Model.Cities)
+                {
+                    <option value="@city.Id">@city.Name</option>
+                }
+            </select>
+
+            Выберите дату :
+            <input type="date" asp-for="DateTime" name="dateTime"/>
+            <input type="submit" value="Выбрать"/>
+        </div>
+    </form>
+    @if (Model.Flights.Count > 0)
+    {
+        <table>
+            <tr>
+                <th> Время вылета </th>
+                <th> Время прилета </th>
+                <th> Откуда </th>
+                <th> Куда </th>
+                <th> Авиакомпания </th>
+                <th> Модель самолета </th>
+            </tr>
+
+            @foreach (var flight in Model.Flights)
+            {
+                <tr>
+                    <td>@flight.DepartureTime </td>
+                    <td>@flight.ArrivalTime </td>
+                    <td>@flight.FromCity </td>
+                    <td>@flight.ToCity </td>
+                    <td>@flight.AirlineName </td>
+                    <td>@flight.AirplaneModel </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div>Рейсы отсутствуют</div>
+        <div>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Scoreboard" asp-action="Index">Снять фильтр</a>
+        </div>
+    }
+
+</div>
