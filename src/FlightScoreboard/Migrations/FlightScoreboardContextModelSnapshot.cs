@@ -148,7 +148,6 @@ namespace FlightScoreboard.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Gate")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NumberOfFlight")
@@ -159,7 +158,6 @@ namespace FlightScoreboard.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Terminal")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ToCityId")

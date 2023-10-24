@@ -10,13 +10,13 @@
     <form method="post">
         <table>
             <tr>
-                <td>Номер рейса:</td>
+                <td>Номер рейса<span style="color: red">*</span> :</td>
                 <td>
                     <input type="text" value="@Model.Flight.NumberOfFlight" name="NumberOfFlight"/>
                 </td>
             </tr>
             <tr>
-                <td>Откуда:</td>
+                <td>Откуда<span style="color: red">*</span> :</td>
                 <td>
 
                     <select asp-for="Flight.FromCityId" name="FromCityId">
@@ -26,7 +26,7 @@
                         }
                     </select>
                 </td>
-                <td>Куда:</td>
+                <td>Куда<span style="color: red">*</span> :</td>
                 <td>
                     <select asp-for="Flight.ToCityId" name="ToCityId">
                         @foreach (var city in Model.Cities)
@@ -37,19 +37,19 @@
                 </td>
             </tr>
             <tr>
-                <td>Время вылета запланированное:</td>
+                <td>Время вылета запланированное<span style="color: red">*</span> :</td>
                 <td>
                     <input id="DepartureTimeId" type="datetime-local" value="@Model.Flight.DepartureTime" name="DepartureTime"/>
                 </td>
             </tr>
             <tr>
-                <td>Время прилета запланированное:</td>
+                <td>Время прилета запланированное<span style="color: red">*</span> :</td>
                 <td>
                     <input id="ArrivalTimeId" type="datetime-local" value="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
                 </td>
             </tr>
             <tr>
-                <td>Авиакомпания:</td>
+                <td>Авиакомпания<span style="color: red">*</span> :</td>
                 <td>
                     <select asp-for="@Model.Flight.AirlineId" id="AirlineId" name="AirlineId">
                         @foreach (var airline in Model.Airlines)
@@ -68,7 +68,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Самолет:</td>
+                <td>Самолет<span style="color: red">*</span> :</td>
                 <td>
                     <select id="AirlineAirplaneId" name="AirlineAirplaneId">
                     </select>
