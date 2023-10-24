@@ -10,6 +10,12 @@
     <form method="post">
         <table>
             <tr>
+                <td>Номер рейса:</td>
+                <td>
+                    <input type="text" value="@Model.Flight.NumberOfFlight" name="NumberOfFlight"/>
+                </td>
+            </tr>
+            <tr>
                 <td>Откуда:</td>
                 <td>
 
@@ -31,13 +37,13 @@
                 </td>
             </tr>
             <tr>
-                <td>Время вылета:</td>
+                <td>Время вылета запланированное:</td>
                 <td>
                     <input id="DepartureTimeId" type="datetime-local" value="@Model.Flight.DepartureTime" name="DepartureTime"/>
                 </td>
             </tr>
             <tr>
-                <td>Время прилета:</td>
+                <td>Время прилета запланированное:</td>
                 <td>
                     <input id="ArrivalTimeId" type="datetime-local" value="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
                 </td>
@@ -68,6 +74,55 @@
                     </select>
                 </td>
             </tr>
+            <tr>
+                <td>Терминал:</td>
+                <td>
+                    <input type="text" value="@Model.Flight.Terminal" name="Terminal"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Выход:</td>
+                <td>
+                    <input type="text" value="@Model.Flight.Gate" name="Gate"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Время вылета фактическое:</td>
+                <td>
+                    <input id="ActualDepartureTimeId" type="datetime-local" value="@Model.Flight.ActualDepartureTime" name="ActualDepartureTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Время прилета фактическое:</td>
+                <td>
+                    <input id="ActualArrivalTimeId" type="datetime-local" value="@Model.Flight.ActualArrivalTime" name="ActualArrivalTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Начало регистрации:</td>
+                <td>
+                    <input id="CheckInStartTimeId" type="datetime-local" value="@Model.Flight.CheckInStartTime" name="CheckInStartTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Окончание регистрации:</td>
+                <td>
+                    <input id="CheckInEndTimeId" type="datetime-local" value="@Model.Flight.CheckInEndTime" name="CheckInEndTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Начало посадки:</td>
+                <td>
+                    <input id="BoardingStartTimeId" type="datetime-local" value="@Model.Flight.BoardingStartTime" name="BoardingStartTime"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Окончание посадки:</td>
+                <td>
+                    <input id="BoardingEndTimeId" type="datetime-local" value="@Model.Flight.BoardingEndTime" name="BoardingEndTime"/>
+                </td>
+            </tr>
+            <tr>
             <tr>
                 <td>
                     <input type="submit" value="Сохранить"/>
@@ -144,13 +199,41 @@
                                                
               $("#ArrivalTimeId").change(function () {
                     var  arrivalTime= $("#ArrivalTimeId").val();
-                         $("#DepartureTimeId").attr({"max":arrivalTime});   
+                        $("#DepartureTimeId").attr({"max":arrivalTime});   
                                                  
               })   
              
-                    
-             
-             
+              $("#ActualDepartureTimeId").change(function () {
+                    var  actualDepartureTime= $("#ActualDepartureTimeId").val();
+                        $("#ActualArrivalTimeId").attr({"min":actualDepartureTime});
+                                                /* alert(actualDepartureTime);*/
+              }) 
+                             
+              $("#ActualArrivalTimeId").change(function () {
+                    var  actualArrivalTime= $("#ActualArrivalTimeId").val();
+                        $("#ActualDepartureTimeId").attr({"max":actualArrivalTime});                            
+              })
+                             
+              $("#CheckInStartTimeId").change(function () {
+                    var  checkInStartTime= $("#CheckInStartTimeId").val();
+                         $("#CheckInEndTimeId").attr({"min":checkInStartTime});                                            
+              })
+                             
+              $("#CheckInEndTimeId").change(function () {
+                    var  checkInEndTime= $("#CheckInEndTimeId").val();
+                         $("#CheckInStartTimeId").attr({"max":checkInEndTime});                                            
+              })
+                             
+              $("#BoardingStartTimeId").change(function () {
+                    var  boardingStartTime= $("#BoardingStartTimeId").val();
+                         $("#BoardingEndTimeId").attr({"min":boardingStartTime});                                            
+              })
+                                        
+              $("#BoardingEndTimeId").change(function () {
+                    var  boardingEndTime= $("#BoardingEndTimeId").val();
+                         $("#BoardingStartTimeId").attr({"max":boardingEndTime});                                            
+              })    
+          
         })  
     </script>
 }

@@ -91,6 +91,15 @@ public class FlightService : IFlightService
         {
             Id = flightDb.Id,
             ArrivalTime = flightDb.ArrivalTime,
+            ActualDepartureTime = flightDb.ActualDepartureTime,
+            ActualArrivalTime = flightDb.ActualArrivalTime,
+            CheckInStartTime = flightDb.CheckInStartTime,
+            CheckInEndTime = flightDb.CheckInEndTime,
+            BoardingStartTime = flightDb.BoardingStartTime,
+            BoardingEndTime = flightDb.BoardingEndTime,
+            NumberOfFlight = flightDb.NumberOfFlight,
+            Gate = flightDb.Gate,
+            Terminal = flightDb.Terminal,
             DepartureTime = flightDb.DepartureTime,
             FromCityId = flightDb.FromCityId,
             ToCityId = flightDb.ToCityId,
@@ -139,6 +148,15 @@ public class FlightService : IFlightService
         flightNew.PilotId = flight.PilotId;
         flightNew.AirlineId = flight.AirlineId;
         flightNew.AirlineAirplaneId = flight.AirlineAirplaneId;
+        flightNew.NumberOfFlight = flight.NumberOfFlight;
+        flightNew.Terminal = flight.Terminal;
+        flightNew.Gate = flight.Gate;
+        flightNew.ActualArrivalTime = flight.ActualArrivalTime;
+        flightNew.ActualDepartureTime = flight.ActualDepartureTime;
+        flightNew.CheckInStartTime = flight.CheckInStartTime;
+        flightNew.CheckInEndTime = flight.CheckInEndTime;
+        flightNew.BoardingStartTime = flight.BoardingStartTime;
+        flightNew.BoardingEndTime = flight.BoardingEndTime;
 
         await _context.SaveChangesAsync();
         return true;
