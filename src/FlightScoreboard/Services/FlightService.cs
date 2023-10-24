@@ -47,7 +47,7 @@ public class FlightService : IFlightService
         if (flight.AirplaneId != null) flights = flights.Where(x => x.AirlineAirplaneId == flight.AirplaneId);
         if (flight.FromCityId != null) flights = flights.Where(x => x.FromCityId == flight.FromCityId);
         if (flight.ToCityId != null) flights = flights.Where(x => x.ToCityId == flight.ToCityId);
-
+        if (flight.NumberOfFlight != null) flights = flights.Where(x => x.NumberOfFlight == flight.NumberOfFlight);
 
         /*var flights = _context.Flights.AsQueryable()
             .Where(x => x.PilotId == 4)
@@ -60,6 +60,15 @@ public class FlightService : IFlightService
         {
             Id = p.Id,
             ArrivalTime = p.ArrivalTime,
+            ActualDepartureTime = p.ActualDepartureTime,
+            ActualArrivalTime = p.ActualArrivalTime,
+            CheckInStartTime = p.CheckInStartTime,
+            CheckInEndTime = p.CheckInEndTime,
+            BoardingStartTime = p.BoardingStartTime,
+            BoardingEndTime = p.BoardingEndTime,
+            NumberOfFlight = p.NumberOfFlight,
+            Gate = p.Gate,
+            Terminal = p.Terminal,
             DepartureTime = p.DepartureTime,
             FromCity = p.FromCity.Name,
             ToCity = p.ToCity.Name,
@@ -97,6 +106,17 @@ public class FlightService : IFlightService
         {
             DepartureTime = flight.DepartureTime,
             ArrivalTime = flight.ArrivalTime,
+
+            ActualArrivalTime = flight.ActualArrivalTime,
+            ActualDepartureTime = flight.ActualDepartureTime,
+            CheckInStartTime = flight.CheckInStartTime,
+            CheckInEndTime = flight.CheckInEndTime,
+            BoardingStartTime = flight.BoardingStartTime,
+            BoardingEndTime = flight.BoardingEndTime,
+            NumberOfFlight = flight.NumberOfFlight,
+            Gate = flight.Gate,
+            Terminal = flight.Terminal,
+
             FromCityId = flight.FromCityId,
             ToCityId = flight.ToCityId,
             PilotId = flight.PilotId,

@@ -44,8 +44,6 @@ public class FlightController : Controller
         flights.Airlines = await _airlineService.GetAvailableAirlinesAsync();
         flights.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
         flights.Cities = await _cityService.GetAllCitiesAsync();
-
-
         //await Task.WhenAll(pilotsTask, airlinesTask, airplanesTask, citiesTask); //Task.WaitAll();  
 
         return View(flights);
@@ -76,7 +74,7 @@ public class FlightController : Controller
         var startTime = flight.StartDay;
         var currentDate = new DateTime(startTime.Year, startTime.Month, startTime.Day)
             .Add(flight.DepartureTime);
-        while (currentDate <= flight.FinishDay)
+        while (currentDate <= flight.FinishDay.AddDays(1))
         {
             var day = flight.DaysOfWeek.Any(day => day == currentDate.DayOfWeek);
             if (day)
@@ -85,11 +83,20 @@ public class FlightController : Controller
                 {
                     DepartureTime = currentDate,
                     ArrivalTime = currentDate.Add(flight.DurationTime),
+                    ActualDepartureTime = flight.ActualDepartureTime,
+                    ActualArrivalTime = flight.ActualArrivalTime,
+                    CheckInStartTime = flight.CheckInStartTime,
+                    CheckInEndTime = flight.CheckInEndTime,
+                    BoardingStartTime = flight.BoardingStartTime,
+                    BoardingEndTime = flight.BoardingEndTime,
                     FromCityId = flight.FromCityId,
                     ToCityId = flight.ToCityId,
                     PilotId = flight.PilotId,
                     AirlineId = flight.AirlineId,
-                    AirlineAirplaneId = flight.AirlineAirplaneId
+                    AirlineAirplaneId = flight.AirlineAirplaneId,
+                    NumberOfFlight = flight.NumberOfFlight,
+                    Gate = flight.Gate,
+                    Terminal = flight.Terminal
                 };
 
                 await _flightService.CreateFlightAsync(flightModel);

@@ -10,6 +10,7 @@
         <h3>Список рейсов:</h3>
         <table>
             <tr>
+                <th> Номер рейса </th>
                 <th> Время вылета </th>
                 <th> Время прилета </th>
                 <th> Откуда </th>
@@ -17,10 +18,22 @@
                 <th> Авиакомпания </th>
                 <th> Модель самолета </th>
                 <th> Пилот </th>
+                <th> Выход </th>
+                <th> Терминал </th>
+                <th> Время фактического вылета </th>
+                <th> Время фактического прилета </th>
+                <th> Начало регистрации </th>
+                <th> Окончание регистрации </th>
+                <th> Начало посадки </th>
+                <th> Окончание посадки </th>
+
 
             </tr>
             <form method="post">
                 <tr>
+                    <td>
+                        <input type="text" name="NumberOfFlight" asp-for="Flight.NumberOfFlight"/>
+                    </td>
                     <td>
                         <input type="date" name="DepartureTime" asp-for="Flight.DepartureTime"/> @*value="2053-10-20" asp-for="Flight.DepartureTime"*@
                     </td>
@@ -84,6 +97,7 @@
             @foreach (var flight in Model.Flights)
             {
                 <tr>
+                    <td>@flight.NumberOfFlight </td>
                     <td>@flight.DepartureTime </td>
                     <td>@flight.ArrivalTime </td>
                     <td>@flight.FromCity </td>
@@ -91,6 +105,14 @@
                     <td>@flight.AirlineName </td>
                     <td>@flight.AirplaneModel @flight.AirplaneSerialNumber </td>
                     <td>@flight.PilotFullName </td>
+                    <td>@flight.Gate </td>
+                    <td>@flight.Terminal </td>
+                    <td>@flight.ActualDepartureTime </td>
+                    <td>@flight.ActualArrivalTime </td>
+                    <td>@flight.CheckInStartTime </td>
+                    <td>@flight.CheckInEndTime </td>
+                    <td>@flight.BoardingStartTime </td>
+                    <td>@flight.BoardingEndTime </td>
                     <td>
                         <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Update" asp-route-id="@flight.Id">Редактировать</a>
                     </td>
@@ -109,7 +131,7 @@
         </div>
     }
     <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Create">Добавить рейс</a>
-    
+
     <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="CreateRepeatEvent">Добавить рейс по расписанию</a>
 
 

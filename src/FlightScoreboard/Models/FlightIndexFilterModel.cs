@@ -11,4 +11,5 @@ public class FlightIndexFilterModel
     public int? PilotId { get; set; }
     public int? AirlineId { get; set; }
     public int? AirplaneId { get; set; }
+    public string? NumberOfFlight { get; set; }
 }

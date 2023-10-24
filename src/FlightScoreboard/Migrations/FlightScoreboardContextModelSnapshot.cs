@@ -114,6 +114,12 @@ namespace FlightScoreboard.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("ActualArrivalTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ActualDepartureTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("AirlineAirplaneId")
                         .HasColumnType("int");
 
@@ -123,14 +129,38 @@ namespace FlightScoreboard.Migrations
                     b.Property<DateTime>("ArrivalTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("BoardingEndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("BoardingStartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CheckInEndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CheckInStartTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DepartureTime")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("FromCityId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Gate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NumberOfFlight")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PilotId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Terminal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ToCityId")
                         .HasColumnType("int");

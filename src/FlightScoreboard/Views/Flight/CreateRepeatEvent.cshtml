@@ -7,7 +7,7 @@
     <h3>Форма оформления рейса</h3>
     <p>Для оформления рейса заполните следующие поля:</p>
     <form method="post">
-        <div>Дни недели:</div>
+        <div>Дни недели <span style="color: red">*</span> :</div>
         <input type="checkbox" name="DaysOfWeek[]" value="Monday"/>Понедельник
         <input type="checkbox" name="DaysOfWeek[]" value="Tuesday"/>Вторник
         <input type="checkbox" name="DaysOfWeek[]" value="Wednesday"/>Среда
@@ -16,19 +16,25 @@
         <input type="checkbox" name="DaysOfWeek[]" value="Saturday"/>Суббота
         <input type="checkbox" name="DaysOfWeek[]" value="Sunday"/>Воскресенье
 
-        <div>Дата начала: <input type="date" name="StartDay"/> </div>
-        
-        <div>Дата окончания: <input type="date" name="FinishDay"/> </div>
-        
+        <div>Дата начала<span style="color: red">*</span> : <input type="date" name="StartDay"/> </div>
+
+        <div>Дата окончания<span style="color: red">*</span> : <input type="date" name="FinishDay"/> </div>
+
         <table>
             <tr>
-                <td>Время вылета:</td>
+                <td>Номер рейса<span style="color: red">*</span> :</td>
+                <td>
+                    <input type="text" name="NumberOfFlight"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Время вылета<span style="color: red">*</span> :</td>
                 <td>
                     <input type="time" name="DepartureTime"/>
                 </td>
             </tr>
             <tr>
-                <td>Продолжительность полета:</td>
+                <td>Продолжительность полета<span style="color: red">*</span> :</td>
                 <td>
                     <input type="time" name="DurationTime"/>
                 </td>
@@ -36,7 +42,7 @@
 
 
             <tr>
-                <td>Откуда:</td>
+                <td>Откуда<span style="color: red">*</span> :</td>
                 <td>
                     <select id="FromCityId" name="FromCityId">
                         @foreach (var city in Model.Cities)
@@ -47,7 +53,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Куда:</td>
+                <td>Куда<span style="color: red">*</span> :</td>
                 <td>
                     <select id="ToCityId" name="ToCityId">
                         @foreach (var city in Model.Cities)
@@ -60,7 +66,7 @@
             </tr>
 
             <tr>
-                <td>Авиакомпания:</td>
+                <td>Авиакомпания<span style="color: red">*</span> :</td>
                 <td>
                     <select id="AirlineId" name="AirlineId">
                         @foreach (var airline in Model.Airlines)
@@ -71,17 +77,29 @@
                 </td>
             </tr>
             <tr>
-                <td>Пилот:</td>
+                <td>Пилот<span style="color: red">*</span> :</td>
                 <td>
                     <select id="PilotId" name="PilotId">
                     </select>
                 </td>
             </tr>
             <tr>
-                <td>Самолет:</td>
+                <td>Самолет<span style="color: red">*</span> :</td>
                 <td>
                     <select id="AirlineAirplaneId" name="AirlineAirplaneId">
                     </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Терминал<span style="color: red">*</span> :</td>
+                <td>
+                    <input type="text" name="Terminal"/> 
+                </td>
+            </tr>
+            <tr>
+                <td>Выход<span style="color: red">*</span> :</td>
+                <td>
+                    <input type="text" name="Gate"/> 
                 </td>
             </tr>
             <tr>
