@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FlightScoreboard.Controllers;
 
-public class ScoreboardController : Controller
+public class ScoreboardDepartureController : Controller
 {
     private readonly ICityService _cityService;
     private readonly IScoreboardService _scoreboardService;
 
-    public ScoreboardController(ICityService cityService, IScoreboardService scoreboardService)
+    public ScoreboardDepartureController(ICityService cityService, IScoreboardService scoreboardService)
     {
         _cityService = cityService;
         _scoreboardService = scoreboardService;
@@ -17,11 +17,11 @@ public class ScoreboardController : Controller
 
     public async Task<IActionResult> Index(int? cityId, DateTime? dateTime)
     {
-        var flightModel = new ScoreboardIndexIpModel();
+        var flightModel = new ScoreboardDepartureIndexIpModel();
         flightModel.CityId = cityId;
         flightModel.DateTime = dateTime;
         flightModel.Cities = await _cityService.GetAllCitiesAsync();
-        flightModel.Flights = await _scoreboardService.GetAllFlightsAsync(cityId, dateTime);
+        flightModel.Flights = await _scoreboardService.GetDepartureFlightsAsync(cityId, dateTime);
         return View(flightModel);
     }
 }

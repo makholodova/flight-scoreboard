@@ -1,9 +1,9 @@
-﻿@model ScoreboardIndexIpModel
+﻿@model ScoreboardDepartureIndexIpModel
 @{
-    ViewData["Title"] = "Табло авиарейсов";
+    ViewData["Title"] = "Вылет";
 }
 <div>
-    <h3>Табло авиарейсов</h3>
+    <h3>Табло вылетов</h3>
     <form method="post">
         <div>
             Выберите город :
@@ -24,32 +24,35 @@
     {
         <table>
             <tr>
-                <th> Время вылета </th>
-                <th> Время прилета </th>
-                <th> Откуда </th>
-                <th> Куда </th>
                 <th> Авиакомпания </th>
+                <th> Номер рейса </th>
                 <th> Модель самолета </th>
+                <th> Куда </th>
+                <th> Время </th>
+                <th> Терминал </th>
+                <th> Выход </th>
+                <th> Статус </th>
             </tr>
 
             @foreach (var flight in Model.Flights)
             {
                 <tr>
-                    <td>@flight.DepartureTime </td>
-                    <td>@flight.ArrivalTime </td>
-                    <td>@flight.FromCity </td>
-                    <td>@flight.ToCity </td>
-                    <td>@flight.AirlineName </td>
+                    <td>@flight.AirlineName </td> 
+                    <td>@flight.NumberOfFlight </td>
                     <td>@flight.AirplaneModel </td>
+                    <td>@flight.ToCity </td>
+                    <td>@flight.DepartureTime </td>
+                    <td>@flight.Terminal </td>
+                    <td>@flight.Gate </td>
                 </tr>
             }
         </table>
     }
     else
     {
-        <div>Рейсы отсутствуют</div>
+        <div>Рейсы вылета отсутствуют</div>
         <div>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Scoreboard" asp-action="Index">Снять фильтр</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="ScoreboardDeparture" asp-action="Index">Снять фильтр</a>
         </div>
     }
 

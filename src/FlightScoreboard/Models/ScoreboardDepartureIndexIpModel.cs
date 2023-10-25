@@ -2,10 +2,10 @@
 
 namespace FlightScoreboard.Models;
 
-public class ScoreboardIndexIpModel
+public class ScoreboardDepartureIndexIpModel
 {
     public DateTime? DateTime { get; set; }
     public int? CityId { get; set; }
     public List<CityModel> Cities { get; set; }
-    public List<ScoreboardIndexModel> Flights { get; set; }
+    public List<ScoreboardDepartureIndexModel> Flights { get; set; }
 }

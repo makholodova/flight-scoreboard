@@ -7,7 +7,8 @@ namespace FlightScoreboard.Services;
 
 public interface IScoreboardService
 {
-    Task<List<ScoreboardIndexModel>> GetAllFlightsAsync(int? cityId, DateTime? dateTime);
+    Task<List<ScoreboardDepartureIndexModel>> GetDepartureFlightsAsync(int? cityId, DateTime? dateTime);
+    Task<List<ScoreboardArrivalIndexModel>> GetArrivalFlightsAsync(int? cityId, DateTime? dateTime);
 }
 
 public class ScoreboardService : IScoreboardService
@@ -20,26 +21,47 @@ public class ScoreboardService : IScoreboardService
         _context = context;
     }
 
-    public async Task<List<ScoreboardIndexModel>> GetAllFlightsAsync(int? cityId, DateTime? dateTime)
+    public async Task<List<ScoreboardDepartureIndexModel>> GetDepartureFlightsAsync(int? cityId, DateTime? dateTime)
     {
         var flights = _context.Flights.AsQueryable();
 
-        if (cityId != null) flights = flights.Where(x => x.FromCityId == cityId || x.ToCityId == cityId);
+        if (cityId != null) flights = flights.Where(x => x.ToCityId == cityId);
 
         if (dateTime != null)
-            flights = flights
-                .Where(x => x.ArrivalTime.Date == dateTime || x.DepartureTime.Date == dateTime);
+            flights = flights.Where(x => x.DepartureTime.Date == dateTime);
 
-        return await flights.Select(p => new ScoreboardIndexModel
+        return await flights.Select(p => new ScoreboardDepartureIndexModel
         {
-            ArrivalTime = p.ArrivalTime,
             DepartureTime = p.DepartureTime,
-            FromCity = p.FromCity.Name,
             ToCity = p.ToCity.Name,
+            NumberOfFlight = p.NumberOfFlight,
+            Gate = p.FromGate,
+            Terminal = p.FromGate,
             AirlineName = p.Airline.Name,
             AirlineId = p.AirlineId,
             AirplaneModel = p.AirlineAirplane.Airplane.Model,
             AirplaneId = p.AirlineAirplaneId
+        }).ToListAsync();
+    }
+
+    public async Task<List<ScoreboardArrivalIndexModel>> GetArrivalFlightsAsync(int? cityId, DateTime? dateTime)
+    {
+        var flights = _context.Flights.AsQueryable();
+        if (cityId != null) flights = flights.Where(p => p.FromCityId == cityId);
+        if (dateTime != null) flights = flights.Where(p => p.ArrivalTime.Date == dateTime);
+
+
+        return await flights.Select(p => new ScoreboardArrivalIndexModel
+        {
+            AirlineName = p.Airline.Name,
+            AirlineId = p.AirlineId,
+            NumberOfFlight = p.NumberOfFlight,
+            FromCity = p.FromCity.Name,
+            ArrivalTime = p.ArrivalTime,
+            AirplaneModel = p.AirlineAirplane.Airplane.Model,
+            AirplaneId = p.AirlineAirplane.AirplaneId,
+            Terminal = p.ToTerminal,
+            Gate = p.ToGate
         }).ToListAsync();
     }
 }
