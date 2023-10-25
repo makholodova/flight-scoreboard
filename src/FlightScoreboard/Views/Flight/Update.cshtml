@@ -39,13 +39,13 @@
             <tr>
                 <td>Время вылета запланированное<span style="color: red">*</span> :</td>
                 <td>
-                    <input id="DepartureTimeId" type="datetime-local" value="@Model.Flight.DepartureTime" name="DepartureTime"/>
+                    <input id="DepartureTimeId" type="datetime-local" asp-for="@Model.Flight.DepartureTime" name="DepartureTime"/>
                 </td>
             </tr>
             <tr>
                 <td>Время прилета запланированное<span style="color: red">*</span> :</td>
                 <td>
-                    <input id="ArrivalTimeId" type="datetime-local" value="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
+                    <input id="ArrivalTimeId" type="datetime-local" asp-for="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
                 </td>
             </tr>
             <tr>
@@ -75,51 +75,63 @@
                 </td>
             </tr>
             <tr>
-                <td>Терминал:</td>
+                <td>Терминал вылета:</td>
                 <td>
-                    <input type="text" value="@Model.Flight.Terminal" name="Terminal"/>
+                    <input type="text" asp-for="@Model.Flight.FromTerminal" name="FromTerminal"/>
                 </td>
             </tr>
             <tr>
-                <td>Выход:</td>
+                <td>Gate вылета:</td>
                 <td>
-                    <input type="text" value="@Model.Flight.Gate" name="Gate"/>
+                    <input type="text" value="@Model.Flight.FromGate" name="FromGate"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Терминал прилета:</td>
+                <td>
+                    <input type="text" value="@Model.Flight.ToTerminal" name="ToTerminal"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Gate прилета:</td>
+                <td>
+                    <input type="text" value="@Model.Flight.ToGate" name="ToGate"/>
                 </td>
             </tr>
             <tr>
                 <td>Время вылета фактическое:</td>
                 <td>
-                    <input id="ActualDepartureTimeId" type="datetime-local" value="@Model.Flight.ActualDepartureTime" name="ActualDepartureTime"/>
+                    <input id="ActualDepartureTimeId" type="datetime-local" asp-for="@Model.Flight.ActualDepartureTime" name="ActualDepartureTime"/>
                 </td>
             </tr>
             <tr>
                 <td>Время прилета фактическое:</td>
                 <td>
-                    <input id="ActualArrivalTimeId" type="datetime-local" value="@Model.Flight.ActualArrivalTime" name="ActualArrivalTime"/>
+                    <input id="ActualArrivalTimeId" type="datetime-local" asp-for="@Model.Flight.ActualArrivalTime" name="ActualArrivalTime"/>
                 </td>
             </tr>
             <tr>
                 <td>Начало регистрации:</td>
                 <td>
-                    <input id="CheckInStartTimeId" type="datetime-local" value="@Model.Flight.CheckInStartTime" name="CheckInStartTime"/>
+                    <input id="CheckInStartTimeId" type="datetime-local" asp-for="@Model.Flight.CheckInStartTime" name="CheckInStartTime"/>
                 </td>
             </tr>
             <tr>
                 <td>Окончание регистрации:</td>
                 <td>
-                    <input id="CheckInEndTimeId" type="datetime-local" value="@Model.Flight.CheckInEndTime" name="CheckInEndTime"/>
+                    <input id="CheckInEndTimeId" type="datetime-local" asp-for="@Model.Flight.CheckInEndTime" name="CheckInEndTime"/>
                 </td>
             </tr>
             <tr>
                 <td>Начало посадки:</td>
                 <td>
-                    <input id="BoardingStartTimeId" type="datetime-local" value="@Model.Flight.BoardingStartTime" name="BoardingStartTime"/>
+                    <input id="BoardingStartTimeId" type="datetime-local" asp-for="@Model.Flight.BoardingStartTime" name="BoardingStartTime"/>
                 </td>
             </tr>
             <tr>
                 <td>Окончание посадки:</td>
                 <td>
-                    <input id="BoardingEndTimeId" type="datetime-local" value="@Model.Flight.BoardingEndTime" name="BoardingEndTime"/>
+                    <input id="BoardingEndTimeId" type="datetime-local" asp-for="@Model.Flight.BoardingEndTime" name="BoardingEndTime"/>
                 </td>
             </tr>
             <tr>

@@ -67,8 +67,10 @@ public class FlightService : IFlightService
             BoardingStartTime = p.BoardingStartTime,
             BoardingEndTime = p.BoardingEndTime,
             NumberOfFlight = p.NumberOfFlight,
-            Gate = p.Gate,
-            Terminal = p.Terminal,
+            ToGate = p.ToGate,
+            ToTerminal = p.ToTerminal,
+            FromGate = p.FromGate,
+            FromTerminal = p.FromTerminal,
             DepartureTime = p.DepartureTime,
             FromCity = p.FromCity.Name,
             ToCity = p.ToCity.Name,
@@ -98,8 +100,10 @@ public class FlightService : IFlightService
             BoardingStartTime = flightDb.BoardingStartTime,
             BoardingEndTime = flightDb.BoardingEndTime,
             NumberOfFlight = flightDb.NumberOfFlight,
-            Gate = flightDb.Gate,
-            Terminal = flightDb.Terminal,
+            ToGate = flightDb.ToGate,
+            ToTerminal = flightDb.ToTerminal,
+            FromGate = flightDb.FromGate,
+            FromTerminal = flightDb.FromTerminal,
             DepartureTime = flightDb.DepartureTime,
             FromCityId = flightDb.FromCityId,
             ToCityId = flightDb.ToCityId,
@@ -123,9 +127,10 @@ public class FlightService : IFlightService
             BoardingStartTime = flight.BoardingStartTime,
             BoardingEndTime = flight.BoardingEndTime,
             NumberOfFlight = flight.NumberOfFlight,
-            Gate = flight.Gate,
-            Terminal = flight.Terminal,
-
+            ToGate = flight.ToGate,
+            ToTerminal = flight.ToTerminal,
+            FromGate = flight.FromGate,
+            FromTerminal = flight.FromTerminal,
             FromCityId = flight.FromCityId,
             ToCityId = flight.ToCityId,
             PilotId = flight.PilotId,
@@ -149,8 +154,10 @@ public class FlightService : IFlightService
         flightNew.AirlineId = flight.AirlineId;
         flightNew.AirlineAirplaneId = flight.AirlineAirplaneId;
         flightNew.NumberOfFlight = flight.NumberOfFlight;
-        flightNew.Terminal = flight.Terminal;
-        flightNew.Gate = flight.Gate;
+        flightNew.ToTerminal = flight.ToTerminal;
+        flightNew.ToGate = flight.ToGate;
+        flightNew.FromTerminal = flight.FromTerminal;
+        flightNew.FromGate = flight.FromGate;
         flightNew.ActualArrivalTime = flight.ActualArrivalTime;
         flightNew.ActualDepartureTime = flight.ActualDepartureTime;
         flightNew.CheckInStartTime = flight.CheckInStartTime;

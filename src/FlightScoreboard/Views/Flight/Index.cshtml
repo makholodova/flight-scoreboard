@@ -18,8 +18,10 @@
                 <th> Авиакомпания </th>
                 <th> Модель самолета </th>
                 <th> Пилот </th>
-                <th> Выход </th>
-                <th> Терминал </th>
+                <th> Терминал вылета </th>
+                <th> Gate вылета </th>
+                <th> Терминал прилёта </th>
+                <th> Gate прилёта </th>
                 <th> Время фактического вылета </th>
                 <th> Время фактического прилета </th>
                 <th> Начало регистрации </th>
@@ -105,8 +107,10 @@
                     <td>@flight.AirlineName </td>
                     <td>@flight.AirplaneModel @flight.AirplaneSerialNumber </td>
                     <td>@flight.PilotFullName </td>
-                    <td>@flight.Gate </td>
-                    <td>@flight.Terminal </td>
+                    <td>@flight.FromTerminal </td>
+                    <td>@flight.FromGate </td>
+                    <td>@flight.ToTerminal </td>
+                    <td>@flight.ToGate </td>
                     <td>@flight.ActualDepartureTime </td>
                     <td>@flight.ActualArrivalTime </td>
                     <td>@flight.CheckInStartTime </td>

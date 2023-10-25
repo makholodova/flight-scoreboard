@@ -20,8 +20,10 @@ public class FlightConfiguration : IEntityTypeConfiguration<Flight>
 		builder.Property(p => p.BoardingEndTime);
 		
 		builder.Property(p => p.NumberOfFlight).IsRequired();
-		builder.Property(p => p.Gate);
-		builder.Property(p => p.Terminal);
+		builder.Property(p => p.ToGate);
+		builder.Property(p => p.FromGate);
+		builder.Property(p => p.ToTerminal);
+		builder.Property(p => p.FromTerminal);
 		
 		builder.HasOne(p => p.Airline).WithMany(p => p.Flights).HasForeignKey(p => p.AirlineId).IsRequired();
 		builder.HasOne(p => p.AirlineAirplane).WithMany(p => p.Flights).HasForeignKey(p => p.AirlineAirplaneId).OnDelete(DeleteBehavior.NoAction).IsRequired();

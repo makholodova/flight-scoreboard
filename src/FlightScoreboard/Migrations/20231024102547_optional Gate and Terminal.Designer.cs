@@ -4,6 +4,7 @@ using FlightScoreboard.DateBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlightScoreboard.Migrations
 {
     [DbContext(typeof(FlightScoreboardContext))]
-    partial class FlightScoreboardContextModelSnapshot : ModelSnapshot
+    [Migration("20231024102547_optional Gate and Terminal")]
+    partial class optionalGateandTerminal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,10 +150,7 @@ namespace FlightScoreboard.Migrations
                     b.Property<int>("FromCityId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FromGate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FromTerminal")
+                    b.Property<string>("Gate")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NumberOfFlight")
@@ -160,14 +160,11 @@ namespace FlightScoreboard.Migrations
                     b.Property<int>("PilotId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Terminal")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ToCityId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ToGate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ToTerminal")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -19,7 +19,9 @@ public class FlightCreateModel
 	public int AirlineAirplaneId { get; set; } 
 	
 	public string  NumberOfFlight { get; set; }
-	public string  Gate { get; set; }
-	public string  Terminal { get; set; }
+	public string  ToGate { get; set; }
+	public string  ToTerminal { get; set; }
+	public string  FromGate { get; set; }
+	public string  FromTerminal { get; set; }
 	
 }

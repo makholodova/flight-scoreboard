@@ -33,6 +33,7 @@ public class FlightController : Controller
         flightModel.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
         flightModel.Cities = await _cityService.GetAllCitiesAsync();
         flightModel.Flights = await _flightService.GetAllFlightsAsync(flight);
+        
         return View(flightModel);
     }
 
@@ -44,8 +45,7 @@ public class FlightController : Controller
         flights.Airlines = await _airlineService.GetAvailableAirlinesAsync();
         flights.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
         flights.Cities = await _cityService.GetAllCitiesAsync();
-        //await Task.WhenAll(pilotsTask, airlinesTask, airplanesTask, citiesTask); //Task.WaitAll();  
-
+        
         return View(flights);
     }
 
@@ -95,8 +95,10 @@ public class FlightController : Controller
                     AirlineId = flight.AirlineId,
                     AirlineAirplaneId = flight.AirlineAirplaneId,
                     NumberOfFlight = flight.NumberOfFlight,
-                    Gate = flight.Gate,
-                    Terminal = flight.Terminal
+                    ToGate = flight.ToGate,
+                    ToTerminal = flight.ToTerminal,
+                    FromGate = flight.FromGate,
+                    FromTerminal = flight.FromTerminal
                 };
 
                 await _flightService.CreateFlightAsync(flightModel);
@@ -104,13 +106,6 @@ public class FlightController : Controller
 
             currentDate = currentDate.AddDays(1);
         }
-
-        /*currentDate = currentDate.AddDays(1);
-         var a = currentDate.DayOfWeek;
-         if (currentDate < flight.FinishDay)
-         {
-             //stop
-         }*/
 
         return RedirectToAction("Index");
     }
@@ -125,9 +120,7 @@ public class FlightController : Controller
         flight.Pilots = await _pilotService.GetAllPilotsAsync();
         flight.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
         flight.Airlines = await _airlineService.GetAvailableAirlinesAsync();
-
-        // await Task.WhenAll(flightTask, citiesTask,pilotsTask,airplanesTask,airlinesTask);  
-
+        
         return View(flight);
     }
 
