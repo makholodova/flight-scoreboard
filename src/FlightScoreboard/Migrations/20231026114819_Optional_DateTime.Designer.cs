@@ -4,6 +4,7 @@ using FlightScoreboard.DateBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlightScoreboard.Migrations
 {
     [DbContext(typeof(FlightScoreboardContext))]
-    partial class FlightScoreboardContextModelSnapshot : ModelSnapshot
+    [Migration("20231026114819_Optional_DateTime")]
+    partial class Optional_DateTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

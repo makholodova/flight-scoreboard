@@ -17,7 +17,6 @@ public class ScoreboardArrivalController : Controller
         _scoreboardService = scoreboardService;
     }
 
-
     public async Task<IActionResult> Index(int? cityId, DateTime? dateTime)
     {
         var flight = new ScoreboardArrivalIndexIpModel();
@@ -27,4 +26,6 @@ public class ScoreboardArrivalController : Controller
         flight.Flights =await _scoreboardService.GetArrivalFlightsAsync(cityId, dateTime);
         return View(flight);
     }
+    
+    
 }

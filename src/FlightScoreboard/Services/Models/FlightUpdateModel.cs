@@ -11,12 +11,12 @@ public class FlightUpdateModel
 	public int AirlineId { get; set; }
 	public int AirlineAirplaneId { get; set; }
 	
-	public DateTime ActualDepartureTime { get; set; }
-	public DateTime ActualArrivalTime { get; set; }
-	public DateTime CheckInStartTime { get; set; }
-	public DateTime CheckInEndTime { get; set; }
-	public DateTime BoardingStartTime { get; set; }
-	public DateTime BoardingEndTime { get; set; }
+	public DateTime? ActualDepartureTime { get; set; }
+	public DateTime? ActualArrivalTime { get; set; }
+	public DateTime? CheckInStartTime { get; set; }
+	public DateTime? CheckInEndTime { get; set; }
+	public DateTime? BoardingStartTime { get; set; }
+	public DateTime? BoardingEndTime { get; set; }
 	public string  NumberOfFlight { get; set; }
 	public string  ToGate { get; set; }
 	public string  ToTerminal { get; set; }

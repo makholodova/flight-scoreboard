@@ -115,11 +115,11 @@ public class FlightService : IFlightService
 
     public async Task<int> CreateFlightAsync(FlightCreateModel flight)
     {
+       
         var addFlight = await _context.Flights.AddAsync(new Flight
         {
             DepartureTime = flight.DepartureTime,
             ArrivalTime = flight.ArrivalTime,
-
             ActualArrivalTime = flight.ActualArrivalTime,
             ActualDepartureTime = flight.ActualDepartureTime,
             CheckInStartTime = flight.CheckInStartTime,

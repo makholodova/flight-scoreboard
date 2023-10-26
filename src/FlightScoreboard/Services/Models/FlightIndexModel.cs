@@ -8,12 +8,12 @@ public class FlightIndexModel
     public DateTime DepartureTime { get; set; }
     public DateTime ArrivalTime { get; set; }
     
-    public DateTime ActualDepartureTime { get; set; }
-    public DateTime ActualArrivalTime { get; set; }
-    public DateTime CheckInStartTime { get; set; }
-    public DateTime CheckInEndTime { get; set; }
-    public DateTime BoardingStartTime { get; set; }
-    public DateTime BoardingEndTime { get; set; }
+    public DateTime? ActualDepartureTime { get; set; }
+    public DateTime? ActualArrivalTime { get; set; }
+    public DateTime? CheckInStartTime { get; set; }
+    public DateTime? CheckInEndTime { get; set; }
+    public DateTime? BoardingStartTime { get; set; }
+    public DateTime? BoardingEndTime { get; set; }
     public string  NumberOfFlight { get; set; }
     public string  ToGate { get; set; }
     public string  ToTerminal { get; set; }

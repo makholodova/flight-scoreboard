@@ -37,13 +37,14 @@
             @foreach (var flight in Model.Flights)
             {
                 <tr>
-                    <td>@flight.AirlineName </td> 
+                    <td>@flight.AirlineName </td>
                     <td>@flight.NumberOfFlight </td>
                     <td>@flight.AirplaneModel </td>
                     <td>@flight.FromCity </td>
                     <td>@flight.ArrivalTime </td>
                     <td>@flight.Terminal </td>
                     <td>@flight.Gate </td>
+                    <td>@flight.StatusMessage </td>
                 </tr>
             }
         </table>
