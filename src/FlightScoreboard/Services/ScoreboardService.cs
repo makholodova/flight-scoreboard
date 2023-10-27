@@ -15,10 +15,12 @@ public class ScoreboardService : IScoreboardService
 
 {
     private readonly FlightScoreboardContext _context;
+    private readonly IStatusService _statusService;
 
-    public ScoreboardService(FlightScoreboardContext context)
+    public ScoreboardService(FlightScoreboardContext context, IStatusService statusService)
     {
         _context = context;
+        _statusService = statusService;
     }
 
     public async Task<List<ScoreboardDepartureIndexModel>> GetDepartureFlightsAsync(int? cityId, DateTime? dateTime)
@@ -49,7 +51,8 @@ public class ScoreboardService : IScoreboardService
             BoardingStartTime = p.BoardingStartTime,
             BoardingEndTime = p.BoardingEndTime
         }).ToListAsync();
-        foreach (var scoreboard in scoreboardDeparture) scoreboard.StatusMessage = InstallDepartureStatus(scoreboard);
+        foreach (var scoreboard in scoreboardDeparture)
+            scoreboard.StatusMessage = _statusService.CalculateStatus(scoreboard);
         return scoreboardDeparture;
     }
 
@@ -74,61 +77,16 @@ public class ScoreboardService : IScoreboardService
             Terminal = p.ToTerminal,
             Gate = p.ToGate,
             ActualDepartureTime = p.ActualDepartureTime,
-            ActualArrivalTime = p.ActualArrivalTime
-            /*CheckInStartTime = p.CheckInStartTime,
+            ActualArrivalTime = p.ActualArrivalTime,
+            CheckInStartTime = p.CheckInStartTime,
             CheckInEndTime = p.CheckInEndTime,
             BoardingStartTime = p.BoardingStartTime,
-            BoardingEndTime = p.BoardingEndTime*/
+            BoardingEndTime = p.BoardingEndTime
         }).ToListAsync();
 
-        foreach (var scoreboard in scoreboardArrival) scoreboard.StatusMessage = InstallArrivalStatus(scoreboard);
+        foreach (var scoreboard in scoreboardArrival)
+            scoreboard.StatusMessage = _statusService.CalculateStatus(scoreboard);
 
         return scoreboardArrival;
-    }
-
-    private string InstallArrivalStatus(ScoreboardArrivalIndexModel scoreboardArrival)
-    {
-        if (scoreboardArrival.ActualArrivalTime != null)
-            return "Прибыл  " + scoreboardArrival.ActualArrivalTime;
-
-        if (scoreboardArrival.ActualDepartureTime != null)
-            return "Вылетел  " + scoreboardArrival.ActualDepartureTime;
-
-        if (scoreboardArrival.DepartureTime < scoreboardArrival.ActualDepartureTime)
-            return "Задерживается, самолет вылетел " + scoreboardArrival.ActualDepartureTime;
-        if (scoreboardArrival.DepartureTime < DateTime.Now)
-            return "Задерживается, запланированное время вылета " + scoreboardArrival.DepartureTime;
-
-        return "";
-    }
-
-    private string InstallDepartureStatus(ScoreboardDepartureIndexModel scoreboardDeparture)
-    {
-        if (scoreboardDeparture.ActualArrivalTime != null)
-            return "Прибыл  " + scoreboardDeparture.ActualArrivalTime;
-
-        if (scoreboardDeparture.ActualDepartureTime != null)
-            return "Вылетел  " + scoreboardDeparture.ActualDepartureTime;
-        
-        if (scoreboardDeparture.BoardingStartTime != null)
-            return "Посадка окончена ";
-
-        if (scoreboardDeparture.BoardingStartTime != null)
-            return "Идет посадка ";
-        
-        if (scoreboardDeparture.CheckInEndTime != null)
-            return "Регистрация окончена ";
-        
-        if (scoreboardDeparture.CheckInStartTime != null)
-            return "Идет регистрация до  " +
-                   scoreboardDeparture.CheckInStartTime.Value.TimeOfDay.Add(new TimeSpan(2, 0, 0));
-        
-        if (scoreboardDeparture.DepartureTime < scoreboardDeparture.ActualDepartureTime)
-            return "Задерживается, самолет вылетел " + scoreboardDeparture.ActualDepartureTime;
-        
-        if (scoreboardDeparture.DepartureTime < DateTime.Now)
-            return "Задерживается, запланированное время вылета " + scoreboardDeparture.DepartureTime;
-
-        return "Начало регистрации " + scoreboardDeparture.DepartureTime.TimeOfDay.Add(new TimeSpan(-2, 0, 0));
     }
 }

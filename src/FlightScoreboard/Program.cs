@@ -11,6 +11,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<FlightScoreboardContext>(options =>
     options.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
+builder.Services.AddTransient<IStatusService, StatusService>();
 builder.Services.AddTransient<IAirlineAirplaneService, AirlineAirplaneService>();
 builder.Services.AddTransient<IAirlineService, AirlineService>();
 builder.Services.AddTransient<IAirplaneService, AirplaneService>();

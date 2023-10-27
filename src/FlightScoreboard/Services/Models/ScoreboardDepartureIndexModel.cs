@@ -1,6 +1,6 @@
 ﻿namespace FlightScoreboard.Services.Models;
 
-public class ScoreboardDepartureIndexModel
+public class ScoreboardDepartureIndexModel: IStatusCalculation
 {
     public string AirlineName { get; set; }
     public int AirlineId { get; set; }

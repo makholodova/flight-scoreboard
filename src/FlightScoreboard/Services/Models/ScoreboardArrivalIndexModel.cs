@@ -1,6 +1,6 @@
 ﻿namespace FlightScoreboard.Services.Models;
 
-public class ScoreboardArrivalIndexModel
+public class ScoreboardArrivalIndexModel: IStatusCalculation
 {
     public string AirlineName { get; set; }
     public int AirlineId { get; set; }
@@ -15,8 +15,8 @@ public class ScoreboardArrivalIndexModel
     public string StatusMessage { get; set; }
     public DateTime? ActualDepartureTime { get; set; }
     public DateTime? ActualArrivalTime { get; set; }
-    /*public DateTime CheckInStartTime { get; set; }
-    public DateTime CheckInEndTime { get; set; }
-    public DateTime BoardingStartTime { get; set; }
-    public DateTime BoardingEndTime { get; set; }*/
+    public DateTime? CheckInStartTime { get; set; }
+    public DateTime? CheckInEndTime { get; set; }
+    public DateTime? BoardingStartTime { get; set; }
+    public DateTime? BoardingEndTime { get; set; }
 }
