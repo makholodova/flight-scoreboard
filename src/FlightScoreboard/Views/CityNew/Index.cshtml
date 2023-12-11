@@ -1,32 +1,32 @@
 ﻿@{
-    ViewData["Title"] = "Города";
+	ViewData["Title"] = "Города";
 }
 
 
 <div class="container ">
-    <div class="row ">
-        <div class="col-sm">Города</div>
-        <div class="col"></div>
-    </div>
-    <div id="cities"></div>
-    <button id="create-city">Создать новый город</button>
+	<div class="row ">
+		<div class="col-sm">Города</div>
+		<div class="col"></div>
+	</div>
+	<div id="cities"></div>
+	<button id="create-city">Создать новый город</button>
 </div>
 
 
 <div id="dialog-form" title="Создать новый город">
-    <p class="validateTips">Заполните форму</p>
+	<p class="validateTips">Заполните форму</p>
 
-    <form>
-        <fieldset>
-            <label for="name">Наименование города</label>
-            <input type="text" name="name" id="newCityName" class="text ui-widget-content ui-corner-all">
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        </fieldset>
-    </form>
+	<form>
+		<fieldset>
+			<label for="name">Наименование города</label>
+			<input type="text" name="name" id="newCityName" class="text ui-widget-content ui-corner-all">
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		</fieldset>
+	</form>
 </div>
 
 @section Scripts{
-    <script>
+	<script type="text/javascript">
    function deleteCity (id){   
                      let url = "https://localhost:44322/CityNew/delete/" ;
                     $.post( url, { id: id},function( data ) {
