@@ -1,0 +1,157 @@
+﻿@{
+    ViewData["Title"] = "Города";
+}
+
+
+<div class="container ">
+    <div class="row ">
+        <div class="col-sm">Города</div>
+        <div  class="col"></div>
+    </div>
+    <div id="cities"></div>
+    <button id="create-city">Создать новый город</button>
+</div>
+
+
+<div id="dialog-form" title="Создать новый город">
+    <p class="validateTips">Заполните форму</p>
+
+    <form>
+        <fieldset>
+            <label for="name">Наименование города</label>
+            <input type="text" name="name" id="newCityName" class="text ui-widget-content ui-corner-all">
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+    </form>
+</div>
+
+@section Scripts{
+  <script>
+  
+  
+  
+    function deleteCity (id){   
+      let url = "https://localhost:44322/CityNew/delete/" ;
+     $.post( url, { id: id},function( data ) {
+        $('#city_row_' + id).remove();
+     } );
+        
+    } 
+    function createCity (){   
+           let url = "https://localhost:44322/CityNew/create/" ;
+           let cityName=$("#newCityName").val();  
+     $.post( url, { name: cityName}, function( data ) {
+       
+       
+       
+       
+             dialog.dialog( "close" );
+     } );
+             
+     }
+         
+     $(document).ready(
+          function (){  
+                        
+             let cityAPI = "https://localhost:44322/CityNew/all";
+             $.getJSON( cityAPI, function( data ) {
+                let cities = "";
+                $.each( data, function( index, val ) {
+                    let city="<div  class='city col'>" + val.name + "</div>";
+                    let deleteCity=`<div class='delete col'>
+                                        <a href='#' onclick='deleteCity(${val.id})'>Удалить</a>
+                                     </div>`;
+                    let row = `<div id='city_row_${val.id}' class='row'>${city} ${deleteCity}</div>`;
+                    cities += row; 
+                });
+                                
+                $('#cities').html(cities);
+             }); 
+             
+          
+              let dialog, form,
+                name = $( "#newCityName" ),
+                allFields = $( [] ).add( name ),
+                tips = $( ".validateTips" );
+           
+              function updateTips( t ) {
+                tips
+                  .text( t )
+                  .addClass( "ui-state-highlight" );
+                setTimeout(function() {
+                  tips.removeClass( "ui-state-highlight", 1500 );
+                }, 500 );
+              }
+           
+              function checkLength( o, n, min, max ) {
+                if ( o.val().length > max || o.val().length < min ) {
+                  o.addClass( "ui-state-error" );
+                  updateTips( "Length of " + n + " must be between " +
+                    min + " and " + max + "." );
+                  return false;
+                } else {
+                  return true;
+                }
+              }
+           
+             /* function checkRegexp( o, regexp, n ) {
+                if ( !( regexp.test( o.val() ) ) ) {
+                  o.addClass( "ui-state-error" );
+                  updateTips( n );
+                  return false;
+                } else {
+                  return true;
+                }
+              }*/
+           
+              function addUser() {
+                let valid = true;
+                allFields.removeClass( "ui-state-error" );
+           
+                valid = valid && checkLength( name, "cityname", 2, 25 );
+                           
+               /* valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );*/
+                                        
+               ///////////////////////////////////                         
+                if ( valid ) {
+                  
+                  $( "#cities " ).append(
+                           )
+                  
+                }
+                return valid;
+              }
+           
+              dialog = $( "#dialog-form" ).dialog({
+                autoOpen: false,
+                height: 400,
+                width: 350,
+                modal: true,
+                buttons: {
+                  "Создать": addUser,
+                  "Отмена": function() {
+                    dialog.dialog( "close" );
+                  }
+                },
+                close: function() {
+                  form[ 0 ].reset();
+                  allFields.removeClass( "ui-state-error" );
+                }
+              });
+           
+              form = dialog.find( "form" ).on( "submit", function( event ) {
+                event.preventDefault();
+                addUser();
+              });
+           
+              $( "#create-city" ).button().on( "click", function() {
+                dialog.dialog( "open" );
+              });
+           
+       
+          }
+     )  
+ 
+
+    </script>
+}
