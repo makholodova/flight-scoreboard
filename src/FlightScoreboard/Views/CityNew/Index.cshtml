@@ -6,7 +6,7 @@
 <div class="container ">
     <div class="row ">
         <div class="col-sm">Города</div>
-        <div  class="col"></div>
+        <div class="col"></div>
     </div>
     <div id="cities"></div>
     <button id="create-city">Создать новый город</button>
@@ -26,49 +26,46 @@
 </div>
 
 @section Scripts{
-  <script>
-  
-  
-  
-    function deleteCity (id){   
-      let url = "https://localhost:44322/CityNew/delete/" ;
-     $.post( url, { id: id},function( data ) {
-        $('#city_row_' + id).remove();
-     } );
-        
-    } 
-    function createCity (){   
-           let url = "https://localhost:44322/CityNew/create/" ;
-           let cityName=$("#newCityName").val();  
-     $.post( url, { name: cityName}, function( data ) {
-       
-       
-       
-       
-             dialog.dialog( "close" );
-     } );
-             
-     }
+    <script>
+   function deleteCity (id){   
+                     let url = "https://localhost:44322/CityNew/delete/" ;
+                    $.post( url, { id: id},function( data ) {
+                       $('#city_row_' + id).remove();
+                    } );
+     } 
          
      $(document).ready(
           function (){  
-                        
+             function createCity (){   
+                        let url = "https://localhost:44322/CityNew/create/" ;
+                        let cityName=$("#newCityName").val();    
+                        $.post( url, { name: cityName}, function( data ) {
+                           $( "#cities " ).append( 
+                              createCityRow(cityName, data)
+                           );
+                           $( "#dialog-form" ).dialog( "close" );
+                       } );
+                  }
+                  
+                  function createCityRow (name,id){
+                       let city="<div  class='city col'>" + name + "</div>";
+                       let deleteCity=`<div class='delete col'>
+                                           <a href='javascript:void(0);' onclick='deleteCity(${id})'>Удалить</a>
+                                       </div>`;
+                       return  `<div id='city_row_${id}' class='row'>${city} ${deleteCity}</div>`;
+                  }
+                  
              let cityAPI = "https://localhost:44322/CityNew/all";
              $.getJSON( cityAPI, function( data ) {
                 let cities = "";
                 $.each( data, function( index, val ) {
-                    let city="<div  class='city col'>" + val.name + "</div>";
-                    let deleteCity=`<div class='delete col'>
-                                        <a href='#' onclick='deleteCity(${val.id})'>Удалить</a>
-                                     </div>`;
-                    let row = `<div id='city_row_${val.id}' class='row'>${city} ${deleteCity}</div>`;
+                    let row = createCityRow(val.name,val.id)
                     cities += row; 
                 });
                                 
                 $('#cities').html(cities);
              }); 
              
-          
               let dialog, form,
                 name = $( "#newCityName" ),
                 allFields = $( [] ).add( name ),
@@ -83,42 +80,24 @@
                 }, 500 );
               }
            
-              function checkLength( o, n, min, max ) {
-                if ( o.val().length > max || o.val().length < min ) {
-                  o.addClass( "ui-state-error" );
-                  updateTips( "Length of " + n + " must be between " +
-                    min + " and " + max + "." );
+              function checkStringLength( str, strName, min, max ) {
+                if ( str.val().length > max || str.val().length < min ) {
+                  str.addClass( "ui-state-error" );
+                  updateTips( "Название " + strName + " должно содержать количество символов от " +
+                    min + " до " + max + "." );
                   return false;
                 } else {
                   return true;
                 }
               }
            
-             /* function checkRegexp( o, regexp, n ) {
-                if ( !( regexp.test( o.val() ) ) ) {
-                  o.addClass( "ui-state-error" );
-                  updateTips( n );
-                  return false;
-                } else {
-                  return true;
-                }
-              }*/
-           
               function addUser() {
-                let valid = true;
                 allFields.removeClass( "ui-state-error" );
-           
-                valid = valid && checkLength( name, "cityname", 2, 25 );
-                           
-               /* valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );*/
-                                        
-               ///////////////////////////////////                         
-                if ( valid ) {
-                  
-                  $( "#cities " ).append(
-                           )
-                  
+                let valid = checkStringLength( name, "города", 2, 25 );
+                if ( valid ) { 
+                  createCity();
                 }
+              
                 return valid;
               }
            
@@ -147,11 +126,7 @@
               $( "#create-city" ).button().on( "click", function() {
                 dialog.dialog( "open" );
               });
-           
-       
           }
      )  
- 
-
     </script>
 }

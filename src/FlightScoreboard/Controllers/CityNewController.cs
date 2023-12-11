@@ -30,8 +30,8 @@ public class CityNewController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(CityCreateModel city)
     {
-        await _cityService.CreateCityAsync(city);
-        return RedirectToAction("Index");
+        var cityId= await _cityService.CreateCityAsync(city);
+        return Json(cityId);
     }
 
     [HttpPost]

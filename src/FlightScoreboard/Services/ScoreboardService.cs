@@ -39,7 +39,7 @@ public class ScoreboardService : IScoreboardService
             ToCity = p.ToCity.Name,
             NumberOfFlight = p.NumberOfFlight,
             Gate = p.FromGate,
-            Terminal = p.FromGate,
+            Terminal = p.FromTerminal,
             AirlineName = p.Airline.Name,
             AirlineId = p.AirlineId,
             AirplaneModel = p.AirlineAirplane.Airplane.Model,
