@@ -1,6 +1,5 @@
-﻿using FlightScoreboard.DateBase;
-using FlightScoreboard.Models;
-using FlightScoreboard.Services;
+﻿using FlightScoreboard.Models;
+using FlightScoreboardData.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightScoreboard.Controllers;

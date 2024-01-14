@@ -1,5 +1,5 @@
-using FlightScoreboard.DateBase;
-using FlightScoreboard.Services;
+using FlightScoreboardData.DateBase;
+using FlightScoreboardData.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

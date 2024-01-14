@@ -1,4 +1,6 @@
-﻿namespace FlightScoreboard.Models;
+﻿using FlightScoreboardData.Services.Models;
+
+namespace FlightScoreboard.Models;
 
 public class PilotCreateModelGet
 {

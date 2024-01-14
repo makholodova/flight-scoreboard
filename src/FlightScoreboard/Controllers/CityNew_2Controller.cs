@@ -1,11 +1,10 @@
 ﻿using FlightScoreboard.Models;
-using FlightScoreboard.Services;
-using FlightScoreboard.Services.Models;
+using FlightScoreboardData.Services;
+using FlightScoreboardData.Services.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightScoreboard.Controllers;
 
-[ApiController]
 public class CityNew_2Controller : Controller
 {
     private readonly ICityService _cityService;
