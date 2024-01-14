@@ -1,0 +1,92 @@
+﻿@{
+	ViewData["Title"] = "Города";
+}
+
+<div id="app">
+    <h2>Список городов</h2>
+    <div>
+        <cityitem v-for="(city, index) in cities"
+                  :city="city"
+                  :index="index"
+                  :key="index"
+                  v-on:citydelete="remove">
+        </cityitem>	
+        
+    </div>
+    <button id="create-city">Создать новый город</button>
+	<cityform :cities="cities"></cityform>
+</div>
+
+
+<script src="https://unpkg.com/vue@3.4.5"></script>
+<script src="https://unpkg.com/axios@1.6.5"></script>
+<script>
+const app = Vue.createApp({
+    data(){
+        return {
+			 cities: []
+			 
+           /* cities:[
+                {name: 'Tom'},
+                {name: 'Bob'},
+                {name: 'Alice'}
+            ]*/
+        }  
+    },
+     
+    methods:{
+        remove(index){
+            this.cities.splice(index, 1)
+        }
+    },
+    
+    mounted() {
+        axios
+          .get('https://localhost:44322/CityNew/all')
+          .then(response => (this.cities = response.data));
+      }
+});
+ 
+app.component('cityform', {
+    props: ["cities"],
+    data() {
+        return {
+            city: {name:''}
+        }
+    },
+    template: `<div>
+                    <input type="text" v-model="city.name" />
+                    <button  v-on:click="cityAdd">Add</button>
+                </div>`,
+    methods: {
+        cityAdd(event){
+			let obj = {name:this.city.name};
+            this.cities.push(obj);
+
+			axios.post('https://localhost:44322/CityNew_2/Create/', JSON.stringify(obj))
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        }
+    }
+});
+ 
+app.component('cityitem', {
+    props: ["city", "index"],
+    template: `<div>
+                    <p>{{city.name}} 
+                    <button  v-on:click="cityDelete(index)">Delete</button>
+                    </p>
+                </div>`,
+    methods: {
+        cityDelete(index){
+            this.$emit('citydelete', index);
+        }
+    }
+});
+ 
+app.mount('#app');
+</script>
