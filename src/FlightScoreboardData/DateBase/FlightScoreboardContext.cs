@@ -9,8 +9,8 @@ public class FlightScoreboardContext : DbContext
 	{
 	}
 
-	public DbSet<Airline> Airlines { get; set; } 
-	public DbSet<Airplane> Airplanes { get; set; } 
+	public DbSet<Airline> Airlines { get; set; }
+	public DbSet<Airplane> Airplanes { get; set; }
 	public DbSet<AirlineAirplane> AirlineAirplanes { get; set; }
 	public DbSet<City> Cities { get; set; }
 	public DbSet<Flight> Flights { get; set; }

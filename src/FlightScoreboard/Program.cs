@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FlightScoreboardContext>(options =>
-    options.UseLazyLoadingProxies().UseSqlServer(connectionString));
+	options.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
 builder.Services.AddTransient<IStatusService, StatusService>();
 builder.Services.AddTransient<IAirlineAirplaneService, AirlineAirplaneService>();
@@ -25,9 +25,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseExceptionHandler("/Home/Error");
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
 }
 
 app.UseHttpsRedirection();
@@ -38,15 +38,15 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    "default",
-    "{controller=Flight}/{action=Index}/{id?}");
+	"default",
+	"{controller=Flight}/{action=Index}/{id?}");
 
 using (var scope = app.Services.CreateScope())
 using (var context = scope.ServiceProvider.GetService<FlightScoreboardContext>())
 {
-    context.Database.Migrate();
-    //context.Database.EnsureDeleted();
-    //context.Database.EnsureCreated();
+	context.Database.Migrate();
+	//context.Database.EnsureDeleted();
+	//context.Database.EnsureCreated();
 }
 
 app.Run();

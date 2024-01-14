@@ -13,7 +13,7 @@ public class Flight
 	public DateTime? CheckInEndTime { get; set; }
 	public DateTime? BoardingStartTime { get; set; }
 	public DateTime? BoardingEndTime { get; set; }
-	
+
 	public int FromCityId { get; set; }
 	public virtual City FromCity { get; set; }
 
@@ -28,12 +28,11 @@ public class Flight
 
 	public int AirlineAirplaneId { get; set; }
 	public virtual AirlineAirplane AirlineAirplane { get; set; }
-	
-	
-	public string  NumberOfFlight { get; set; }
-	public string  ToGate { get; set; }
-	public string  FromGate { get; set; }
-	public string  ToTerminal { get; set; }
-	public string  FromTerminal { get; set; }
-	
+
+
+	public string NumberOfFlight { get; set; }
+	public string ToGate { get; set; }
+	public string FromGate { get; set; }
+	public string ToTerminal { get; set; }
+	public string FromTerminal { get; set; }
 }

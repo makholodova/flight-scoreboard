@@ -11,32 +11,32 @@ public class AirplaneController : Controller
 
 	public AirplaneController(IAirplaneService airplaneService)
 	{
-		this._airplaneService = airplaneService;
+		_airplaneService = airplaneService;
 	}
 
 	public async Task<IActionResult> Index()
 	{
-		var airplanes = await this._airplaneService.GetAllAirplanesAsync();
-		return this.View(airplanes);
+		var airplanes = await _airplaneService.GetAllAirplanesAsync();
+		return View(airplanes);
 	}
 
 	[HttpGet]
 	public IActionResult Create()
 	{
-		return this.View();
+		return View();
 	}
 
 	[HttpPost]
 	public async Task<IActionResult> Create(AirplaneCreateModel airplane)
 	{
-		await this._airplaneService.CreateAirplaneAsync(airplane);
-		return this.RedirectToAction("Index");
+		await _airplaneService.CreateAirplaneAsync(airplane);
+		return RedirectToAction("Index");
 	}
 
 
 	public async Task<IActionResult> Delete(int id)
 	{
-		var result = await this._airplaneService.DeleteAirplaneAsync(id);
+		var result = await _airplaneService.DeleteAirplaneAsync(id);
 		if (result == false)
 			return RedirectToAction("Index", "Error", new ErrorModel
 			{
@@ -44,6 +44,6 @@ public class AirplaneController : Controller
 				ActionName = "Index",
 				ControllerName = "Airplane"
 			});
-		return this.RedirectToAction("Index");
+		return RedirectToAction("Index");
 	}
 }

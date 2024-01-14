@@ -1,42 +1,41 @@
-﻿
-@model List<FlightScoreboardData.Services.Models.PilotIndexModel>
+﻿@model List<FlightScoreboardData.Services.Models.PilotIndexModel>
 
 @{
-    ViewData["Title"] = "Список пилотов";
+	ViewData["Title"] = "Список пилотов";
 }
 <div>
 
-    @if (Model.Count > 0)
-    {
-        <h3>Список пилотов:</h3>
-        <table>
-            <tr>
-                <td> Имя </td>
-                <td> Фамилия </td>
-                <td> Возраст </td>
-                <td> Авиакомпания </td>
-            </tr>
-            @foreach (var pilot in Model)
-            {
-                <tr>
-                    <td>@pilot.Name </td>
-                    <td>@pilot.SurName </td>
-                    <td>@pilot.Age </td>
-                    <td>@pilot.AirlineName </td>
-                    
-                   <td>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Pilot" asp-action="Update" asp-route-id="@pilot.Id">Редактировать</a>
-                    </td>
-                     <td>
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Pilot" asp-action="Delete" asp-route-id="@pilot.Id">Удалить</a>
-                    </td>
-                </tr>
-            }
-        </table>
-    }
-    else
-    {
-        <td>Пилоты отсутствуют</td>
-    }
-    <a class="nav-link text-dark" asp-area="" asp-controller="Pilot" asp-action="Create">Добавить пилота</a>
+	@if (Model.Count > 0)
+	{
+		<h3>Список пилотов:</h3>
+		<table>
+			<tr>
+				<td> Имя </td>
+				<td> Фамилия </td>
+				<td> Возраст </td>
+				<td> Авиакомпания </td>
+			</tr>
+			@foreach (var pilot in Model)
+			{
+				<tr>
+					<td>@pilot.Name </td>
+					<td>@pilot.SurName </td>
+					<td>@pilot.Age </td>
+					<td>@pilot.AirlineName </td>
+
+					<td>
+						<a class="nav-link text-dark" asp-area="" asp-controller="Pilot" asp-action="Update" asp-route-id="@pilot.Id">Редактировать</a>
+					</td>
+					<td>
+						<a class="nav-link text-dark" asp-area="" asp-controller="Pilot" asp-action="Delete" asp-route-id="@pilot.Id">Удалить</a>
+					</td>
+				</tr>
+			}
+		</table>
+	}
+	else
+	{
+		<td>Пилоты отсутствуют</td>
+	}
+	<a class="nav-link text-dark" asp-area="" asp-controller="Pilot" asp-action="Create">Добавить пилота</a>
 </div>

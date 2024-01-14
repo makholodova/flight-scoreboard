@@ -1,153 +1,153 @@
 ﻿@model FlightCreateModelGet
 @{
-    ViewData["Title"] = "Оформление рейса";
+	ViewData["Title"] = "Оформление рейса";
 }
 
 <div>
-    <h3>Форма оформления рейса</h3>
-    <p>Для оформления рейса заполните следующие поля:</p>
-    <form method="post">
-        <table>
-            <tr>
-                <td>Номер рейса<span style="color: red">*</span> :</td>
-                <td>
-                    <input type="text" name="NumberOfFlight"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Откуда<span style="color: red">*</span> :</td>
-                <td>
-                    <select id="FromCityId" name="FromCityId">
-                        @foreach (var city in Model.Cities)
-                        {
-                            <option value="@city.Id">@city.Name</option>
-                        }
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Куда<span style="color: red">*</span> :</td>
-                <td>
-                    <select id="ToCityId" name="ToCityId">
-                        @foreach (var city in Model.Cities)
-                        {
-                            <option value="@city.Id">@city.Name</option>
-                        }
-                    </select>
-                </td>
+	<h3>Форма оформления рейса</h3>
+	<p>Для оформления рейса заполните следующие поля:</p>
+	<form method="post">
+		<table>
+			<tr>
+				<td>Номер рейса<span style="color: red">*</span> :</td>
+				<td>
+					<input type="text" name="NumberOfFlight"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Откуда<span style="color: red">*</span> :</td>
+				<td>
+					<select id="FromCityId" name="FromCityId">
+						@foreach (var city in Model.Cities)
+						{
+							<option value="@city.Id">@city.Name</option>
+						}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Куда<span style="color: red">*</span> :</td>
+				<td>
+					<select id="ToCityId" name="ToCityId">
+						@foreach (var city in Model.Cities)
+						{
+							<option value="@city.Id">@city.Name</option>
+						}
+					</select>
+				</td>
 
-            </tr>
-            <tr>
-                <td>Время вылета запланированное<span style="color: red">*</span> :</td>
-                <td>
-                    <input id="DepartureTimeId" type="datetime-local" name="DepartureTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Время прилета запланированное<span style="color: red">*</span> :</td>
-                <td>
-                    <input id="ArrivalTimeId" type="datetime-local" name="ArrivalTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Авиакомпания<span style="color: red">*</span> :</td>
-                <td>
-                    <select
-                        id="AirlineId" name="AirlineId">
-                        @foreach (var airline in Model.Airlines)
-                        {
-                            <option value="@airline.Id">@airline.Name</option>
-                        }
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Пилот:</td>
-                <td>
-                    <select
-                        id="PilotId" name="PilotId">
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Самолет<span style="color: red">*</span> :</td>
-                <td>
-                    <select
-                        id="AirlineAirplaneId" name="AirlineAirplaneId">
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Терминал вылета:</td>
-                <td>
-                    <input type="text" name="FromTerminal"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Gate вылета:</td>
-                <td>
-                    <input type="text" name="FromGate"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Терминал прилета:</td>
-                <td>
-                    <input type="text" name="ToTerminal"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Gate прилета:</td>
-                <td>
-                    <input type="text" name="ToGate"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Время вылета фактическое:</td>
-                <td>
-                    <input id="ActualDepartureTimeId" type="datetime-local" name="ActualDepartureTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Время прилета фактическое:</td>
-                <td>
-                    <input id="ActualArrivalTimeId" type="datetime-local" name="ActualArrivalTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Начало регистрации:</td>
-                <td>
-                    <input id="CheckInStartTimeId" type="datetime-local" name="CheckInStartTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Окончание регистрации:</td>
-                <td>
-                    <input id="CheckInEndTimeId" type="datetime-local" name="CheckInEndTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Начало посадки:</td>
-                <td>
-                    <input id="BoardingStartTimeId" type="datetime-local" name="BoardingStartTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Окончание посадки:</td>
-                <td>
-                    <input id="BoardingEndTimeId" type="datetime-local" name="BoardingEndTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Создать"/>
-                </td><td></td>
-            </tr>
-        </table>
-    </form>
+			</tr>
+			<tr>
+				<td>Время вылета запланированное<span style="color: red">*</span> :</td>
+				<td>
+					<input id="DepartureTimeId" type="datetime-local" name="DepartureTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Время прилета запланированное<span style="color: red">*</span> :</td>
+				<td>
+					<input id="ArrivalTimeId" type="datetime-local" name="ArrivalTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Авиакомпания<span style="color: red">*</span> :</td>
+				<td>
+					<select
+						id="AirlineId" name="AirlineId">
+						@foreach (var airline in Model.Airlines)
+						{
+							<option value="@airline.Id">@airline.Name</option>
+						}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Пилот:</td>
+				<td>
+					<select
+						id="PilotId" name="PilotId">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Самолет<span style="color: red">*</span> :</td>
+				<td>
+					<select
+						id="AirlineAirplaneId" name="AirlineAirplaneId">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Терминал вылета:</td>
+				<td>
+					<input type="text" name="FromTerminal"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Gate вылета:</td>
+				<td>
+					<input type="text" name="FromGate"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Терминал прилета:</td>
+				<td>
+					<input type="text" name="ToTerminal"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Gate прилета:</td>
+				<td>
+					<input type="text" name="ToGate"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Время вылета фактическое:</td>
+				<td>
+					<input id="ActualDepartureTimeId" type="datetime-local" name="ActualDepartureTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Время прилета фактическое:</td>
+				<td>
+					<input id="ActualArrivalTimeId" type="datetime-local" name="ActualArrivalTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Начало регистрации:</td>
+				<td>
+					<input id="CheckInStartTimeId" type="datetime-local" name="CheckInStartTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Окончание регистрации:</td>
+				<td>
+					<input id="CheckInEndTimeId" type="datetime-local" name="CheckInEndTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Начало посадки:</td>
+				<td>
+					<input id="BoardingStartTimeId" type="datetime-local" name="BoardingStartTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Окончание посадки:</td>
+				<td>
+					<input id="BoardingEndTimeId" type="datetime-local" name="BoardingEndTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="Создать"/>
+				</td><td></td>
+			</tr>
+		</table>
+	</form>
 </div>
 
 @section Scripts {
-    <script>
+	<script>
         const airplanes = @Html.Raw(Json.Serialize(Model.Airplanes));
         const pilots=@Html.Raw(Json.Serialize(Model.Pilots));
         

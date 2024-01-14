@@ -1,132 +1,132 @@
 ﻿@model FlightCreateRepeatEventModelGet
 @{
-    ViewData["Title"] = "Оформление рейса";
+	ViewData["Title"] = "Оформление рейса";
 }
 
 <div>
-    <h3>Форма оформления рейса</h3>
-    <p>Для оформления рейса заполните следующие поля:</p>
-    <form method="post">
-        <div>Дни недели <span style="color: red">*</span> :</div>
-        <input type="checkbox" name="DaysOfWeek[]" value="Monday"/>Понедельник
-        <input type="checkbox" name="DaysOfWeek[]" value="Tuesday"/>Вторник
-        <input type="checkbox" name="DaysOfWeek[]" value="Wednesday"/>Среда
-        <input type="checkbox" name="DaysOfWeek[]" value="Thursday"/>Четверг
-        <input type="checkbox" name="DaysOfWeek[]" value="Friday"/>Пятница
-        <input type="checkbox" name="DaysOfWeek[]" value="Saturday"/>Суббота
-        <input type="checkbox" name="DaysOfWeek[]" value="Sunday"/>Воскресенье
+	<h3>Форма оформления рейса</h3>
+	<p>Для оформления рейса заполните следующие поля:</p>
+	<form method="post">
+		<div>Дни недели <span style="color: red">*</span> :</div>
+		<input type="checkbox" name="DaysOfWeek[]" value="Monday"/>Понедельник
+		<input type="checkbox" name="DaysOfWeek[]" value="Tuesday"/>Вторник
+		<input type="checkbox" name="DaysOfWeek[]" value="Wednesday"/>Среда
+		<input type="checkbox" name="DaysOfWeek[]" value="Thursday"/>Четверг
+		<input type="checkbox" name="DaysOfWeek[]" value="Friday"/>Пятница
+		<input type="checkbox" name="DaysOfWeek[]" value="Saturday"/>Суббота
+		<input type="checkbox" name="DaysOfWeek[]" value="Sunday"/>Воскресенье
 
-        <div>Дата начала<span style="color: red">*</span> : <input type="date" name="StartDay"/> </div>
+		<div>Дата начала<span style="color: red">*</span> : <input type="date" name="StartDay"/> </div>
 
-        <div>Дата окончания<span style="color: red">*</span> : <input type="date" name="FinishDay"/> </div>
+		<div>Дата окончания<span style="color: red">*</span> : <input type="date" name="FinishDay"/> </div>
 
-        <table>
-            <tr>
-                <td>Номер рейса<span style="color: red">*</span> :</td>
-                <td>
-                    <input type="text" name="NumberOfFlight"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Время вылета<span style="color: red">*</span> :</td>
-                <td>
-                    <input type="time" name="DepartureTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Продолжительность полета<span style="color: red">*</span> :</td>
-                <td>
-                    <input type="time" name="DurationTime"/>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td>Откуда<span style="color: red">*</span> :</td>
-                <td>
-                    <select id="FromCityId" name="FromCityId">
-                        @foreach (var city in Model.Cities)
-                        {
-                            <option value="@city.Id">@city.Name</option>
-                        }
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Куда<span style="color: red">*</span> :</td>
-                <td>
-                    <select id="ToCityId" name="ToCityId">
-                        @foreach (var city in Model.Cities)
-                        {
-                            <option value="@city.Id">@city.Name</option>
-                        }
-                    </select>
-                </td>
-
-            </tr>
-
-            <tr>
-                <td>Авиакомпания<span style="color: red">*</span> :</td>
-                <td>
-                    <select id="AirlineId" name="AirlineId">
-                        @foreach (var airline in Model.Airlines)
-                        {
-                            <option value="@airline.Id">@airline.Name</option>
-                        }
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Пилот:</td>
-                <td>
-                    <select id="PilotId" name="PilotId">
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Самолет<span style="color: red">*</span> :</td>
-                <td>
-                    <select id="AirlineAirplaneId" name="AirlineAirplaneId">
-                    </select>
-                </td>
-            </tr>
+		<table>
+			<tr>
+				<td>Номер рейса<span style="color: red">*</span> :</td>
+				<td>
+					<input type="text" name="NumberOfFlight"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Время вылета<span style="color: red">*</span> :</td>
+				<td>
+					<input type="time" name="DepartureTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Продолжительность полета<span style="color: red">*</span> :</td>
+				<td>
+					<input type="time" name="DurationTime"/>
+				</td>
+			</tr>
 
 
-            <tr>
-                <td>Терминал вылета:</td>
-                <td>
-                    <input type="text" name="FromTerminal"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Gate вылета:</td>
-                <td>
-                    <input type="text" name="FromGate"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Терминал прилета:</td>
-                <td>
-                    <input type="text" name="ToTerminal"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Gate прилета:</td>
-                <td>
-                    <input type="text" name="ToGate"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Создать"/>
-                </td><td></td>
-            </tr>
-        </table>
-    </form>
+			<tr>
+				<td>Откуда<span style="color: red">*</span> :</td>
+				<td>
+					<select id="FromCityId" name="FromCityId">
+						@foreach (var city in Model.Cities)
+						{
+							<option value="@city.Id">@city.Name</option>
+						}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Куда<span style="color: red">*</span> :</td>
+				<td>
+					<select id="ToCityId" name="ToCityId">
+						@foreach (var city in Model.Cities)
+						{
+							<option value="@city.Id">@city.Name</option>
+						}
+					</select>
+				</td>
+
+			</tr>
+
+			<tr>
+				<td>Авиакомпания<span style="color: red">*</span> :</td>
+				<td>
+					<select id="AirlineId" name="AirlineId">
+						@foreach (var airline in Model.Airlines)
+						{
+							<option value="@airline.Id">@airline.Name</option>
+						}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Пилот:</td>
+				<td>
+					<select id="PilotId" name="PilotId">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Самолет<span style="color: red">*</span> :</td>
+				<td>
+					<select id="AirlineAirplaneId" name="AirlineAirplaneId">
+					</select>
+				</td>
+			</tr>
+
+
+			<tr>
+				<td>Терминал вылета:</td>
+				<td>
+					<input type="text" name="FromTerminal"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Gate вылета:</td>
+				<td>
+					<input type="text" name="FromGate"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Терминал прилета:</td>
+				<td>
+					<input type="text" name="ToTerminal"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Gate прилета:</td>
+				<td>
+					<input type="text" name="ToGate"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="Создать"/>
+				</td><td></td>
+			</tr>
+		</table>
+	</form>
 </div>
 
 @section Scripts {
-    <script>
+	<script>
         const airplanes = @Html.Raw(Json.Serialize(Model.Airplanes));
         const pilots=@Html.Raw(Json.Serialize(Model.Pilots));
         

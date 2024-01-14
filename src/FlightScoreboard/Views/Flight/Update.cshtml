@@ -1,152 +1,152 @@
 ﻿@model FlightUpdateModelGet
 
 @{
-    ViewData["Title"] = "Изменить данные рейса";
+	ViewData["Title"] = "Изменить данные рейса";
 }
 
 <div>
-    <h3>Форма изменения данных рейса</h3>
-    <p>Для изменения данных заполните следующие поля:</p>
-    <form method="post">
-        <table>
-            <tr>
-                <td>Номер рейса<span style="color: red">*</span> :</td>
-                <td>
-                    <input type="text" value="@Model.Flight.NumberOfFlight" name="NumberOfFlight"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Откуда<span style="color: red">*</span> :</td>
-                <td>
+	<h3>Форма изменения данных рейса</h3>
+	<p>Для изменения данных заполните следующие поля:</p>
+	<form method="post">
+		<table>
+			<tr>
+				<td>Номер рейса<span style="color: red">*</span> :</td>
+				<td>
+					<input type="text" value="@Model.Flight.NumberOfFlight" name="NumberOfFlight"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Откуда<span style="color: red">*</span> :</td>
+				<td>
 
-                    <select asp-for="Flight.FromCityId" name="FromCityId">
-                        @foreach (var city in Model.Cities)
-                        {
-                            <option value="@city.Id">@city.Name</option>
-                        }
-                    </select>
-                </td>
-                <td>Куда<span style="color: red">*</span> :</td>
-                <td>
-                    <select asp-for="Flight.ToCityId" name="ToCityId">
-                        @foreach (var city in Model.Cities)
-                        {
-                            <option value="@city.Id">@city.Name</option>
-                        }
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Время вылета запланированное<span style="color: red">*</span> :</td>
-                <td>
-                    <input id="DepartureTimeId" type="datetime-local" asp-for="@Model.Flight.DepartureTime" name="DepartureTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Время прилета запланированное<span style="color: red">*</span> :</td>
-                <td>
-                    <input id="ArrivalTimeId" type="datetime-local" asp-for="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Авиакомпания<span style="color: red">*</span> :</td>
-                <td>
-                    <select asp-for="@Model.Flight.AirlineId" id="AirlineId" name="AirlineId">
-                        @foreach (var airline in Model.Airlines)
-                        {
-                            <option value="@airline.Id">@airline.Name</option>
-                        }
-                    </select>
-                </td>
-            </tr>
-            <tr>
-            <tr>
-                <td>Пилот:</td>
-                <td>
-                    <select id="PilotId" name="PilotId">
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Самолет<span style="color: red">*</span> :</td>
-                <td>
-                    <select id="AirlineAirplaneId" name="AirlineAirplaneId">
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>Терминал вылета:</td>
-                <td>
-                    <input type="text" asp-for="@Model.Flight.FromTerminal" name="FromTerminal"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Gate вылета:</td>
-                <td>
-                    <input type="text" value="@Model.Flight.FromGate" name="FromGate"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Терминал прилета:</td>
-                <td>
-                    <input type="text" value="@Model.Flight.ToTerminal" name="ToTerminal"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Gate прилета:</td>
-                <td>
-                    <input type="text" value="@Model.Flight.ToGate" name="ToGate"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Время вылета фактическое:</td>
-                <td>
-                    <input id="ActualDepartureTimeId" type="datetime-local" asp-for="@Model.Flight.ActualDepartureTime" name="ActualDepartureTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Время прилета фактическое:</td>
-                <td>
-                    <input id="ActualArrivalTimeId" type="datetime-local" asp-for="@Model.Flight.ActualArrivalTime" name="ActualArrivalTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Начало регистрации:</td>
-                <td>
-                    <input id="CheckInStartTimeId" type="datetime-local" asp-for="@Model.Flight.CheckInStartTime" name="CheckInStartTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Окончание регистрации:</td>
-                <td>
-                    <input id="CheckInEndTimeId" type="datetime-local" asp-for="@Model.Flight.CheckInEndTime" name="CheckInEndTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Начало посадки:</td>
-                <td>
-                    <input id="BoardingStartTimeId" type="datetime-local" asp-for="@Model.Flight.BoardingStartTime" name="BoardingStartTime"/>
-                </td>
-            </tr>
-            <tr>
-                <td>Окончание посадки:</td>
-                <td>
-                    <input id="BoardingEndTimeId" type="datetime-local" asp-for="@Model.Flight.BoardingEndTime" name="BoardingEndTime"/>
-                </td>
-            </tr>
-            <tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Сохранить"/>
-                </td><td></td>
-            </tr>
-        </table>
-    </form>
+					<select asp-for="Flight.FromCityId" name="FromCityId">
+						@foreach (var city in Model.Cities)
+						{
+							<option value="@city.Id">@city.Name</option>
+						}
+					</select>
+				</td>
+				<td>Куда<span style="color: red">*</span> :</td>
+				<td>
+					<select asp-for="Flight.ToCityId" name="ToCityId">
+						@foreach (var city in Model.Cities)
+						{
+							<option value="@city.Id">@city.Name</option>
+						}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Время вылета запланированное<span style="color: red">*</span> :</td>
+				<td>
+					<input id="DepartureTimeId" type="datetime-local" asp-for="@Model.Flight.DepartureTime" name="DepartureTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Время прилета запланированное<span style="color: red">*</span> :</td>
+				<td>
+					<input id="ArrivalTimeId" type="datetime-local" asp-for="@Model.Flight.ArrivalTime" name="ArrivalTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Авиакомпания<span style="color: red">*</span> :</td>
+				<td>
+					<select asp-for="@Model.Flight.AirlineId" id="AirlineId" name="AirlineId">
+						@foreach (var airline in Model.Airlines)
+						{
+							<option value="@airline.Id">@airline.Name</option>
+						}
+					</select>
+				</td>
+			</tr>
+			<tr>
+			<tr>
+				<td>Пилот:</td>
+				<td>
+					<select id="PilotId" name="PilotId">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Самолет<span style="color: red">*</span> :</td>
+				<td>
+					<select id="AirlineAirplaneId" name="AirlineAirplaneId">
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Терминал вылета:</td>
+				<td>
+					<input type="text" asp-for="@Model.Flight.FromTerminal" name="FromTerminal"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Gate вылета:</td>
+				<td>
+					<input type="text" value="@Model.Flight.FromGate" name="FromGate"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Терминал прилета:</td>
+				<td>
+					<input type="text" value="@Model.Flight.ToTerminal" name="ToTerminal"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Gate прилета:</td>
+				<td>
+					<input type="text" value="@Model.Flight.ToGate" name="ToGate"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Время вылета фактическое:</td>
+				<td>
+					<input id="ActualDepartureTimeId" type="datetime-local" asp-for="@Model.Flight.ActualDepartureTime" name="ActualDepartureTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Время прилета фактическое:</td>
+				<td>
+					<input id="ActualArrivalTimeId" type="datetime-local" asp-for="@Model.Flight.ActualArrivalTime" name="ActualArrivalTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Начало регистрации:</td>
+				<td>
+					<input id="CheckInStartTimeId" type="datetime-local" asp-for="@Model.Flight.CheckInStartTime" name="CheckInStartTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Окончание регистрации:</td>
+				<td>
+					<input id="CheckInEndTimeId" type="datetime-local" asp-for="@Model.Flight.CheckInEndTime" name="CheckInEndTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Начало посадки:</td>
+				<td>
+					<input id="BoardingStartTimeId" type="datetime-local" asp-for="@Model.Flight.BoardingStartTime" name="BoardingStartTime"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Окончание посадки:</td>
+				<td>
+					<input id="BoardingEndTimeId" type="datetime-local" asp-for="@Model.Flight.BoardingEndTime" name="BoardingEndTime"/>
+				</td>
+			</tr>
+			<tr>
+			<tr>
+				<td>
+					<input type="submit" value="Сохранить"/>
+				</td><td></td>
+			</tr>
+		</table>
+	</form>
 
 </div>
 
 @section Scripts {
-    <script>
+	<script>
         const airplanes = @Html.Raw(Json.Serialize(Model.Airplanes));
         const pilots=@Html.Raw(Json.Serialize(Model.Pilots));
         const airlineAirplaneId=@Html.Raw(Model.Flight.AirlineAirplaneId);

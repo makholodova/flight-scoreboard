@@ -3,17 +3,17 @@
 }
 
 <div id="app">
-    <h2>Список городов</h2>
-    <div>
-        <cityitem v-for="(city, index) in cities"
-                  :city="city"
-                  :index="index"
-                  :key="index"
-                  v-on:citydelete="remove">
-        </cityitem>	
-        
-    </div>
-    <button id="create-city">Создать новый город</button>
+	<h2>Список городов</h2>
+	<div>
+		<cityitem v-for="(city, index) in cities"
+		          :city="city"
+		          :index="index"
+		          :key="index"
+		          v-on:citydelete="remove">
+		</cityitem>
+
+	</div>
+	<button id="create-city">Создать новый город</button>
 	<cityform :cities="cities"></cityform>
 </div>
 

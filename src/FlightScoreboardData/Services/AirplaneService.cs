@@ -9,9 +9,9 @@ namespace FlightScoreboardData.Services;
 [SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataQuery")]
 public interface IAirplaneService
 {
-    Task<List<AirplaneModel>> GetAllAirplanesAsync();
-    Task<int> CreateAirplaneAsync(AirplaneCreateModel airplane);
-    Task<bool> DeleteAirplaneAsync(int id);
+	Task<List<AirplaneModel>> GetAllAirplanesAsync();
+	Task<int> CreateAirplaneAsync(AirplaneCreateModel airplane);
+	Task<bool> DeleteAirplaneAsync(int id);
 }
 
 public class AirplaneService : IAirplaneService
@@ -20,12 +20,12 @@ public class AirplaneService : IAirplaneService
 
 	public AirplaneService(FlightScoreboardContext context)
 	{
-		this._context = context;
+		_context = context;
 	}
 
 	public Task<List<AirplaneModel>> GetAllAirplanesAsync()
 	{
-		return this._context.Airplanes.Select(p => new AirplaneModel
+		return _context.Airplanes.Select(p => new AirplaneModel
 		{
 			Id = p.Id,
 			Model = p.Model
@@ -35,18 +35,18 @@ public class AirplaneService : IAirplaneService
 
 	public async Task<int> CreateAirplaneAsync(AirplaneCreateModel airplane)
 	{
-		var addAirplane =await this._context.Airplanes.AddAsync(new Airplane { Model = airplane.Model });
-		await this._context.SaveChangesAsync();
+		var addAirplane = await _context.Airplanes.AddAsync(new Airplane { Model = airplane.Model });
+		await _context.SaveChangesAsync();
 		return addAirplane.Entity.Id;
 	}
 
 	public async Task<bool> DeleteAirplaneAsync(int id)
 	{
-		var airplane =await this._context.Airplanes.FirstOrDefaultAsync(p => p.Id == id);
-		if (airplane == null||airplane.AirlineAirplanes.Any()) return false;
+		var airplane = await _context.Airplanes.FirstOrDefaultAsync(p => p.Id == id);
+		if (airplane == null || airplane.AirlineAirplanes.Any()) return false;
 
-		this._context.Remove(airplane);
-		await this._context.SaveChangesAsync();
+		_context.Remove(airplane);
+		await _context.SaveChangesAsync();
 
 		return true;
 	}
