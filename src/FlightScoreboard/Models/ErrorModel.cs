@@ -1,4 +1,6 @@
-﻿namespace FlightScoreboard.Models;
+﻿using System.Collections.Generic;
+
+namespace FlightScoreboard.Models;
 
 public class ErrorModel
 {

@@ -1,4 +1,6 @@
-﻿using FlightScoreboardData.Services.Models;
+﻿using System;
+using System.Collections.Generic;
+using FlightScoreboardData.Services.Models;
 
 namespace FlightScoreboard.Models;
 

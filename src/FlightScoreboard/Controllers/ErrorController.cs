@@ -1,4 +1,5 @@
-﻿using FlightScoreboard.Models;
+﻿using System.Linq;
+using FlightScoreboard.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightScoreboard.Controllers;

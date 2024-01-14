@@ -1,3 +1,5 @@
+using System;
+
 namespace FlightScoreboardApi;
 
 public class WeatherForecast

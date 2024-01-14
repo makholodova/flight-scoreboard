@@ -1,4 +1,6 @@
-﻿namespace FlightScoreboardData.DateBase;
+﻿using System.Collections.Generic;
+
+namespace FlightScoreboardData.DateBase;
 
 public class AirlineAirplane
 {

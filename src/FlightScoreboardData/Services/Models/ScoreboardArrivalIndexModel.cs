@@ -1,4 +1,6 @@
-﻿namespace FlightScoreboardData.Services.Models;
+﻿using System;
+
+namespace FlightScoreboardData.Services.Models;
 
 public class ScoreboardArrivalIndexModel : IStatusCalculation
 {

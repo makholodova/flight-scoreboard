@@ -1,4 +1,7 @@
-﻿namespace FlightScoreboardData.Services.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace FlightScoreboardData.Services.Models;
 
 public class FlightCreateRepeatEventModel
 {
