@@ -7,4 +7,5 @@ public class PilotModel
 	public string SurName { get; set; }
 	public int Age { get; set; }
 	public int AirlineId { get; set; }
+	public string AirlineName { get; set; }
 }

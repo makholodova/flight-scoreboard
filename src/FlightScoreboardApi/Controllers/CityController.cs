@@ -16,7 +16,7 @@ public class CityController : ControllerBase
 		_cityService = cityService;
 	}
 
-	[HttpGet(Name = "All")]
+	[HttpGet]
 	public async Task<IActionResult> All()
 	{
 		var cities = await _cityService.GetAllCitiesAsync();
@@ -30,6 +30,7 @@ public class CityController : ControllerBase
 		return Ok(cityId);
 	}
 
+	[Route("{id:int}")]
 	[HttpDelete]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]

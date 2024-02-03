@@ -45,7 +45,7 @@ public class PilotService : IPilotService
 
 	public async Task<PilotModel> GetPilotByIdAsync(int id)
 	{
-		var pilot = await _context.Pilots.FirstOrDefaultAsync(p => p.Id == id);
+		var pilot = await _context.Pilots.Include(pilot => pilot.Airline).FirstOrDefaultAsync(p => p.Id == id);
 		if (pilot == null) return null;
 
 		var pilotModel = new PilotModel
@@ -54,7 +54,9 @@ public class PilotService : IPilotService
 			Name = pilot.Name,
 			SurName = pilot.SurName,
 			Age = pilot.Age,
-			AirlineId = pilot.AirlineId
+			AirlineId = pilot.AirlineId,
+			AirlineName = pilot.Airline.Name
+			
 		};
 		return pilotModel;
 	}
