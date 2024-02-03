@@ -56,7 +56,6 @@ public class PilotService : IPilotService
 			Age = pilot.Age,
 			AirlineId = pilot.AirlineId,
 			AirlineName = pilot.Airline.Name
-			
 		};
 		return pilotModel;
 	}
