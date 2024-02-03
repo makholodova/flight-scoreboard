@@ -9,13 +9,11 @@ namespace FlightScoreboardApi.Controllers;
 [Route("[controller]")]
 public class PilotController : ControllerBase
 {
-	private readonly IAirlineService _airlineService;
 	private readonly IPilotService _pilotService;
 
-	public PilotController(IPilotService pilotService, IAirlineService airlineService)
+	public PilotController(IPilotService pilotService)
 	{
 		_pilotService = pilotService;
-		_airlineService = airlineService;
 	}
 
 	[HttpGet]
@@ -27,7 +25,7 @@ public class PilotController : ControllerBase
 
 	[Route("{id:int}")]
 	[HttpGet]
-	public async Task<IActionResult> PilotById(int id) //добавила  новый
+	public async Task<IActionResult> Get([FromRoute] int id)
 	{
 		var pilot = await _pilotService.GetPilotByIdAsync(id);
 		return Ok(pilot);
@@ -53,7 +51,7 @@ public class PilotController : ControllerBase
 	[HttpDelete]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]
-	public async Task<IActionResult> Delete(int id)
+	public async Task<IActionResult> Delete([FromRoute] int id)
 	{
 		var result = await _pilotService.DeletePilotAsync(id);
 		if (result == false)
