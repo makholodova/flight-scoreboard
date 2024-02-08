@@ -16,11 +16,19 @@ public class AirlineController : ControllerBase
 		_airlineService = airlineService;
 	}
 
-	[HttpGet(Name = "AllAirlines")]
+	[HttpGet]
 	public async Task<IActionResult> All()
 	{
 		var airlines = await _airlineService.GetAllAirlinesAsync();
 		return Ok(airlines);
+	}
+
+	[Route("{id:int}")]
+	[HttpGet]
+	public async Task<IActionResult> Get([FromRoute] int id)
+	{
+		var airline = await _airlineService.GetArlineByIdAsync(id);
+		return Ok(airline);
 	}
 
 	[HttpPost]
@@ -28,6 +36,15 @@ public class AirlineController : ControllerBase
 	{
 		var airlineId = await _airlineService.CreateAirlineAsync(airline);
 		return Ok(airlineId);
+	}
+
+	[HttpPut]
+	public async Task<IActionResult> Update([FromBody] AirlineUpdateModel airline)
+	{
+		var result = await _airlineService.UpdateArlineAsync(airline);
+		if (result == false)
+			return BadRequest("Airline is not found");
+		return Ok();
 	}
 
 	[Route("{id:int}")]

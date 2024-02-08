@@ -13,8 +13,12 @@ namespace FlightScoreboardData.Services;
 public interface IAirlineService
 {
 	Task<List<AirlineModel>> GetAllAirlinesAsync();
-	Task<List<AirlineShortInfoModel>> GetAvailableAirlinesAsync();
+
+	Task<AirlineModel> GetArlineByIdAsync(int id);
+
+	/*Task<List<AirlineShortInfoModel>> GetAvailableAirlinesAsync();*/
 	Task<int> CreateAirlineAsync(AirlineCreateModel airline);
+	Task<bool> UpdateArlineAsync(AirlineUpdateModel airline);
 	Task<bool> DeleteAirlineAsync(int id);
 }
 
@@ -36,14 +40,26 @@ public class AirlineService : IAirlineService
 		}).ToListAsync();
 	}
 
-	public async Task<List<AirlineShortInfoModel>> GetAvailableAirlinesAsync()
+	public async Task<AirlineModel> GetArlineByIdAsync(int id)
+	{
+		var airline = await _context.Airlines.FirstOrDefaultAsync(p => p.Id == id);
+		if (airline == null) return null;
+		var airlineModel = new AirlineModel
+		{
+			Id = airline.Id,
+			Name = airline.Name
+		};
+		return airlineModel;
+	}
+
+	/*public async Task<List<AirlineShortInfoModel>> GetAvailableAirlinesAsync()
 	{
 		return await _context.Airlines.Select(p => new AirlineShortInfoModel
 		{
 			Id = p.Id,
 			Name = p.Name
 		}).ToListAsync();
-	}
+	}*/
 
 	public async Task<int> CreateAirlineAsync(AirlineCreateModel airline)
 	{
@@ -53,6 +69,15 @@ public class AirlineService : IAirlineService
 		});
 		await _context.SaveChangesAsync();
 		return addAirline.Entity.Id;
+	}
+
+	public async Task<bool> UpdateArlineAsync(AirlineUpdateModel airline)
+	{
+		var airlineDb = await _context.Airlines.FirstOrDefaultAsync(p => p.Id == airline.Id);
+		if (airlineDb == null) return false;
+		airlineDb.Name = airline.Name;
+		await _context.SaveChangesAsync();
+		return true;
 	}
 
 	public async Task<bool> DeleteAirlineAsync(int id)
