@@ -32,9 +32,9 @@ public class CityController : ControllerBase
 	}
 
 	[HttpPost]
-	public async Task<IActionResult> Create([FromBody] CityCreateModel model)
+	public async Task<IActionResult> Create([FromBody] CityCreateModel city)
 	{
-		var cityId = await _cityService.CreateCityAsync(model);
+		var cityId = await _cityService.CreateCityAsync(city);
 		return Ok(cityId);
 	}
 
