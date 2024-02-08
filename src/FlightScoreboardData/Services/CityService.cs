@@ -13,7 +13,9 @@ namespace FlightScoreboardData.Services;
 public interface ICityService
 {
 	Task<List<CityModel>> GetAllCitiesAsync();
-	Task<int> CreateCityAsync(CityCreateModel cityNew);
+	Task<CityModel> GetCityByIdAsync(int id);
+	Task<int> CreateCityAsync(CityCreateModel city);
+	Task<bool> UpdateCityAsync(CityUpdateModel city);
 	Task<bool> DeleteCityAsync(int id);
 }
 
@@ -35,12 +37,33 @@ public class CityService : ICityService
 		}).ToListAsync();
 	}
 
-	public async Task<int> CreateCityAsync(CityCreateModel cityNew)
+	public async Task<CityModel> GetCityByIdAsync(int id)
 	{
-		var addCity = await _context.Cities.AddAsync(new City { Name = cityNew.Name });
+		var city = await _context.Cities.FirstOrDefaultAsync(p => p.Id == id);
+		if (city == null) return null;
+		var cityModel = new CityModel
+		{
+			Id = city.Id,
+			Name = city.Name
+		};
+		return cityModel;
+	}
+
+	public async Task<int> CreateCityAsync(CityCreateModel city)
+	{
+		var addCity = await _context.Cities.AddAsync(new City { Name = city.Name });
 		await _context.SaveChangesAsync();
 
 		return addCity.Entity.Id;
+	}
+
+	public async Task<bool> UpdateCityAsync(CityUpdateModel city)
+	{
+		var cityDb = await _context.Cities.FirstOrDefaultAsync(p => p.Id == city.Id);
+		if (cityDb == null) return false;
+		cityDb.Name = city.Name;
+		await _context.SaveChangesAsync();
+		return true;
 	}
 
 	public async Task<bool> DeleteCityAsync(int id)

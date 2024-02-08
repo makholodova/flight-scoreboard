@@ -23,11 +23,28 @@ public class CityController : ControllerBase
 		return Ok(cities);
 	}
 
+	[Route("{id:int}")]
+	[HttpGet]
+	public async Task<IActionResult> Get([FromRoute] int id)
+	{
+		var city = await _cityService.GetCityByIdAsync(id);
+		return Ok(city);
+	}
+
 	[HttpPost]
 	public async Task<IActionResult> Create([FromBody] CityCreateModel model)
 	{
 		var cityId = await _cityService.CreateCityAsync(model);
 		return Ok(cityId);
+	}
+
+	[HttpPut]
+	public async Task<IActionResult> Update([FromBody] CityUpdateModel city)
+	{
+		var result = await _cityService.UpdateCityAsync(city);
+		if (result == false)
+			return BadRequest("City is not found");
+		return Ok();
 	}
 
 	[Route("{id:int}")]
