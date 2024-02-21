@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FlightScoreboardContext>(options =>
-	options.UseLazyLoadingProxies().UseSqlServer(connectionString));
+	options.UseLazyLoadingProxies().UseSqlServer(connectionString));//todo:remove lazyloading
 
 builder.Services.AddTransient<IStatusService, StatusService>();
 builder.Services.AddTransient<IAirlineAirplaneService, AirlineAirplaneService>();

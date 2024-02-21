@@ -13,9 +13,8 @@ namespace FlightScoreboardData.Services;
 public interface IAirlineAirplaneService
 {
 	Task<List<AirlineAirplaneShortModel>> GetAllAirlineAirplanesAsync(int airlineId);
-	Task<List<AirlineAirplaneShortModel>> GetAllAirlineAirplanesAsync();
-	Task<AirlineAirplaneModel> GetAirplaneAirlineByIdAsync(int id);
-	Task<int> CreateAirplaneAsync(AirlineAirplaneCreateModel airplane);
+	Task<AirlineAirplaneShortModel> GetAirplaneAirlineByIdAsync(int id);
+	Task<int> CreateAirplaneAsync(int airlineId, AirlineAirplaneCreateModel airplane);
 	Task<bool> UpdateAirplaneAsync(AirlineAirplaneUpdateModel airplane);
 	Task<bool> DeleteAirplaneAsync(int id);
 }
@@ -43,41 +42,29 @@ public class AirlineAirplaneService : IAirlineAirplaneService
 			}).ToListAsync();
 	}
 
-	public async Task<List<AirlineAirplaneShortModel>> GetAllAirlineAirplanesAsync()
+	public async Task<AirlineAirplaneShortModel> GetAirplaneAirlineByIdAsync(int id)
 	{
-		return await _context.AirlineAirplanes.Select(p =>
-			new AirlineAirplaneShortModel
-			{
-				Id = p.Id,
-				SerialNumber = p.SerialNumber,
-				AirlineId = p.AirlineId,
-				AirlineName = p.Airline.Name,
-				AirplaneId = p.AirplaneId,
-				AirplaneModel = p.Airplane.Model
-			}).ToListAsync();
-	}
-
-
-	public async Task<AirlineAirplaneModel> GetAirplaneAirlineByIdAsync(int id) // ?необходимость
-	{
-		var airplane = await _context.AirlineAirplanes.FirstOrDefaultAsync(p => p.Id == id);
+		var airplane = await _context.AirlineAirplanes.Include(airlineAirplane => airlineAirplane.Airline)
+			.Include(airlineAirplane => airlineAirplane.Airplane).FirstOrDefaultAsync(p => p.Id == id);
 		if (airplane == null) return null;
 
-		return new AirlineAirplaneModel
+		return new AirlineAirplaneShortModel
 		{
 			Id = airplane.Id,
 			SerialNumber = airplane.SerialNumber,
 			AirlineId = airplane.AirlineId,
-			AirplaneId = airplane.AirplaneId
+			AirlineName = airplane.Airline.Name,
+			AirplaneId = airplane.AirplaneId,
+			AirplaneModel = airplane.Airplane.Model
 		};
 	}
 
-	public async Task<int> CreateAirplaneAsync(AirlineAirplaneCreateModel airplane)
+	public async Task<int> CreateAirplaneAsync(int airlineId, AirlineAirplaneCreateModel airplane)
 	{
 		var addAirplane = await _context.AddAsync(new AirlineAirplane
 		{
 			SerialNumber = airplane.SerialNumber,
-			AirlineId = airplane.AirlineId,
+			AirlineId = airlineId,
 			AirplaneId = airplane.AirplaneId
 		});
 
@@ -91,7 +78,6 @@ public class AirlineAirplaneService : IAirlineAirplaneService
 		if (airplaneDb == null) return false;
 
 		airplaneDb.SerialNumber = airplane.SerialNumber;
-		airplaneDb.AirlineId = airplane.AirlineId;
 		airplaneDb.AirplaneId = airplane.AirplaneId;
 
 		await _context.SaveChangesAsync();

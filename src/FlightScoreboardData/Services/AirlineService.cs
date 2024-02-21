@@ -13,10 +13,7 @@ namespace FlightScoreboardData.Services;
 public interface IAirlineService
 {
 	Task<List<AirlineModel>> GetAllAirlinesAsync();
-
 	Task<AirlineModel> GetArlineByIdAsync(int id);
-
-	/*Task<List<AirlineShortInfoModel>> GetAvailableAirlinesAsync();*/
 	Task<int> CreateAirlineAsync(AirlineCreateModel airline);
 	Task<bool> UpdateArlineAsync(AirlineUpdateModel airline);
 	Task<bool> DeleteAirlineAsync(int id);
@@ -52,15 +49,6 @@ public class AirlineService : IAirlineService
 		return airlineModel;
 	}
 
-	/*public async Task<List<AirlineShortInfoModel>> GetAvailableAirlinesAsync()
-	{
-		return await _context.Airlines.Select(p => new AirlineShortInfoModel
-		{
-			Id = p.Id,
-			Name = p.Name
-		}).ToListAsync();
-	}*/
-
 	public async Task<int> CreateAirlineAsync(AirlineCreateModel airline)
 	{
 		var addAirline = await _context.Airlines.AddAsync(new Airline
@@ -85,9 +73,7 @@ public class AirlineService : IAirlineService
 		var airline = await _context.Airlines.FirstOrDefaultAsync(p => p.Id == id);
 		if (airline == null || airline.AirlineAirplanes.Any() || airline.Pilots.Any() || airline.Flights.Any())
 			return false;
-
 		_context.Airlines.Remove(airline);
-
 		await _context.SaveChangesAsync();
 		return true;
 	}
