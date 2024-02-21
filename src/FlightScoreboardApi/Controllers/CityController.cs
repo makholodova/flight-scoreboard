@@ -39,6 +39,8 @@ public class CityController : ControllerBase
 	}
 
 	[HttpPut]
+	[ProducesResponseType(200)]
+	[ProducesResponseType(400)]
 	public async Task<IActionResult> Update([FromBody] CityUpdateModel city)
 	{
 		var result = await _cityService.UpdateCityAsync(city);

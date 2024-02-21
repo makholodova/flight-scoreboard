@@ -39,6 +39,8 @@ public class PilotController : ControllerBase
 	}
 
 	[HttpPut]
+	[ProducesResponseType(200)]
+	[ProducesResponseType(400)]
 	public async Task<IActionResult> Update([FromBody] PilotUpdateModel pilot)
 	{
 		var result = await _pilotService.UpdatePilotAsync(pilot);

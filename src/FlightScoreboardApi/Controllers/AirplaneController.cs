@@ -39,6 +39,8 @@ public class AirplaneController : ControllerBase
 	}
 
 	[HttpPut]
+	[ProducesResponseType(200)]
+	[ProducesResponseType(400)]
 	public async Task<IActionResult> Update([FromBody] AirplaneUpdateModel airplane)
 	{
 		var result = await _airplaneService.UpdateAirplaneAsync(airplane);
@@ -54,7 +56,7 @@ public class AirplaneController : ControllerBase
 	{
 		var result = await _airplaneService.DeleteAirplaneAsync(id);
 		if (result == false)
-			return BadRequest("City is not found");
+			return BadRequest("Airplane is not found");
 		return Ok();
 	}
 }
