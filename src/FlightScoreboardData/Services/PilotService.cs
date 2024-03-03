@@ -12,7 +12,7 @@ namespace FlightScoreboardData.Services;
 [SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataUsage")]
 public interface IPilotService
 {
-	Task<List<PilotIndexModel>> GetAllPilotsAsync();
+	Task<List<PilotIndexModel>> GetAllPilotsAsync(int? airlineId = null);
 	Task<PilotModel> GetPilotByIdAsync(int id);
 	Task<bool> UpdatePilotAsync(PilotUpdateModel pilot);
 	Task<int> CreatePilotAsync(PilotCreateModel pilot);
@@ -28,10 +28,15 @@ public class PilotService : IPilotService
 		_context = context;
 	}
 
-
-	public async Task<List<PilotIndexModel>> GetAllPilotsAsync()
+	public async Task<List<PilotIndexModel>> GetAllPilotsAsync(int? airlineId = null)
 	{
-		return await _context.Pilots.Select(p => new PilotIndexModel
+		var pilots = _context.Pilots.AsQueryable();
+		if (airlineId != null)
+		{
+			pilots = pilots.Where(x => x.AirlineId == airlineId);
+		}
+
+		return await pilots.Select(p => new PilotIndexModel
 		{
 			Id = p.Id,
 			Name = p.Name,

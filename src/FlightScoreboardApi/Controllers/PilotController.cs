@@ -17,9 +17,9 @@ public class PilotController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<IActionResult> All()
+	public async Task<IActionResult> All([FromQuery] int? airlineId = null)
 	{
-		var pilots = await _pilotService.GetAllPilotsAsync();
+		var pilots = await _pilotService.GetAllPilotsAsync(airlineId);
 		return Ok(pilots);
 	}
 

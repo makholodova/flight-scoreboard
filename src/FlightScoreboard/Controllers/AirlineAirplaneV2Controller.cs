@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FlightScoreboard.Controllers;
 
-public class AirlineAirplaneController : Controller
+public class AirlineAirplaneV2Controller : Controller
 {
 	private readonly IAirlineAirplaneService _airlineAirplaneService;
 	private readonly IAirlineService _airlineService;
 	private readonly IAirplaneService _airplaneService;
 
-	public AirlineAirplaneController(IAirlineAirplaneService airlineAirplaneService, IAirlineService airlineService,
+	public AirlineAirplaneV2Controller(IAirlineAirplaneService airlineAirplaneService, IAirlineService airlineService,
 		IAirplaneService airplaneService)
 	{
 		_airlineAirplaneService = airlineAirplaneService;

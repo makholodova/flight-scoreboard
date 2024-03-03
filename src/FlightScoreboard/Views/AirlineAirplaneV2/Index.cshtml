@@ -23,10 +23,10 @@
 					<td>@airplane.SerialNumber </td>
 
 					<td>
-						<a class="nav-link text-dark" asp-area="" asp-controller="AirlineAirplane" asp-action="Update" asp-route-id="@airplane.Id">Редактировать</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="AirlineAirplaneV2" asp-action="Update" asp-route-id="@airplane.Id">Редактировать</a>
 					</td>
 					<td>
-						<a class="nav-link text-dark" asp-area="" asp-controller="AirlineAirplane" asp-action="Delete" asp-route-id="@airplane.Id" asp-route-airlineId="@Model.AirlineId">Удалить</a>
+						<a class="nav-link text-dark" asp-area="" asp-controller="AirlineAirplaneV2" asp-action="Delete" asp-route-id="@airplane.Id" asp-route-airlineId="@Model.AirlineId">Удалить</a>
 					</td>
 				</tr>
 			}
@@ -36,5 +36,5 @@
 	{
 		<td>Самолеты отсутствуют</td>
 	}
-	<a class="nav-link text-dark" asp-area="" asp-controller="AirlineAirplane" asp-action="Create" asp-route-airlineId="@Model.AirlineId">Добавить самолет</a>
+	<a class="nav-link text-dark" asp-area="" asp-controller="AirlineAirplaneV2" asp-action="Create" asp-route-airlineId="@Model.AirlineId">Добавить самолет</a>
 </div>

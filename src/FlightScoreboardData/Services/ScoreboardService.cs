@@ -59,13 +59,11 @@ public class ScoreboardService : IScoreboardService
 		return scoreboardDeparture;
 	}
 
-
 	public async Task<List<ScoreboardArrivalIndexModel>> GetArrivalFlightsAsync(int? cityId, DateTime? dateTime)
 	{
 		var flights = _context.Flights.AsQueryable();
 		if (cityId != null) flights = flights.Where(p => p.FromCityId == cityId);
 		if (dateTime != null) flights = flights.Where(p => p.ArrivalTime.Date == dateTime);
-
 
 		var scoreboardArrival = await flights.Select(p => new ScoreboardArrivalIndexModel
 		{

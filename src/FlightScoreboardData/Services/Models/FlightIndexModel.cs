@@ -21,9 +21,12 @@ public class FlightIndexModel
 	public string FromTerminal { get; set; }
 
 	public string FromCity { get; set; }
+	public int FromCityId { get; set; }
 	public string ToCity { get; set; }
+	public int ToCityId { get; set; }
 	public string PilotFullName { get; set; }
 	public int PilotId { get; set; }
+	
 	public string AirlineName { get; set; }
 	public int AirlineId { get; set; }
 	public string AirplaneModel { get; set; }

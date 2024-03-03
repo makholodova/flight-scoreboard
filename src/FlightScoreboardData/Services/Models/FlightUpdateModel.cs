@@ -11,7 +11,7 @@ public class FlightUpdateModel
 	public int ToCityId { get; set; }
 	public int PilotId { get; set; }
 	public int AirlineId { get; set; }
-	public int AirlineAirplaneId { get; set; }
+	public int AirplaneId { get; set; }
 
 	public DateTime? ActualDepartureTime { get; set; }
 	public DateTime? ActualArrivalTime { get; set; }
