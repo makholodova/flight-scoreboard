@@ -1,4 +1,4 @@
-﻿namespace FlightScoreboardData.Services.Models;
+﻿namespace FlightScoreboardApi.Models;
 
 public class CityCreateModel
 {

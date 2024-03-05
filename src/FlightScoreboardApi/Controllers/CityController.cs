@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
-using FlightScoreboardData.Services;
-using FlightScoreboardData.Services.Models;
+using FlightScoreboardApi.Models;
+using FlightScoreboardApi.Services;
+using FlightScoreboardData.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightScoreboardApi.Controllers;
@@ -9,25 +10,27 @@ namespace FlightScoreboardApi.Controllers;
 [Route("[controller]")]
 public class CityController : ControllerBase
 {
+	private readonly ICityReadRepository _cityReadRepository;
 	private readonly ICityService _cityService;
 
-	public CityController(ICityService cityService)
+	public CityController(ICityService cityService, ICityReadRepository cityReadRepository)
 	{
 		_cityService = cityService;
+		_cityReadRepository = cityReadRepository;
 	}
 
 	[HttpGet]
 	public async Task<IActionResult> All()
 	{
-		var cities = await _cityService.GetAllCitiesAsync();
+		var cities = await _cityReadRepository.GetCitiesAsync();
 		return Ok(cities);
 	}
 
-	[Route("{id:int}")]
+	[Route("{cityId:int}")]
 	[HttpGet]
-	public async Task<IActionResult> Get([FromRoute] int id)
+	public async Task<IActionResult> Get([FromRoute] int cityId)
 	{
-		var city = await _cityService.GetCityByIdAsync(id);
+		var city = await _cityReadRepository.GetCityAsync(cityId);
 		return Ok(city);
 	}
 
@@ -56,8 +59,7 @@ public class CityController : ControllerBase
 	public async Task<IActionResult> Delete(int id)
 	{
 		var result = await _cityService.DeleteCityAsync(id);
-		if (result == false)
-			return BadRequest("City is not found");
+		if (result == false) return BadRequest("City is not found");
 		return Ok();
 	}
 }

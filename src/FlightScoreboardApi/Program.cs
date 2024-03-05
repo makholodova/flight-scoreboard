@@ -20,15 +20,19 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<FlightScoreboardContext>(options =>
 	options.UseSqlServer(connectionString)); //todo:remove lazyloading
+
 builder.Services.AddTransient<IFlightReadRepository, FlightReadRepository>();
 builder.Services.AddTransient<IFlightWriteRepository, FlightWriteRepository>();
 builder.Services.AddTransient<IFlightService, FlightService>();
+
+builder.Services.AddTransient<ICityReadRepository, CityReadRepository>();
+builder.Services.AddTransient<ICityWriteRepository, CityWriteRepository>();
+builder.Services.AddTransient<ICityService, CityService>();
 
 builder.Services.AddTransient<IStatusService, StatusService>();
 builder.Services.AddTransient<IAirlineAirplaneService, AirlineAirplaneService>();
 builder.Services.AddTransient<IAirlineService, AirlineService>();
 builder.Services.AddTransient<IAirplaneService, AirplaneService>();
-builder.Services.AddTransient<ICityService, CityService>();
 
 
 builder.Services.AddTransient<IPilotService, PilotService>();
