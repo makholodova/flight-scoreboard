@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
-using FlightScoreboardData.Services;
-using FlightScoreboardData.Services.Models;
+using FlightScoreboardApi.Models;
+using FlightScoreboardApi.Services;
+using FlightScoreboardData.Repositories;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace FlightScoreboardApi.Controllers;
 
@@ -9,17 +11,19 @@ namespace FlightScoreboardApi.Controllers;
 [Route("[controller]")]
 public class PilotController : ControllerBase
 {
+	private readonly IPilotReadRepository _pilotReadRepository;
 	private readonly IPilotService _pilotService;
 
-	public PilotController(IPilotService pilotService)
+	public PilotController(IPilotService pilotService, IPilotReadRepository pilotReadRepository)
 	{
 		_pilotService = pilotService;
+		_pilotReadRepository = pilotReadRepository;
 	}
 
 	[HttpGet]
 	public async Task<IActionResult> All([FromQuery] int? airlineId = null)
 	{
-		var pilots = await _pilotService.GetAllPilotsAsync(airlineId);
+		var pilots = await _pilotReadRepository.GetPilotsWithDetailsAsync(airlineId);
 		return Ok(pilots);
 	}
 
@@ -27,7 +31,7 @@ public class PilotController : ControllerBase
 	[HttpGet]
 	public async Task<IActionResult> Get([FromRoute] int id)
 	{
-		var pilot = await _pilotService.GetPilotByIdAsync(id);
+		var pilot = await _pilotReadRepository.GetPilotWithDetailsAsync(id);
 		return Ok(pilot);
 	}
 

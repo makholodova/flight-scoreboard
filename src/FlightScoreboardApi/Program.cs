@@ -33,12 +33,14 @@ builder.Services.AddTransient<IAirplaneReadRepository, AirplaneReadRepository>()
 builder.Services.AddTransient<IAirplaneWriteRepository, AirplaneWriteRepository>();
 builder.Services.AddTransient<IAirplaneService, AirplaneService>();
 
-builder.Services.AddTransient<IStatusService, StatusService>();
 builder.Services.AddTransient<IAirlineAirplaneService, AirlineAirplaneService>();
 builder.Services.AddTransient<IAirlineService, AirlineService>();
+builder.Services.AddTransient<IStatusService, StatusService>();
 
-
+builder.Services.AddTransient<IPilotReadRepository, PilotReadRepository>();
+builder.Services.AddTransient<IPilotWriteRepository, PilotWriteRepository>();
 builder.Services.AddTransient<IPilotService, PilotService>();
+
 builder.Services.AddTransient<IScoreboardService, ScoreboardService>();
 
 var app = builder.Build();
