@@ -29,10 +29,13 @@ builder.Services.AddTransient<ICityReadRepository, CityReadRepository>();
 builder.Services.AddTransient<ICityWriteRepository, CityWriteRepository>();
 builder.Services.AddTransient<ICityService, CityService>();
 
+builder.Services.AddTransient<IAirplaneReadRepository, AirplaneReadRepository>();
+builder.Services.AddTransient<IAirplaneWriteRepository, AirplaneWriteRepository>();
+builder.Services.AddTransient<IAirplaneService, AirplaneService>();
+
 builder.Services.AddTransient<IStatusService, StatusService>();
 builder.Services.AddTransient<IAirlineAirplaneService, AirlineAirplaneService>();
 builder.Services.AddTransient<IAirlineService, AirlineService>();
-builder.Services.AddTransient<IAirplaneService, AirplaneService>();
 
 
 builder.Services.AddTransient<IPilotService, PilotService>();

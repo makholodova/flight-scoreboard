@@ -1,7 +1,11 @@
 ﻿using System.Threading.Tasks;
+using FlightScoreboardApi.Services;
+using FlightScoreboardData.Repositories;
 using FlightScoreboardData.Services;
 using FlightScoreboardData.Services.Models;
 using Microsoft.AspNetCore.Mvc;
+using AirplaneCreateModel = FlightScoreboardApi.Models.AirplaneCreateModel;
+using AirplaneUpdateModel = FlightScoreboardApi.Models.AirplaneUpdateModel;
 
 namespace FlightScoreboardApi.Controllers;
 
@@ -10,27 +14,29 @@ namespace FlightScoreboardApi.Controllers;
 public class AirplaneController : ControllerBase
 {
 	private readonly IAirplaneService _airplaneService;
+	private readonly IAirplaneReadRepository _airplaneReadRepository;
 
-	public AirplaneController(IAirplaneService airplaneService)
+	public AirplaneController(IAirplaneService airplaneService, IAirplaneReadRepository airplaneReadRepository)
 	{
 		_airplaneService = airplaneService;
+		_airplaneReadRepository = airplaneReadRepository;
 	}
 
 	[HttpGet]
 	public async Task<IActionResult> All()
 	{
-		var airplanes = await _airplaneService.GetAllAirplanesAsync();
+		var airplanes = await _airplaneReadRepository.GetAirplanesAsync();
 		return Ok(airplanes);
 	}
 
-	[Route("{id:int}")]
+	[Route("{airplaneId:int}")]
 	[HttpGet]
-	public async Task<IActionResult> Get([FromRoute] int id)
+	public async Task<IActionResult> Get([FromRoute] int airplaneId)
 	{
-		var airplane = await _airplaneService.GetAirplaneByIdAsync(id);
+		var airplane = await _airplaneReadRepository.GetAirplaneAsync(airplaneId);
 		return Ok(airplane);
 	}
-
+	
 	[HttpPost]
 	public async Task<IActionResult> Create([FromBody] AirplaneCreateModel airplane)
 	{
