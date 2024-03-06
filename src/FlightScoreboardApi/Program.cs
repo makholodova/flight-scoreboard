@@ -33,6 +33,10 @@ builder.Services.AddTransient<IAirplaneReadRepository, AirplaneReadRepository>()
 builder.Services.AddTransient<IAirplaneWriteRepository, AirplaneWriteRepository>();
 builder.Services.AddTransient<IAirplaneService, AirplaneService>();
 
+builder.Services.AddTransient<IAirlineReadRepository, AirlineReadRepository>();
+builder.Services.AddTransient<IAirlineWriteRepository, AirlineWriteRepository>();
+builder.Services.AddTransient<IAirlineService, AirlineService>();
+
 builder.Services.AddTransient<IAirlineAirplaneReadRepository, AirlineAirplaneReadRepository>();
 builder.Services.AddTransient<IAirlineAirplaneWriteRepository, AirlineAirplaneWriteRepository>();
 builder.Services.AddTransient<IAirlineAirplaneService, AirlineAirplaneService>();

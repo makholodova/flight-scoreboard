@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
-using FlightScoreboardData.Services;
-using FlightScoreboardData.Services.Models;
+using FlightScoreboardApi.Models;
+using FlightScoreboardApi.Services;
+using FlightScoreboardData.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightScoreboardApi.Controllers;
@@ -9,19 +10,25 @@ namespace FlightScoreboardApi.Controllers;
 [Route("[controller]")]
 public class AirlineController : ControllerBase
 {
+	private readonly IAirlineAirplaneReadRepository _airlineAirplaneReadRepository;
 	private readonly IAirlineAirplaneService _airlineAirplaneService;
+	private readonly IAirlineReadRepository _airlineReadRepository;
 	private readonly IAirlineService _airlineService;
 
-	public AirlineController(IAirlineService airlineService, IAirlineAirplaneService airlineAirplaneService)
+
+	public AirlineController(IAirlineService airlineService, IAirlineAirplaneService airlineAirplaneService,
+		IAirlineReadRepository airlineReadRepository, IAirlineAirplaneReadRepository airlineAirplaneReadRepository)
 	{
 		_airlineService = airlineService;
 		_airlineAirplaneService = airlineAirplaneService;
+		_airlineReadRepository = airlineReadRepository;
+		_airlineAirplaneReadRepository = airlineAirplaneReadRepository;
 	}
 
 	[HttpGet]
 	public async Task<IActionResult> All()
 	{
-		var airlines = await _airlineService.GetAllAirlinesAsync();
+		var airlines = await _airlineReadRepository.GetAirlinesAsync();
 		return Ok(airlines);
 	}
 
@@ -29,7 +36,7 @@ public class AirlineController : ControllerBase
 	[HttpGet]
 	public async Task<IActionResult> Get([FromRoute] int id)
 	{
-		var airline = await _airlineService.GetArlineByIdAsync(id);
+		var airline = await _airlineReadRepository.GetArlineAsync(id);
 		return Ok(airline);
 	}
 
@@ -67,16 +74,16 @@ public class AirlineController : ControllerBase
 	[HttpGet]
 	public async Task<IActionResult> Airplanes([FromRoute] int airlineId)
 	{
-		var airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync(airlineId);
+		var airplanes = await _airlineAirplaneReadRepository.GetAirlineAirplanesWithDetailsAsync(airlineId);
 		return Ok(airplanes);
 	}
 
-	
-	[Route("{airlineId:int}/airplane/{airplaneId:int}")] //нужно ли предавать airlineId
+
+	[Route("{airlineId:int}/airplane/{airplaneId:int}")]
 	[HttpGet]
 	public async Task<IActionResult> GetAirplane([FromRoute] int airplaneId)
 	{
-		var airplane = await _airlineAirplaneService.GetAirplaneAirlineByIdAsync(airplaneId);
+		var airplane = await _airlineAirplaneReadRepository.GetAirplaneAirlineWithDetailsAsync(airplaneId);
 		return Ok(airplane);
 	}
 

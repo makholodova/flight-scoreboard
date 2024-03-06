@@ -14,6 +14,7 @@ public interface IPilotReadRepository
 	Task<Pilot> GetPilotAsync(int id);
 	Task<List<PilotDetails>> GetPilotsWithDetailsAsync(int? airlineId = null);
 	Task<PilotDetails> GetPilotWithDetailsAsync(int id);
+	Task<bool> DoesAirlineUsed(int id);
 }
 
 public class PilotReadRepository : IPilotReadRepository
@@ -43,6 +44,11 @@ public class PilotReadRepository : IPilotReadRepository
 		var pilot = await _context.Pilots.Select(GetPilotDetailsConverter())
 			.FirstOrDefaultAsync(p => p.Id == id);
 		return pilot;
+	}
+
+	public async Task<bool> DoesAirlineUsed(int id)
+	{
+		return await _context.Pilots.AnyAsync(x => x.AirlineId == id);
 	}
 
 	private static Expression<Func<Pilot, PilotDetails>> GetPilotDetailsConverter()

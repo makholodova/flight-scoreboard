@@ -1,30 +1,29 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using FlightScoreboardApi.Models;
 using FlightScoreboardData.DateBase;
 using FlightScoreboardData.Repositories;
 
 namespace FlightScoreboardApi.Services;
 
-[SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataUsage")]
-[SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataQuery")]
 public interface IAirplaneService
 {
 	Task<int> CreateAirplaneAsync(AirplaneCreateModel airplane);
-
 	Task<bool> UpdateAirplaneAsync(AirplaneUpdateModel airplane);
 	Task<bool> DeleteAirplaneAsync(int id);
 }
 
 public class AirplaneService : IAirplaneService
 {
+	private readonly IAirlineAirplaneReadRepository _airlineAirplaneReadRepository;
 	private readonly IAirplaneReadRepository _airplaneReadRepository;
 	private readonly IAirplaneWriteRepository _airplaneWriteRepository;
 
-	public AirplaneService(IAirplaneWriteRepository airplaneWriteRepository, IAirplaneReadRepository airplaneReadRepository)
+	public AirplaneService(IAirplaneWriteRepository airplaneWriteRepository, IAirplaneReadRepository airplaneReadRepository,
+		IAirlineAirplaneReadRepository airlineAirplaneReadRepository)
 	{
 		_airplaneWriteRepository = airplaneWriteRepository;
 		_airplaneReadRepository = airplaneReadRepository;
+		_airlineAirplaneReadRepository = airlineAirplaneReadRepository;
 	}
 
 
@@ -49,11 +48,7 @@ public class AirplaneService : IAirplaneService
 
 	public async Task<bool> DeleteAirplaneAsync(int id)
 	{
-		// if (airplane == null || airplane.AirlineAirplanes.Any()) return false;
-		/*if (await _flightReadRepository.DoesCityUsed(id))
-			return false;
-		return await _cityWriteRepository.DeleteCityAsync(id);*/
-
+		if (await _airlineAirplaneReadRepository.DoesAirplaneUsed(id)) return false;
 		return await _airplaneWriteRepository.DeleteAirplaneAsync(id);
 	}
 }
