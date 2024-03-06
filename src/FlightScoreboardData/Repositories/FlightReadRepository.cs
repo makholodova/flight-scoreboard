@@ -17,6 +17,9 @@ public interface IFlightReadRepository
 
 	Task<bool> DoesCityUsed(int id);
 	Task<bool> DoesPilotUsed(int id);
+	Task<bool> DoesAirplaneUsed(int id);
+
+	Task<bool> DoesAirlineUsed(int id);
 	//Task<List<FlightMainInfo>> GetFlightsWithMainInfoAsync(int? toCityId, int? fromCityId, DateTime? departureDateTime, DateTime? arrivalDateTime);
 }
 
@@ -51,6 +54,16 @@ public class FlightReadRepository : IFlightReadRepository
 	public async Task<bool> DoesPilotUsed(int id)
 	{
 		return await _context.Flights.AnyAsync(x => x.PilotId == id  );
+	}
+
+	public async Task<bool> DoesAirplaneUsed(int id)
+	{
+		return await _context.Flights.AnyAsync(x => x.AirlineAirplaneId == id);
+	}
+
+	public async Task<bool> DoesAirlineUsed(int id)
+	{
+		return await _context.Flights.AnyAsync(x => x.AirlineId == id);
 	}
 
 
