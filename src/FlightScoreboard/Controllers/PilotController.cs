@@ -3,6 +3,10 @@ using FlightScoreboard.Models;
 using FlightScoreboardData.Services;
 using FlightScoreboardData.Services.Models;
 using Microsoft.AspNetCore.Mvc;
+using IAirlineService = FlightScoreboard.Services.IAirlineService;
+using IPilotService = FlightScoreboard.Services.IPilotService;
+using PilotCreateModel = FlightScoreboard.Models.PilotCreateModel;
+using PilotUpdateModel = FlightScoreboard.Models.PilotUpdateModel;
 
 namespace FlightScoreboard.Controllers;
 
@@ -27,7 +31,7 @@ public class PilotController : Controller
 	public async Task<IActionResult> Create()
 	{
 		var pilotModelGet = new PilotCreateModelGet();
-		pilotModelGet.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+		//pilotModelGet.Airlines = await _airlineService.GetAvailableAirlinesAsync();
 		return View(pilotModelGet);
 	}
 
@@ -43,7 +47,7 @@ public class PilotController : Controller
 	{
 		var pilotModel = new PilotUpdateModelGet();
 		pilotModel.Pilot = await _pilotService.GetPilotByIdAsync(id);
-		pilotModel.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+		//pilotModel.Airlines = await _airlineService.GetAvailableAirlinesAsync();
 		// await Task.WhenAll(pilotTask, airlinesTask);
 
 		return View(pilotModel);

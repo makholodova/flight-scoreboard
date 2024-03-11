@@ -1,8 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FlightScoreboardApi.Services;
 using FlightScoreboardData.Repositories;
-using FlightScoreboardData.Services;
-using FlightScoreboardData.Services.Models;
 using Microsoft.AspNetCore.Mvc;
 using AirplaneCreateModel = FlightScoreboardApi.Models.AirplaneCreateModel;
 using AirplaneUpdateModel = FlightScoreboardApi.Models.AirplaneUpdateModel;

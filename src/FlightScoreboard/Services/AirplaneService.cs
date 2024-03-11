@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using FlightScoreboardData.DateBase;
 using FlightScoreboardData.Services.Models;
 using Microsoft.EntityFrameworkCore;
+using AirplaneCreateModel = FlightScoreboard.Models.AirplaneCreateModel;
+using AirplaneUpdateModel = FlightScoreboard.Models.AirplaneUpdateModel;
 
 namespace FlightScoreboardData.Services;
 

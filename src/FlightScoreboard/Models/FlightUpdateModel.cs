@@ -1,12 +1,17 @@
 ﻿using System;
 
-namespace FlightScoreboardData.Services.Models;
+namespace FlightScoreboard.Models;
 
-public class FlightIndexModel
+public class FlightUpdateModel
 {
 	public int Id { get; set; }
 	public DateTime DepartureTime { get; set; }
 	public DateTime ArrivalTime { get; set; }
+	public int FromCityId { get; set; }
+	public int ToCityId { get; set; }
+	public int PilotId { get; set; }
+	public int AirlineId { get; set; }
+	public int AirplaneId { get; set; }
 
 	public DateTime? ActualDepartureTime { get; set; }
 	public DateTime? ActualArrivalTime { get; set; }
@@ -19,17 +24,4 @@ public class FlightIndexModel
 	public string ToTerminal { get; set; }
 	public string FromGate { get; set; }
 	public string FromTerminal { get; set; }
-
-	public string FromCity { get; set; }
-	public int FromCityId { get; set; }
-	public string ToCity { get; set; }
-	public int ToCityId { get; set; }
-	public string PilotFullName { get; set; }
-	public int PilotId { get; set; }
-	
-	public string AirlineName { get; set; }
-	public int AirlineId { get; set; }
-	public string AirplaneModel { get; set; }
-	public int AirplaneId { get; set; }
-	public int AirplaneSerialNumber { get; set; }
 }

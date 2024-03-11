@@ -1,8 +1,7 @@
-﻿namespace FlightScoreboardData.Services.Models;
+﻿namespace FlightScoreboard.Models;
 
-public class PilotUpdateModel
+public class PilotCreateModel
 {
-	public int Id { get; set; }
 	public string Name { get; set; }
 	public string SurName { get; set; }
 	public int Age { get; set; }

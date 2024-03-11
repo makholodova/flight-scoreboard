@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FlightScoreboardData.Services.Models;
+namespace FlightScoreboard.Tests.Services;
 
 public interface IStatusCalculation
 {

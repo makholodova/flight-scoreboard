@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FlightScoreboard.Models;
+using FlightScoreboard.Services;
 using FlightScoreboardData.Services;
 using FlightScoreboardData.Services.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -28,12 +29,12 @@ public class CityNewController : Controller
 		return Json(cities);
 	}
 
-	[HttpPost]
+	/*[HttpPost]
 	public async Task<IActionResult> Create(CityCreateModel city)
 	{
 		var cityId = await _cityService.CreateCityAsync(city);
 		return Json(cityId);
-	}
+	}*/
 
 	[HttpPost]
 	public async Task<IActionResult> Delete(int id)

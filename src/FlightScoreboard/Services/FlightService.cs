@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FlightScoreboard.Models;
 using FlightScoreboardData.DateBase;
 using FlightScoreboardData.Services.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FlightScoreboardData.Services;
+namespace FlightScoreboard.Services;
 
 public interface IFlightService
 {

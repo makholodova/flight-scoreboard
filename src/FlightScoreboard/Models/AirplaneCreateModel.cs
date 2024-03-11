@@ -1,4 +1,4 @@
-﻿namespace FlightScoreboardData.Services.Models;
+﻿namespace FlightScoreboard.Models;
 
 public class AirplaneCreateModel
 {

@@ -1,3 +1,4 @@
+using FlightScoreboard.Services;
 using FlightScoreboardData.DateBase;
 using FlightScoreboardData.Services;
 using Microsoft.AspNetCore.Builder;
@@ -5,6 +6,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using AirlineAirplaneService = FlightScoreboard.Services.AirlineAirplaneService;
+using AirlineService = FlightScoreboard.Services.AirlineService;
+using IAirlineAirplaneService = FlightScoreboard.Services.IAirlineAirplaneService;
+using IAirlineService = FlightScoreboard.Services.IAirlineService;
+using IPilotService = FlightScoreboard.Services.IPilotService;
+using IScoreboardService = FlightScoreboard.Services.IScoreboardService;
+using IStatusService = FlightScoreboard.Services.IStatusService;
+using PilotService = FlightScoreboard.Services.PilotService;
+using ScoreboardService = FlightScoreboard.Services.ScoreboardService;
+using StatusService = FlightScoreboard.Services.StatusService;
 
 var builder = WebApplication.CreateBuilder(args);
 

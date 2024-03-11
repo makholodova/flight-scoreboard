@@ -1,6 +1,5 @@
 ﻿using System;
 using FlightScoreboard.Services;
-using FlightScoreboardData.Services.Models;
 using NUnit.Framework;
 
 namespace FlightScoreboard.Tests.Services;

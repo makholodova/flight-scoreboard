@@ -1,7 +1,7 @@
 ﻿using System;
-using FlightScoreboardData.Services.Models;
 
-namespace FlightScoreboardData.Services;
+
+namespace FlightScoreboard.Services;
 
 public interface IStatusService
 {

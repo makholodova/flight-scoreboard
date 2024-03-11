@@ -2,9 +2,14 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FlightScoreboard.Models;
+using FlightScoreboard.Services;
 using FlightScoreboardData.Services;
 using FlightScoreboardData.Services.Models;
 using Microsoft.AspNetCore.Mvc;
+using FlightIndexIpModel = FlightScoreboard.Models.FlightIndexIpModel;
+using IAirlineAirplaneService = FlightScoreboard.Services.IAirlineAirplaneService;
+using IAirlineService = FlightScoreboard.Services.IAirlineService;
+using IPilotService = FlightScoreboard.Services.IPilotService;
 
 namespace FlightScoreboard.Controllers;
 
@@ -32,10 +37,10 @@ public class FlightController : Controller
 		var flightModel = new FlightIndexIpModel();
 		flightModel.Flight = flight;
 		flightModel.Pilots = await _pilotService.GetAllPilotsAsync();
-		flightModel.Airlines = await _airlineService.GetAvailableAirlinesAsync();
-		flightModel.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
+		//flightModel.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+		//flightModel.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
 		flightModel.Cities = await _cityService.GetAllCitiesAsync();
-		flightModel.Flights = await _flightService.GetAllFlightsAsync(flight);
+		//flightModel.Flights = await _flightService.GetAllFlightsAsync(flight);
 
 		return View(flightModel);
 	}
@@ -45,8 +50,8 @@ public class FlightController : Controller
 	{
 		var flights = new FlightCreateModelGet();
 		flights.Pilots = await _pilotService.GetAllPilotsAsync();
-		flights.Airlines = await _airlineService.GetAvailableAirlinesAsync();
-		flights.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
+		//flights.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+		//flights.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
 		flights.Cities = await _cityService.GetAllCitiesAsync();
 
 		return View(flights);
@@ -65,8 +70,8 @@ public class FlightController : Controller
 	{
 		var flights = new FlightCreateRepeatEventModelGet();
 		flights.Pilots = await _pilotService.GetAllPilotsAsync();
-		flights.Airlines = await _airlineService.GetAvailableAirlinesAsync();
-		flights.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
+		//flights.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+		//flights.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
 		flights.Cities = await _cityService.GetAllCitiesAsync();
 		return View(flights);
 	}
@@ -118,11 +123,11 @@ public class FlightController : Controller
 	public async Task<IActionResult> Update(int id)
 	{
 		var flight = new FlightUpdateModelGet();
-		flight.Flight = await _flightService.GetFlightByIdAsync(id);
+		//flight.Flight = await _flightService.GetFlightByIdAsync(id);
 		flight.Cities = await _cityService.GetAllCitiesAsync();
 		flight.Pilots = await _pilotService.GetAllPilotsAsync();
-		flight.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
-		flight.Airlines = await _airlineService.GetAvailableAirlinesAsync();
+		//flight.Airplanes = await _airlineAirplaneService.GetAllAirlineAirplanesAsync();
+		//flight.Airlines = await _airlineService.GetAvailableAirlinesAsync();
 
 		return View(flight);
 	}
@@ -130,8 +135,8 @@ public class FlightController : Controller
 	[HttpPost]
 	public async Task<IActionResult> Update(FlightUpdateModel flight)
 	{
-		var flightAirline = await _airlineAirplaneService.GetAirplaneAirlineByIdAsync(flight.AirlineAirplaneId);
-		flight.AirlineId = flightAirline.AirlineId;
+		//var flightAirline = await _airlineAirplaneService.GetAirplaneAirlineByIdAsync(flight.AirlineAirplaneId);
+		//flight.AirlineId = flightAirline.AirlineId;
 		await _flightService.UpdateFlightAsync(flight);
 		return RedirectToAction("Index");
 	}

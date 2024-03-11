@@ -6,7 +6,7 @@ using FlightScoreboardData.DateBase;
 using FlightScoreboardData.Services.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace FlightScoreboardData.Services;
+namespace FlightScoreboard.Services;
 
 public interface IScoreboardService
 {

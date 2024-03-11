@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using FlightScoreboardData.DateBase;
 using FlightScoreboardData.Services.Models;
 using Microsoft.EntityFrameworkCore;
+using PilotCreateModel = FlightScoreboard.Models.PilotCreateModel;
+using PilotUpdateModel = FlightScoreboard.Models.PilotUpdateModel;
 
-namespace FlightScoreboardData.Services;
+namespace FlightScoreboard.Services;
 
 [SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataQuery")]
 [SuppressMessage("ReSharper", "EntityFramework.NPlusOne.IncompleteDataUsage")]

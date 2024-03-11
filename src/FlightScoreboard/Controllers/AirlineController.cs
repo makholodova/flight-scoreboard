@@ -3,6 +3,8 @@ using FlightScoreboard.Models;
 using FlightScoreboardData.Services;
 using FlightScoreboardData.Services.Models;
 using Microsoft.AspNetCore.Mvc;
+using AirlineCreateModel = FlightScoreboard.Models.AirlineCreateModel;
+using IAirlineService = FlightScoreboard.Services.IAirlineService;
 
 namespace FlightScoreboard.Controllers;
 

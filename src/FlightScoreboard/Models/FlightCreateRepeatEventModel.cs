@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FlightScoreboardData.Services.Models;
+namespace FlightScoreboard.Models;
 
 public class FlightCreateRepeatEventModel
 {
