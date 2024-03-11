@@ -42,6 +42,14 @@ public class FlightController : ControllerBase
 		return Ok(flightId);
 	}
 
+	[Route("create-flights")]
+	[HttpPost]
+	public async Task<IActionResult> CreateFlights([FromBody] FlightCreateRepeatEventModel flight)
+	{
+		var flightsId = await _flightService.CreateFlightsAsync(flight);
+		return Ok(flightsId);
+	}
+
 	[HttpPut]
 	[ProducesResponseType(200)]
 	[ProducesResponseType(400)]

@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using FlightScoreboardApi.Models;
 using FlightScoreboardData.DateBase;
 using FlightScoreboardData.Repositories;
@@ -10,6 +13,7 @@ public interface IFlightService
 	Task<int> CreateFlightAsync(FlightCreateModel flight);
 	Task<bool> UpdateFlightAsync(FlightUpdateModel flight);
 	Task<bool> DeleteFlightAsync(int id);
+	Task<List<int>> CreateFlightsAsync(FlightCreateRepeatEventModel flight);
 }
 
 public class FlightService : IFlightService
@@ -46,6 +50,48 @@ public class FlightService : IFlightService
 			AirlineId = flight.AirlineId,
 			AirlineAirplaneId = flight.AirlineAirplaneId
 		});
+	}
+
+	public async Task<List<int>> CreateFlightsAsync(FlightCreateRepeatEventModel flight)
+	{
+		var flightsId = new List<int>();
+		var startTime = flight.StartDay;
+		var currentDate = new DateTime(startTime.Year, startTime.Month, startTime.Day)
+			.Add(flight.DepartureTime);
+		while (currentDate <= flight.FinishDay.AddDays(1))
+		{
+			var currentDateStr = currentDate.DayOfWeek.ToString();
+			var day = flight.DaysOfWeek.Any(day => day == currentDateStr);
+			if (day)
+			{
+				var flightModel = new Flight
+				{
+					DepartureTime = currentDate,
+					ArrivalTime = currentDate.Add(flight.DurationTime),
+					ActualDepartureTime = flight.ActualDepartureTime,
+					ActualArrivalTime = flight.ActualArrivalTime,
+					CheckInStartTime = flight.CheckInStartTime,
+					CheckInEndTime = flight.CheckInEndTime,
+					BoardingStartTime = flight.BoardingStartTime,
+					BoardingEndTime = flight.BoardingEndTime,
+					FromCityId = flight.FromCityId,
+					ToCityId = flight.ToCityId,
+					PilotId = flight.PilotId,
+					AirlineId = flight.AirlineId,
+					AirlineAirplaneId = flight.AirlineAirplaneId,
+					NumberOfFlight = flight.NumberOfFlight,
+					ToGate = flight.ToGate,
+					ToTerminal = flight.ToTerminal,
+					FromGate = flight.FromGate,
+					FromTerminal = flight.FromTerminal
+				};
+				flightsId.Add(await _flightWriteRepository.CreateFlightAsync(flightModel));
+			}
+
+			currentDate = currentDate.AddDays(1);
+		}
+
+		return flightsId;
 	}
 
 	public async Task<bool> UpdateFlightAsync(FlightUpdateModel flight)
