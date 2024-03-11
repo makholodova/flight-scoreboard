@@ -1,7 +1,6 @@
 using FlightScoreboardApi.Services;
 using FlightScoreboardData.DateBase;
 using FlightScoreboardData.Repositories;
-using FlightScoreboardData.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

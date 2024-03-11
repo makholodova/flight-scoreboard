@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using FlightScoreboardData.Services;
+using FlightScoreboardApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightScoreboardApi.Controllers;

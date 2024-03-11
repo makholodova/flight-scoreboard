@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using FlightScoreboardData.Services;
+using FlightScoreboardApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlightScoreboardApi.Controllers;
@@ -18,6 +18,7 @@ public class ScoreboardDepartureController : ControllerBase
 		_cityService = cityService;
 		_scoreboardService = scoreboardService;
 	}
+
 	[HttpGet]
 	public async Task<IActionResult> All(int? cityId, DateTime? dateTime)
 	{
